@@ -536,6 +536,58 @@ export default function ActionDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Action Buttons */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 24 }}>
+          <button
+            style={{
+              padding: 16,
+              background: "#FFFFFF",
+              color: "#2563EB",
+              border: "1px solid #E5E7EB",
+              borderRadius: 12,
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#F8FAFC"
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "#FFFFFF"
+              e.currentTarget.style.boxShadow = "0 1px 3px rgba(0, 0, 0, 0.04)"
+            }}
+          >
+            Get notified of updates
+          </button>
+          <button
+            style={{
+              padding: 16,
+              background: "#2563EB",
+              color: "#FFFFFF",
+              border: "none",
+              borderRadius: 12,
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.15)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#1D4ED8"
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(37, 99, 235, 0.25)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "#2563EB"
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.15)"
+            }}
+          >
+            Send a follow-up
+          </button>
+        </div>
       </main>
     </div>
   )
