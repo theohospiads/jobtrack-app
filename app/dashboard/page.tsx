@@ -6,11 +6,56 @@ import { PageHeader } from "@/components/page-header"
 export default function DashboardPage() {
   return (
     <div 
-      className="min-h-screen min-w-[1280px]"
+      className="min-h-screen min-w-[1280px] relative overflow-hidden"
       style={{
         backgroundColor: '#F8FAFC'
       }}
     >
+      {/* Blue blur orbs */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-120px",
+          left: "-80px",
+          width: 500,
+          height: 500,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: "200px",
+          right: "-100px",
+          width: 600,
+          height: 600,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%)",
+          filter: "blur(80px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "100px",
+          left: "30%",
+          width: 450,
+          height: 450,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, transparent 70%)",
+          filter: "blur(70px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
+      <div className="relative" style={{ zIndex: 1 }}>
       <TopNav />
       <main className="mx-auto max-w-[1120px] px-6 pt-6 pb-10">
         <PageHeader />
@@ -538,6 +583,7 @@ export default function DashboardPage() {
             </div>
         </div>
       </main>
+      </div>
     </div>
   );
 }
