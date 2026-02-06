@@ -3,6 +3,7 @@
 import { TopNav } from "@/components/top-nav"
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
+import { ChevronDown, X } from "lucide-react"
 
 interface ActionJob {
   id: string
@@ -158,6 +159,8 @@ export default function ActionDetailPage() {
   const [completedTasks, setCompletedTasks] = useState<Record<number, boolean>>(
     job.tasks.reduce((acc, _, i) => ({ ...acc, [i]: false }), {})
   )
+  const [showTasksModal, setShowTasksModal] = useState(false)
+  const [showHealthInfo, setShowHealthInfo] = useState(false)
 
   const progressPercentage = (job.currentStage / job.totalStages) * 100
   const completedTaskCount = Object.values(completedTasks).filter(Boolean).length
@@ -213,7 +216,7 @@ export default function ActionDetailPage() {
           Back to Applications
         </button>
 
-        {/* Job Summary Section */}
+        {/* PRIMARY CARD - Above the fold */}
         <div style={{ marginBottom: 24 }}>
           <div
             style={{
@@ -222,660 +225,455 @@ export default function ActionDetailPage() {
               borderRadius: 12,
               padding: 24,
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-              transition: "box-shadow 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            {/* Title */}
+            {/* Job Title */}
             <h1 style={{ fontSize: 28, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
               {job.title}
             </h1>
 
-            {/* Company info + Applied on same row */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-              <p style={{ fontSize: 14, color: "#64748B", margin: 0 }}>
-                {job.company} · {job.location} · {job.workType}
+            {/* Company Info */}
+            <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 20px 0" }}>
+              {job.company} · {job.location} · {job.workType}
+            </p>
+
+            {/* Current Stage */}
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
+                Current Stage
               </p>
-              <p style={{ fontSize: 13, color: "#64748B", margin: 0 }}>
-                Applied {job.appliedDate}
+              <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: 0 }}>
+                {job.stages[job.currentStage]?.name}
               </p>
             </div>
 
-            {/* Status messages - both in black */}
-            <p style={{ fontSize: 14, color: "#0F172A", margin: "0 0 4px 0" }}>
-              You're early — this is when smart candidates take the lead
-            </p>
-            <p style={{ fontSize: 14, color: "#0F172A", margin: 0 }}>
-              Most successful candidates stay active at this stage — you're right on time.
+            {/* Progress Bar */}
+            <div style={{ marginBottom: 20 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <span style={{ fontSize: 12, color: "#64748B" }}>Application Progress</span>
+                <span style={{ fontSize: 12, fontWeight: 600, color: "#0F172A" }}>{Math.round(progressPercentage)}%</span>
+              </div>
+              <div style={{ height: 6, background: "#E5E7EB", borderRadius: 4 }}>
+                <div
+                  style={{
+                    width: `${progressPercentage}%`,
+                    height: "100%",
+                    background: "#2563EB",
+                    borderRadius: 4,
+                    transition: "width 0.3s ease",
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Reassurance Message */}
+            <p style={{ fontSize: 14, color: "#0F172A", margin: 0, fontWeight: 500 }}>
+              You're doing great. Things are moving forward — stay focused on what's next.
             </p>
           </div>
         </div>
 
-        {/* APPLICATION PROGRESS */}
-        <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>
-          Application Progress
-        </p>
-        <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 12px 0" }}>
-          Where you are in the process
-        </p>
-        <div
+        {/* "What Usually Happens" - Single line */}
+        {job.recruiterSignals && (
+          <div style={{ marginBottom: 24 }}>
+            <p style={{ fontSize: 13, color: "#64748B", margin: 0 }}>
+              <span style={{ fontWeight: 600 }}>What to expect:</span> Typical review time {job.recruiterSignals.reviewTime} • Ghosting risk: {job.recruiterSignals.ghostingProbability}
+            </p>
+          </div>
+        )}
+
+        {/* Main CTA - Improve Chances */}
+        <button
+          onClick={() => setShowTasksModal(true)}
           style={{
-            background: "#EFF6FF",
-            border: "1px solid #2563EB",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            width: "100%",
+            padding: 16,
+            background: "#2563EB",
+            color: "#FFFFFF",
+            border: "none",
             borderRadius: 12,
-            padding: 24,
+            fontSize: 16,
+            fontWeight: 600,
+            cursor: "pointer",
+            transition: "all 0.2s ease",
             marginBottom: 24,
-            boxShadow: "0 4px 12px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(37, 99, 235, 0.08)",
-            transition: "box-shadow 0.3s ease",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(37, 99, 235, 0.2), 0 2px 6px rgba(37, 99, 235, 0.12)"
+            e.currentTarget.style.background = "#1D4ED8"
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(37, 99, 235, 0.08)"
+            e.currentTarget.style.background = "#2563EB"
           }}
         >
-          {/* Delivery-tracker style timeline */}
-          {(() => {
-            const lastCompletedIdx = job.stages.reduce(
-              (acc: number, s: { status: string }, i: number) => (s.status === "completed" ? i : acc),
-              -1
-            )
-            const segments = job.stages.length - 1
-            // Blue line stops ~70% of the way between the last completed and next circle
-            const bluePct =
-              lastCompletedIdx >= 0
-                ? ((lastCompletedIdx + 0.7) / segments) * 100
-                : 0
+          Improve my chances (15 min)
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 10H14M14 10L10 6M14 10L10 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
 
-            return (
-              <div>
-                {/* Timeline Container */}
-                <div style={{ position: "relative", width: "100%" }}>
-                  {/* Connecting line background */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 16,
-                      left: 0,
-                      right: 0,
-                      height: 3,
-                      background: "#E5E7EB",
-                      borderRadius: 2,
-                      zIndex: 0,
-                    }}
-                  />
-                  {/* Blue progress line */}
-                  {lastCompletedIdx >= 0 && (
+        {/* Secondary Info - Application Health Tooltip */}
+        <div style={{ marginBottom: 24 }}>
+          <button
+            onClick={() => setShowHealthInfo(!showHealthInfo)}
+            style={{
+              background: "transparent",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+              fontSize: 13,
+              color: "#2563EB",
+              textDecoration: "underline",
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+          >
+            How strong is my application?
+            <ChevronDown size={16} style={{ transform: showHealthInfo ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+          </button>
+          
+          {showHealthInfo && (
+            <div style={{
+              marginTop: 12,
+              padding: 16,
+              background: "#F8FAFC",
+              border: "1px solid #E5E7EB",
+              borderRadius: 8,
+            }}>
+              <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
+                Application Health
+              </p>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 8px 0" }}>
+                {health.score}
+              </p>
+              <p style={{ fontSize: 12, color: "#64748B", margin: 0 }}>
+                Two quick improvements can meaningfully increase your chances.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Timeline Section - Below fold */}
+        <div style={{ marginBottom: 24 }}>
+          <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
+            Application Timeline
+          </p>
+          <div
+            style={{
+              background: "#FFFFFF",
+              border: "1px solid #E5E7EB",
+              borderRadius: 12,
+              padding: 24,
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+            }}
+          >
+            {/* Timeline Visualization */}
+            {(() => {
+              const lastCompletedIdx = job.stages.reduce(
+                (acc: number, s: { status: string }, i: number) => (s.status === "completed" ? i : acc),
+                -1
+              )
+
+              return (
+                <div>
+                  {/* Timeline Container */}
+                  <div style={{ position: "relative", width: "100%" }}>
+                    {/* Connecting line background */}
                     <div
                       style={{
                         position: "absolute",
                         top: 16,
                         left: 0,
+                        right: 0,
                         height: 3,
-                        background: "#2563EB",
+                        background: "#E5E7EB",
                         borderRadius: 2,
-                        zIndex: 1,
-                        width: `${((lastCompletedIdx + 0.7) / (job.stages.length - 1)) * 100}%`,
-                        transition: "width 0.5s ease",
+                        zIndex: 0,
                       }}
                     />
-                  )}
+                    {/* Blue progress line */}
+                    {lastCompletedIdx >= 0 && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 16,
+                          left: 0,
+                          height: 3,
+                          background: "#2563EB",
+                          borderRadius: 2,
+                          zIndex: 1,
+                          width: `${((lastCompletedIdx + 0.7) / (job.stages.length - 1)) * 100}%`,
+                          transition: "width 0.5s ease",
+                        }}
+                      />
+                    )}
 
-                  {/* Stages Grid */}
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: `repeat(${job.stages.length}, 1fr)`,
-                      gap: 0,
-                      position: "relative",
-                      zIndex: 2,
-                    }}
-                  >
-                    {job.stages.map(
-                      (stage: { status: string; name: string; date?: string }, index: number) => (
-                        <div
-                          key={index}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            gap: 12,
-                          }}
-                        >
-                          {/* Circle */}
+                    {/* Stages Grid */}
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: `repeat(${job.stages.length}, 1fr)`,
+                        gap: 0,
+                        position: "relative",
+                        zIndex: 2,
+                      }}
+                    >
+                      {job.stages.map(
+                        (stage: { status: string; name: string; date?: string }, index: number) => (
                           <div
+                            key={index}
                             style={{
-                              width: 32,
-                              height: 32,
-                              borderRadius: "50%",
                               display: "flex",
+                              flexDirection: "column",
                               alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0,
-                              background:
-                                stage.status === "completed" ? "#2563EB" : "#FFFFFF",
-                              border:
-                                stage.status === "completed"
-                                  ? "2px solid #2563EB"
-                                  : stage.status === "current"
-                                    ? "2px solid #2563EB"
-                                    : "2px solid #E5E7EB",
-                              color:
-                                stage.status === "completed"
-                                  ? "#FFFFFF"
-                                  : stage.status === "current"
-                                    ? "#2563EB"
-                                    : "#94A3B8",
-                              fontSize: 13,
-                              fontWeight: 600,
+                              gap: 12,
                             }}
                           >
-                            {index + 1}
-                          </div>
-
-                          {/* Label */}
-                          <div style={{ textAlign: "center" }}>
-                            <p
+                            {/* Circle */}
+                            <div
                               style={{
-                                fontSize: 12,
+                                width: 32,
+                                height: 32,
+                                borderRadius: "50%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexShrink: 0,
+                                background:
+                                  stage.status === "completed" ? "#2563EB" : "#FFFFFF",
+                                border:
+                                  stage.status === "completed"
+                                    ? "2px solid #2563EB"
+                                    : stage.status === "current"
+                                      ? "2px solid #2563EB"
+                                      : "2px solid #E5E7EB",
                                 color:
-                                  stage.status === "upcoming" ? "#94A3B8" : "#0F172A",
-                                margin: 0,
-                                fontWeight: stage.status === "current" ? 600 : 400,
-                                lineHeight: 1.4,
+                                  stage.status === "completed"
+                                    ? "#FFFFFF"
+                                    : stage.status === "current"
+                                      ? "#2563EB"
+                                      : "#94A3B8",
+                                fontSize: 13,
+                                fontWeight: 600,
                               }}
                             >
-                              {stage.status === "completed" ? "Your " : ""}
-                              {stage.name}
-                            </p>
-                            {stage.date && (
+                              {index + 1}
+                            </div>
+
+                            {/* Label */}
+                            <div style={{ textAlign: "center" }}>
                               <p
                                 style={{
-                                  fontSize: 11,
-                                  color: "#64748B",
-                                  margin: "4px 0 0 0",
+                                  fontSize: 12,
+                                  color:
+                                    stage.status === "upcoming" ? "#94A3B8" : "#0F172A",
+                                  margin: 0,
+                                  fontWeight: stage.status === "current" ? 600 : 400,
+                                  lineHeight: 1.4,
                                 }}
                               >
-                                {stage.date}
+                                {stage.status === "completed" ? "Your " : ""}
+                                {stage.name}
                               </p>
-                            )}
-                            {stage.status === "current" && (
-                              <p
-                                style={{
-                                  fontSize: 11,
-                                  color: "#2563EB",
-                                  margin: "4px 0 0 0",
-                                  fontWeight: 500,
-                                }}
-                              >
-                                In progress
-                              </p>
-                            )}
+                              {stage.date && (
+                                <p
+                                  style={{
+                                    fontSize: 11,
+                                    color: "#64748B",
+                                    margin: "4px 0 0 0",
+                                  }}
+                                >
+                                  {stage.date}
+                                </p>
+                              )}
+                              {stage.status === "current" && (
+                                <p
+                                  style={{
+                                    fontSize: 11,
+                                    color: "#2563EB",
+                                    margin: "4px 0 0 0",
+                                    fontWeight: 500,
+                                  }}
+                                >
+                                  In progress
+                                </p>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      )
-                    )}
+                        )
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })()}
-        </div>
-
-        {/* Application Signals */}
-        <div
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
-            borderRadius: 12,
-            padding: 20,
-            marginBottom: 24,
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: 16,
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            transition: "box-shadow 0.3s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-          }}
-        >
-          <div>
-            <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-              Competition Level
-            </p>
-            <p style={{ fontSize: 14, color: "#0F172A", margin: "0 0 4px 0" }}>
-              Low (24 applicants)
-            </p>
-            <p style={{ fontSize: 12, color: "#64748B", margin: 0 }}>
-              You're competing in a smaller-than-average pool for this role.
-            </p>
-          </div>
-          <div>
-            <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-              Estimated Salary
-            </p>
-            <p style={{ fontSize: 14, color: "#0F172A", margin: "0 0 4px 0" }}>
-              {job.salary}
-            </p>
-            <p style={{ fontSize: 12, color: "#64748B", margin: 0 }}>
-              $75,000 per year
-            </p>
+              )
+            })()}
           </div>
         </div>
 
-        {/* Recruiter Reality Signals */}
-        {job.recruiterSignals && (
-          <div>
-            <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-              What Usually Happens at This Stage
-            </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 24 }}>
-              {/* Average Review Time Card */}
-              <div
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E5E7EB",
-                  borderRadius: 12,
-                  padding: 16,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-                  transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)"
-                  e.currentTarget.style.transform = "translateY(-4px)"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-                  e.currentTarget.style.transform = "translateY(0)"
-                }}
-              >
-                <p style={{ fontSize: 12, color: "#64748B", margin: 0, textTransform: "uppercase", fontWeight: 600 }}>
-                  Average Review Time
-                </p>
-                <p style={{ fontSize: 14, color: "#0F172A", margin: 0 }}>
-                  {job.recruiterSignals.reviewTime}
-                </p>
+        {/* Tasks Modal Overlay */}
+        {showTasksModal && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              alignItems: "flex-end",
+              zIndex: 1000,
+            }}
+            onClick={() => setShowTasksModal(false)}
+          >
+            {/* Modal Drawer */}
+            <div
+              style={{
+                background: "#FFFFFF",
+                width: "100%",
+                maxHeight: "80vh",
+                borderRadius: "16px 16px 0 0",
+                padding: 24,
+                overflow: "auto",
+                animation: "slideUp 0.3s ease",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <style>{`
+                @keyframes slideUp {
+                  from {
+                    transform: translateY(100%);
+                  }
+                  to {
+                    transform: translateY(0);
+                  }
+                }
+              `}</style>
+
+              {/* Header */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
+                <div>
+                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase", fontWeight: 600 }}>
+                    Quick Wins
+                  </p>
+                  <h2 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: 0 }}>
+                    Improve my chances
+                  </h2>
+                </div>
+                <button
+                  onClick={() => setShowTasksModal(false)}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#64748B",
+                  }}
+                >
+                  <X size={24} />
+                </button>
               </div>
 
-              {/* Recruiter Profile View Card */}
-              <div
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E5E7EB",
-                  borderRadius: 12,
-                  padding: 16,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-                  transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)"
-                  e.currentTarget.style.transform = "translateY(-4px)"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-                  e.currentTarget.style.transform = "translateY(0)"
-                }}
-              >
-                <p style={{ fontSize: 12, color: "#64748B", margin: 0, textTransform: "uppercase", fontWeight: 600 }}>
-                  Recruiter Profile View
+              {/* 15-minute actions */}
+              <div style={{ marginBottom: 32 }}>
+                <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
+                  15-minute actions
                 </p>
-                <p style={{ fontSize: 14, color: "#0F172A", margin: 0 }}>
-                  {job.recruiterSignals.profileView}
-                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {job.tasks.filter(t => t.duration === "15").map((task, index) => {
+                    const actualIndex = job.tasks.indexOf(task)
+                    return (
+                      <div
+                        key={actualIndex}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 12,
+                          fontSize: 14,
+                          color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
+                          padding: "12px 16px",
+                          background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
+                          borderRadius: 8,
+                          border: "1px solid #E5E7EB",
+                          transition: "all 0.2s",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={completedTasks[actualIndex] || false}
+                          onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
+                          style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
+                        />
+                        <div style={{ flex: 1 }}>
+                          <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
+                            {task.text}
+                          </p>
+                          <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
+                            {task.impact}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
 
-              {/* Ghosting Probability Card */}
-              <div
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E5E7EB",
-                  borderRadius: 12,
-                  padding: 16,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-                  transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)"
-                  e.currentTarget.style.transform = "translateY(-4px)"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-                  e.currentTarget.style.transform = "translateY(0)"
-                }}
-              >
-                <p style={{ fontSize: 12, color: "#64748B", margin: 0, textTransform: "uppercase", fontWeight: 600 }}>
-                  Ghosting Probability
+              {/* 30-45 minute actions */}
+              <div>
+                <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
+                  30–45 minute actions
                 </p>
-                <p style={{ fontSize: 14, color: "#0F172A", margin: 0 }}>
-                  {job.recruiterSignals.ghostingProbability}
-                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {job.tasks.filter(t => t.duration === "30-45").map((task, index) => {
+                    const actualIndex = job.tasks.indexOf(task)
+                    return (
+                      <div
+                        key={actualIndex}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 12,
+                          fontSize: 14,
+                          color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
+                          padding: "12px 16px",
+                          background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
+                          borderRadius: 8,
+                          border: "1px solid #E5E7EB",
+                          transition: "all 0.2s",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={completedTasks[actualIndex] || false}
+                          onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
+                          style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
+                        />
+                        <div style={{ flex: 1 }}>
+                          <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
+                            {task.text}
+                          </p>
+                          <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
+                            {task.impact}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
         )}
-
-        {/* Tasks Section */}
-        <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          Tasks to Do
-        </p>
-
-        {/* Progress Bar */}
-        <div style={{ marginBottom: 16 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-            <span style={{ fontSize: 13, color: "#0F172A", fontWeight: 500 }}>You're past the hardest part: applying.</span>
-            <span style={{ fontSize: 12, color: "#0F172A" }}>{Math.round(progressPercentage)}%</span>
-          </div>
-          <div style={{ height: 8, background: "#E5E7EB", borderRadius: 4 }}>
-            <div
-              style={{
-                width: `${progressPercentage}%`,
-                height: "100%",
-                background: "#2563EB",
-                borderRadius: 4,
-                transition: "width 0.3s ease",
-              }}
-            />
-          </div>
-        </div>
-
-        <div
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
-            borderRadius: 12,
-            padding: 24,
-            marginBottom: 24,
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            transition: "box-shadow 0.3s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-          }}
-        >
-          {/* Application Health */}
-          <div style={{ marginBottom: 20, paddingBottom: 20, borderBottom: "1px solid #E5E7EB" }}>
-            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              Application Health
-            </p>
-            <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 12px 0" }}>
-              Good — can be stronger (+10%)
-            </p>
-            <p style={{ fontSize: 12, color: "#64748B", margin: 0 }}>
-              Two quick improvements can meaningfully increase your chances.
-            </p>
-          </div>
-
-          {/* 15-minute actions */}
-          <div style={{ marginBottom: 20 }}>
-            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              15-minute actions
-            </p>
-            <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 12px 0" }}>
-              Quick wins that improve visibility and confidence
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {job.tasks.filter(t => t.duration === "15").map((task, index) => {
-                const actualIndex = job.tasks.indexOf(task)
-                return (
-                  <div
-                    key={actualIndex}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 12,
-                      fontSize: 14,
-                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                      padding: "10px 12px",
-                      background: completedTasks[actualIndex] ? "#F1F5F9" : "transparent",
-                      borderRadius: 8,
-                      transition: "all 0.2s",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={completedTasks[actualIndex] || false}
-                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2 }}
-                    />
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                        <p style={{ margin: 0, textDecoration: completedTasks[actualIndex] ? "line-through" : "none" }}>
-                          {task.text}
-                        </p>
-                        {index === 0 && !completedTasks[actualIndex] && (
-                          <span style={{ fontSize: 10, fontWeight: 600, color: "#2563EB", background: "#EFF6FF", padding: "2px 8px", borderRadius: 4, textTransform: "uppercase", whiteSpace: "nowrap" }}>
-                            Next best move
-                          </span>
-                        )}
-                      </div>
-                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                        {task.impact}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* 30-45 minute actions */}
-          <div>
-            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              30–45 minute actions
-            </p>
-            <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 12px 0" }}>
-              Higher-impact preparation
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {job.tasks.filter(t => t.duration === "30-45").map((task, index) => {
-                const actualIndex = job.tasks.indexOf(task)
-                return (
-                  <div
-                    key={actualIndex}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 12,
-                      fontSize: 14,
-                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                      padding: "10px 12px",
-                      background: completedTasks[actualIndex] ? "#F1F5F9" : "transparent",
-                      borderRadius: 8,
-                      transition: "all 0.2s",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={completedTasks[actualIndex] || false}
-                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2 }}
-                    />
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                        <p style={{ margin: 0, textDecoration: completedTasks[actualIndex] ? "line-through" : "none" }}>
-                          {task.text}
-                        </p>
-                        {index === 0 && !completedTasks[actualIndex] && (
-                          <span style={{ fontSize: 10, fontWeight: 600, color: "#2563EB", background: "#EFF6FF", padding: "2px 8px", borderRadius: 4, textTransform: "uppercase", whiteSpace: "nowrap" }}>
-                            Next best move
-                          </span>
-                        )}
-                        {task.text.includes("interview questions") && (
-                          <button
-                            onClick={() => console.log("Tips clicked for:", task.text)}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              width: 24,
-                              height: 24,
-                              borderRadius: "50%",
-                              background: "transparent",
-                              border: "1px solid #2563EB",
-                              cursor: "pointer",
-                              padding: 0,
-                              color: "#2563EB",
-                              fontSize: 14,
-                              transition: "all 0.2s",
-                              flexShrink: 0,
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.background = "#EFF6FF"
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.background = "transparent"
-                            }}
-                            title="Tips for interview questions"
-                          >
-                            💡
-                          </button>
-                        )}
-                      </div>
-                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                        {task.impact}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Plan B Section - Collapsible */}
-        <div
-          style={{
-            background: "#EFF6FF",
-            border: "1px solid #2563EB",
-            borderRadius: 12,
-            padding: 24,
-            marginBottom: 24,
-            boxShadow: "0 4px 12px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(37, 99, 235, 0.08)",
-            transition: "box-shadow 0.3s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(37, 99, 235, 0.2), 0 2px 6px rgba(37, 99, 235, 0.12)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(37, 99, 235, 0.08)"
-          }}
-        >
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", marginBottom: 4 }}>
-              If This Application Doesn't Work Out
-            </div>
-            <p style={{ fontSize: 12, color: "#2563EB", margin: 0, fontWeight: 400 }}>
-              You'll still be ahead — here's what to do next.
-            </p>
-          </div>
-
-          <div style={{ marginTop: 16 }}>
-            {/* Job Cards Grid */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 16,
-                marginBottom: 24,
-              }}
-            >
-              {alternativeJobs.map((job, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      height: 180,
-                      background: "#FFFFFF",
-                      border: "1px solid #E5E7EB",
-                      borderRadius: 12,
-                      padding: "24px 20px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      textAlign: "center",
-                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-                      transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                      cursor: "pointer",
-                      position: "relative",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)"
-                      e.currentTarget.style.transform = "translateY(-6px)"
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-                      e.currentTarget.style.transform = "translateY(0)"
-                    }}
-                  >
-                    {/* Arrow Icon */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 16,
-                        right: 16,
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "#2563EB",
-                        fontSize: 28,
-                        fontWeight: 600,
-                        transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                        transform: "translateX(0)",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "#1D4ED8";
-                        e.currentTarget.style.transform = "translateX(4px)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "#2563EB";
-                        e.currentTarget.style.transform = "translateX(0)";
-                      }}
-                    >
-                      →
-                    </div>
-
-                    <p style={{ fontSize: 15, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
-                      {job.title}
-                    </p>
-                    <p style={{ fontSize: 13, color: "#64748B", margin: "0 0 16px 0" }}>
-                      {job.company}
-                    </p>
-                    <div style={{ borderTop: "1px solid #E5E7EB", paddingTop: 12, width: "100%" }}>
-                      <p style={{ fontSize: 16, fontWeight: 700, color: "#2563EB", margin: 0 }}>
-                        {job.salary}
-                      </p>
-                      <p style={{ fontSize: 11, color: "#94A3B8", margin: "4px 0 0 0" }}>
-                        per year
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-        </div>
       </main>
     </div>
   )
