@@ -537,55 +537,37 @@ export default function ActionDetailPage() {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 24 }}>
+        {/* Action Button */}
+        <div style={{ marginBottom: 32, display: "flex", justifyContent: "flex-end", marginTop: 24 }}>
           <button
             style={{
-              padding: 16,
-              background: "#FFFFFF",
-              color: "#2563EB",
-              border: "1px solid #E5E7EB",
-              borderRadius: 12,
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#F8FAFC"
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#FFFFFF"
-              e.currentTarget.style.boxShadow = "0 1px 3px rgba(0, 0, 0, 0.04)"
-            }}
-          >
-            Get notified of updates
-          </button>
-          <button
-            style={{
-              padding: 16,
               background: "#2563EB",
               color: "#FFFFFF",
+              fontSize: 15,
+              fontWeight: 400,
+              padding: "12px 24px",
+              borderRadius: 8,
               border: "none",
-              borderRadius: 12,
-              fontSize: 14,
-              fontWeight: 600,
               cursor: "pointer",
-              transition: "all 0.2s ease",
-              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.15)",
+              transition: "all 0.2s",
+              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.3)",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#1D4ED8"
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(37, 99, 235, 0.25)"
+              e.currentTarget.style.background = "#1E40AF"
+              e.currentTarget.style.boxShadow = "0 6px 16px rgba(37, 99, 235, 0.4)"
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "#2563EB"
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.15)"
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)"
             }}
           >
             Send a follow-up
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </button>
         </div>
       </main>
