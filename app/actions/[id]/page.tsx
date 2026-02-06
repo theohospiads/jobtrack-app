@@ -541,11 +541,8 @@ export default function ActionDetailPage() {
         <div style={{ marginBottom: 32, display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: 24, gap: 24 }}>
           {/* Salary Container */}
           <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-              Estimated Salary
-            </p>
-            <p style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: 0 }}>
-              {job.salary}
+            <p style={{ fontSize: 14, fontWeight: 400, color: "#0F172A", margin: 0 }}>
+              Estimated Salary: <span style={{ fontWeight: 700 }}>{job.salary}</span>
             </p>
           </div>
 
