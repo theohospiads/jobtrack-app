@@ -551,7 +551,7 @@ export default function ActionDetailPage() {
               fontWeight: 400,
               padding: "12px 24px",
               borderRadius: 8,
-              border: "1px solid #E5E7EB",
+              border: "1.5px solid #2563EB",
               display: "flex",
               alignItems: "center",
               gap: 8,
@@ -573,20 +573,32 @@ export default function ActionDetailPage() {
               borderRadius: 8,
               border: "none",
               cursor: "pointer",
-              transition: "all 0.2s",
-              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.3)",
+              transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.25), 0 1px 3px rgba(0, 0, 0, 0.08)",
               display: "flex",
               alignItems: "center",
               gap: 8,
               flexShrink: 0,
+              position: "relative",
+              overflow: "hidden",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "#1E40AF"
-              e.currentTarget.style.boxShadow = "0 6px 16px rgba(37, 99, 235, 0.4)"
+              e.currentTarget.style.boxShadow = "0 12px 24px rgba(37, 99, 235, 0.35), 0 4px 8px rgba(0, 0, 0, 0.1)"
+              e.currentTarget.style.transform = "translateY(-2px)"
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "#2563EB"
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)"
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.25), 0 1px 3px rgba(0, 0, 0, 0.08)"
+              e.currentTarget.style.transform = "translateY(0)"
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.transform = "translateY(0px)"
+              e.currentTarget.style.boxShadow = "0 2px 6px rgba(37, 99, 235, 0.2), 0 0px 2px rgba(0, 0, 0, 0.06)"
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)"
+              e.currentTarget.style.boxShadow = "0 12px 24px rgba(37, 99, 235, 0.35), 0 4px 8px rgba(0, 0, 0, 0.1)"
             }}
           >
             Send a follow-up
