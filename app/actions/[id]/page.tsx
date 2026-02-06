@@ -159,7 +159,6 @@ export default function ActionDetailPage() {
   const [completedTasks, setCompletedTasks] = useState<Record<number, boolean>>(
     job.tasks.reduce((acc, _, i) => ({ ...acc, [i]: false }), {})
   )
-  const [showTasksModal, setShowTasksModal] = useState(false)
   const [showHealthInfo, setShowHealthInfo] = useState(false)
 
   const progressPercentage = (job.currentStage / job.totalStages) * 100
@@ -284,7 +283,7 @@ export default function ActionDetailPage() {
 
         {/* Main CTA - Improve Chances */}
         <button
-          onClick={() => setShowTasksModal(true)}
+          onClick={() => {}}
           style={{
             display: "flex",
             alignItems: "center",
@@ -315,53 +314,107 @@ export default function ActionDetailPage() {
           </svg>
         </button>
 
-        {/* Secondary Info - Application Health Tooltip */}
-        <div style={{ marginBottom: 24 }}>
-          <button
-            onClick={() => setShowHealthInfo(!showHealthInfo)}
-            style={{
-              background: "transparent",
-              border: "none",
-              padding: 0,
-              cursor: "pointer",
-              fontSize: 13,
-              color: "#2563EB",
-              textDecoration: "underline",
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              transition: "opacity 0.2s",
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
-            onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
-          >
-            How strong is my application?
-            <ChevronDown size={16} style={{ transform: showHealthInfo ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
-          </button>
-          
-          {showHealthInfo && (
-            <div style={{
-              marginTop: 12,
-              padding: 16,
-              background: "#F8FAFC",
-              border: "1px solid #E5E7EB",
-              borderRadius: 8,
-            }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                Application Health
-              </p>
-              <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 8px 0" }}>
-                {health.score}
-              </p>
-              <p style={{ fontSize: 12, color: "#64748B", margin: 0 }}>
-                Two quick improvements can meaningfully increase your chances.
-              </p>
+        {/* Tasks Section */}
+        <div
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid #E5E7EB",
+            borderRadius: 12,
+            padding: 24,
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+          }}
+        >
+          {/* 15-minute actions */}
+          <div style={{ marginBottom: 20 }}>
+            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
+              15-minute actions
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {job.tasks.filter(t => t.duration === "15").map((task, index) => {
+                const actualIndex = job.tasks.indexOf(task)
+                return (
+                  <div
+                    key={actualIndex}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 12,
+                      fontSize: 14,
+                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
+                      padding: "12px 16px",
+                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
+                      borderRadius: 8,
+                      border: "1px solid #E5E7EB",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={completedTasks[actualIndex] || false}
+                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
+                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
+                        {task.text}
+                      </p>
+                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
+                        {task.impact}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-          )}
+          </div>
+
+          {/* 30-45 minute actions */}
+          <div>
+            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
+              30–45 minute actions
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {job.tasks.filter(t => t.duration === "30-45").map((task, index) => {
+                const actualIndex = job.tasks.indexOf(task)
+                return (
+                  <div
+                    key={actualIndex}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 12,
+                      fontSize: 14,
+                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
+                      padding: "12px 16px",
+                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
+                      borderRadius: 8,
+                      border: "1px solid #E5E7EB",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={completedTasks[actualIndex] || false}
+                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
+                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
+                        {task.text}
+                      </p>
+                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
+                        {task.impact}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </div>
 
         {/* Timeline Section - Below fold */}
-        <div style={{ marginBottom: 24 }}>
+        <div style={{ marginBottom: 24, marginTop: 24 }}>
           <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
             Application Timeline
           </p>
@@ -516,164 +569,6 @@ export default function ActionDetailPage() {
             })()}
           </div>
         </div>
-
-        {/* Tasks Modal Overlay */}
-        {showTasksModal && (
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "rgba(0, 0, 0, 0.5)",
-              display: "flex",
-              alignItems: "flex-end",
-              zIndex: 1000,
-            }}
-            onClick={() => setShowTasksModal(false)}
-          >
-            {/* Modal Drawer */}
-            <div
-              style={{
-                background: "#FFFFFF",
-                width: "100%",
-                maxHeight: "80vh",
-                borderRadius: "16px 16px 0 0",
-                padding: 24,
-                overflow: "auto",
-                animation: "slideUp 0.3s ease",
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <style>{`
-                @keyframes slideUp {
-                  from {
-                    transform: translateY(100%);
-                  }
-                  to {
-                    transform: translateY(0);
-                  }
-                }
-              `}</style>
-
-              {/* Header */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
-                <div>
-                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase", fontWeight: 600 }}>
-                    Quick Wins
-                  </p>
-                  <h2 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: 0 }}>
-                    Improve my chances
-                  </h2>
-                </div>
-                <button
-                  onClick={() => setShowTasksModal(false)}
-                  style={{
-                    background: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 8,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#64748B",
-                  }}
-                >
-                  <X size={24} />
-                </button>
-              </div>
-
-              {/* 15-minute actions */}
-              <div style={{ marginBottom: 32 }}>
-                <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-                  15-minute actions
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  {job.tasks.filter(t => t.duration === "15").map((task, index) => {
-                    const actualIndex = job.tasks.indexOf(task)
-                    return (
-                      <div
-                        key={actualIndex}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: 12,
-                          fontSize: 14,
-                          color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                          padding: "12px 16px",
-                          background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
-                          borderRadius: 8,
-                          border: "1px solid #E5E7EB",
-                          transition: "all 0.2s",
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={completedTasks[actualIndex] || false}
-                          onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                          style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
-                        />
-                        <div style={{ flex: 1 }}>
-                          <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
-                            {task.text}
-                          </p>
-                          <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                            {task.impact}
-                          </p>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              {/* 30-45 minute actions */}
-              <div>
-                <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-                  30–45 minute actions
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  {job.tasks.filter(t => t.duration === "30-45").map((task, index) => {
-                    const actualIndex = job.tasks.indexOf(task)
-                    return (
-                      <div
-                        key={actualIndex}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: 12,
-                          fontSize: 14,
-                          color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                          padding: "12px 16px",
-                          background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
-                          borderRadius: 8,
-                          border: "1px solid #E5E7EB",
-                          transition: "all 0.2s",
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={completedTasks[actualIndex] || false}
-                          onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                          style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
-                        />
-                        <div style={{ flex: 1 }}>
-                          <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
-                            {task.text}
-                          </p>
-                          <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                            {task.impact}
-                          </p>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </main>
     </div>
   )
