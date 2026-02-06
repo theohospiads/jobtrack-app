@@ -543,10 +543,25 @@ export default function ActionDetailPage() {
         {/* Bottom Section - Salary and Action Button */}
         <div style={{ marginBottom: 32, display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: 24, gap: 24 }}>
           {/* Salary Container */}
-          <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 14, fontWeight: 400, color: "#0F172A", margin: 0 }}>
+          <div
+            style={{
+              background: "#F3F4F6",
+              color: "#0F172A",
+              fontSize: 15,
+              fontWeight: 400,
+              padding: "12px 24px",
+              borderRadius: 8,
+              border: "1px solid #E5E7EB",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              flexShrink: 0,
+              cursor: "default",
+            }}
+          >
+            <span>
               Estimated Salary: <span style={{ fontWeight: 700 }}>{job.salary}</span>
-            </p>
+            </span>
           </div>
 
           {/* Send a Follow-up Button */}
