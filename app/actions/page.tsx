@@ -147,8 +147,8 @@ export default function ActionsPage() {
           }}
         >
           <img 
-            src="/actions-banner.jpg" 
-            alt=""
+            src="/placeholder.svg?height=100&width=1120" 
+            alt="Actions banner"
             style={{
               width: '100%',
               height: '100%',
