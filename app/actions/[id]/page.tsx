@@ -537,8 +537,19 @@ export default function ActionDetailPage() {
           </div>
         </div>
 
-        {/* Action Button */}
-        <div style={{ marginBottom: 32, display: "flex", justifyContent: "flex-end", marginTop: 24 }}>
+        {/* Bottom Section - Salary and Action Button */}
+        <div style={{ marginBottom: 32, display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: 24, gap: 24 }}>
+          {/* Salary Container */}
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
+              Estimated Salary
+            </p>
+            <p style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: 0 }}>
+              {job.salary}
+            </p>
+          </div>
+
+          {/* Send a Follow-up Button */}
           <button
             style={{
               background: "#2563EB",
@@ -554,6 +565,7 @@ export default function ActionDetailPage() {
               display: "flex",
               alignItems: "center",
               gap: 8,
+              flexShrink: 0,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "#1E40AF"
