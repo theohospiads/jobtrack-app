@@ -46,6 +46,7 @@ const actionJobs: Record<string, ActionJob> = {
     appliedDate: "3 days ago",
     currentStage: 1,
     totalStages: 4,
+    salary: "$65,000 - $75,000",
     stages: [
       { name: "Application Submitted", status: "completed", date: "Jan 28, 2026" },
       { name: "Application Review", status: "current" },
@@ -79,6 +80,7 @@ const actionJobs: Record<string, ActionJob> = {
     appliedDate: "5 days ago",
     currentStage: 2,
     totalStages: 4,
+    salary: "$72,000 - $88,000",
     stages: [
       { name: "Application Submitted", status: "completed", date: "Jan 26, 2026" },
       { name: "Application Review", status: "completed", date: "Jan 28, 2026" },
@@ -109,6 +111,7 @@ const actionJobs: Record<string, ActionJob> = {
     appliedDate: "2 days ago",
     currentStage: 1,
     totalStages: 3,
+    salary: "$78,000 - $95,000",
     stages: [
       { name: "Application Submitted", status: "completed", date: "Jan 29, 2026" },
       { name: "Screening Call", status: "current" },
