@@ -281,6 +281,7 @@ export default function ActionDetailPage() {
         )}
 
         {/* Timeline Section */}
+        <div style={{ marginBottom: 24 }}>
           <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
             Application Timeline
           </p>
