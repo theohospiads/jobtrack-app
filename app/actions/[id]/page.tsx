@@ -281,140 +281,7 @@ export default function ActionDetailPage() {
           </div>
         )}
 
-        {/* Main CTA - Improve Chances */}
-        <button
-          onClick={() => {}}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 8,
-            width: "100%",
-            padding: 16,
-            background: "#2563EB",
-            color: "#FFFFFF",
-            border: "none",
-            borderRadius: 12,
-            fontSize: 16,
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            marginBottom: 24,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#1D4ED8"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "#2563EB"
-          }}
-        >
-          Improve my chances (15 min)
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 10H14M14 10L10 6M14 10L10 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-
-        {/* Tasks Section */}
-        <div
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
-            borderRadius: 12,
-            padding: 24,
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-          }}
-        >
-          {/* 15-minute actions */}
-          <div style={{ marginBottom: 20 }}>
-            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              15-minute actions
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {job.tasks.filter(t => t.duration === "15").map((task, index) => {
-                const actualIndex = job.tasks.indexOf(task)
-                return (
-                  <div
-                    key={actualIndex}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 12,
-                      fontSize: 14,
-                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                      padding: "12px 16px",
-                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
-                      borderRadius: 8,
-                      border: "1px solid #E5E7EB",
-                      transition: "all 0.2s",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={completedTasks[actualIndex] || false}
-                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
-                    />
-                    <div style={{ flex: 1 }}>
-                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
-                        {task.text}
-                      </p>
-                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                        {task.impact}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* 30-45 minute actions */}
-          <div>
-            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              30–45 minute actions
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {job.tasks.filter(t => t.duration === "30-45").map((task, index) => {
-                const actualIndex = job.tasks.indexOf(task)
-                return (
-                  <div
-                    key={actualIndex}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 12,
-                      fontSize: 14,
-                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                      padding: "12px 16px",
-                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
-                      borderRadius: 8,
-                      border: "1px solid #E5E7EB",
-                      transition: "all 0.2s",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={completedTasks[actualIndex] || false}
-                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
-                    />
-                    <div style={{ flex: 1 }}>
-                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
-                        {task.text}
-                      </p>
-                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                        {task.impact}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Timeline Section - Below fold */}
-        <div style={{ marginBottom: 24, marginTop: 24 }}>
+        {/* Timeline Section */}
           <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
             Application Timeline
           </p>
@@ -567,6 +434,106 @@ export default function ActionDetailPage() {
                 </div>
               )
             })()}
+          </div>
+        </div>
+
+        {/* Tasks Section - Below Timeline */}
+        <div
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid #E5E7EB",
+            borderRadius: 12,
+            padding: 24,
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+            marginTop: 24,
+          }}
+        >
+          {/* 15-minute actions */}
+          <div style={{ marginBottom: 20 }}>
+            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
+              15-minute actions
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {job.tasks.filter(t => t.duration === "15").map((task, index) => {
+                const actualIndex = job.tasks.indexOf(task)
+                return (
+                  <div
+                    key={actualIndex}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 12,
+                      fontSize: 14,
+                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
+                      padding: "12px 16px",
+                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
+                      borderRadius: 8,
+                      border: "1px solid #E5E7EB",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={completedTasks[actualIndex] || false}
+                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
+                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
+                        {task.text}
+                      </p>
+                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
+                        {task.impact}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* 30-45 minute actions */}
+          <div>
+            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
+              30–45 minute actions
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {job.tasks.filter(t => t.duration === "30-45").map((task, index) => {
+                const actualIndex = job.tasks.indexOf(task)
+                return (
+                  <div
+                    key={actualIndex}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 12,
+                      fontSize: 14,
+                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
+                      padding: "12px 16px",
+                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
+                      borderRadius: 8,
+                      border: "1px solid #E5E7EB",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={completedTasks[actualIndex] || false}
+                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
+                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
+                        {task.text}
+                      </p>
+                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
+                        {task.impact}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </main>
