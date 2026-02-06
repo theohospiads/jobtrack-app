@@ -3,7 +3,6 @@
 import { TopNav } from "@/components/top-nav"
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
-import { ChevronDown, X } from "lucide-react"
 
 interface ActionJob {
   id: string
