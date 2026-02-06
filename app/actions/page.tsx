@@ -147,7 +147,7 @@ export default function ActionsPage() {
           }}
         >
           <img 
-            src="/placeholder.svg?height=100&width=1120" 
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/actions-banner%20%281%29-tEqrdCtsJIqg1kUlU21MRcITR6Zadm.jpg" 
             alt="Actions banner"
             style={{
               width: '100%',
