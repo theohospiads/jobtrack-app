@@ -545,8 +545,8 @@ export default function ActionDetailPage() {
           {/* Salary Container */}
           <div
             style={{
-              background: "#F3F4F6",
-              color: "#0F172A",
+              background: "#FFFFFF",
+              color: "#2563EB",
               fontSize: 15,
               fontWeight: 400,
               padding: "12px 24px",
@@ -559,9 +559,7 @@ export default function ActionDetailPage() {
               cursor: "default",
             }}
           >
-            <span>
-              Estimated Salary: <span style={{ fontWeight: 700 }}>{job.salary}</span>
-            </span>
+            Estimated Salary: {job.salary}
           </div>
 
           {/* Send a Follow-up Button */}
