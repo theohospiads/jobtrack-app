@@ -557,6 +557,7 @@ export default function ActionDetailPage() {
               gap: 8,
               flexShrink: 0,
               cursor: "default",
+              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08)",
             }}
           >
             Estimated Salary: {job.salary}
