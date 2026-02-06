@@ -146,15 +146,48 @@ export default function ActionsPage() {
             e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)'
           }}
         >
-          <img 
-            src="/placeholder.svg?height=100&width=1120" 
-            alt="Actions banner"
+          <svg 
+            viewBox="0 0 1120 100" 
+            preserveAspectRatio="xMidYMid slice"
             style={{
               width: '100%',
               height: '100%',
-              objectFit: 'cover'
+              display: 'block'
             }}
-          />
+          >
+            <defs>
+              <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#2563EB" />
+                <stop offset="100%" stopColor="#1E40AF" />
+              </linearGradient>
+              <linearGradient id="lightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#DBEAFE" />
+                <stop offset="100%" stopColor="#E0F2FE" />
+              </linearGradient>
+            </defs>
+            
+            {/* Background */}
+            <rect width="1120" height="100" fill="#F0F9FF" />
+            
+            {/* Large flowing shapes */}
+            <path d="M 0 30 Q 200 10, 400 30 T 800 30 L 800 100 L 0 100 Z" fill="url(#blueGrad)" opacity="0.15" />
+            <path d="M 0 50 Q 250 40, 500 50 T 1000 50 L 1120 100 L 0 100 Z" fill="url(#blueGrad)" opacity="0.25" />
+            
+            {/* Accent circles */}
+            <circle cx="150" cy="20" r="8" fill="url(#blueGrad)" opacity="0.4" />
+            <circle cx="950" cy="80" r="6" fill="#2563EB" opacity="0.3" />
+            <circle cx="1050" cy="25" r="5" fill="#2563EB" opacity="0.25" />
+            
+            {/* Geometric lines */}
+            <line x1="100" y1="10" x2="130" y2="40" stroke="#2563EB" strokeWidth="1.5" opacity="0.3" />
+            <line x1="950" y1="20" x2="1000" y2="60" stroke="#2563EB" strokeWidth="1.5" opacity="0.3" />
+            <line x1="500" y1="5" x2="550" y2="35" stroke="#2563EB" strokeWidth="1" opacity="0.2" />
+            
+            {/* Dots pattern */}
+            <circle cx="700" cy="15" r="2.5" fill="#2563EB" opacity="0.4" />
+            <circle cx="730" cy="18" r="2.5" fill="#2563EB" opacity="0.35" />
+            <circle cx="760" cy="15" r="2.5" fill="#2563EB" opacity="0.4" />
+          </svg>
         </div>
 
         {/* Filter Section */}
