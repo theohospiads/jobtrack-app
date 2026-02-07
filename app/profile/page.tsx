@@ -40,7 +40,7 @@ export default function ProfilePage() {
               <span
                 style={{
                   color: "#2563EB",
-                  fontSize: "36px",
+                  fontSize: "48px",
                   fontWeight: "700",
                   lineHeight: "1",
                 }}
@@ -225,7 +225,7 @@ export default function ProfilePage() {
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
               Career Targets
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               {/* Primary Focus */}
               <div
                 style={{
