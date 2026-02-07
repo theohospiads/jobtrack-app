@@ -212,7 +212,10 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
 
         {/* Right Side: View More Button */}
         <button
-          onClick={() => router.push(`/opportunities/${opportunity.id}`)}
+          onClick={(e) => {
+            e.stopPropagation()
+            router.push(`/opportunities/${opportunity.id}`)
+          }}
           className="flex items-center gap-2 cursor-pointer text-sm font-medium rounded-lg px-3 py-2 whitespace-nowrap flex-shrink-0"
           style={{
             background: "#2563EB",
