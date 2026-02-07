@@ -391,9 +391,6 @@ export default function ApplyPage() {
     </div>
   )
 }
-
-      <main style={{ maxWidth: "900px", margin: "0 auto", padding: "32px 16px" }}>
-        {/* Back Button */}
         <button
           onClick={() => router.back()}
           style={{
