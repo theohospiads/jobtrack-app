@@ -77,7 +77,7 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <p className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Matches Found</p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Matches Found</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>10</p>
             <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+18% from last week</p>
           </div>
@@ -100,7 +100,7 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <p className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Outreach Sent</p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Outreach Sent</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>42</p>
             <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+7 from last week</p>
           </div>
@@ -123,7 +123,7 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <p className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Responses Received</p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Responses Received</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>4</p>
             <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+2 new responses</p>
           </div>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <p className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Interview Rate</p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Interview Rate</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>+3.2%</p>
             <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+2.1% reply rate</p>
           </div>
