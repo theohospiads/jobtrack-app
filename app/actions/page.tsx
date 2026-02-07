@@ -299,6 +299,7 @@ export default function ActionsPage() {
                 transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 cursor: 'pointer'
               }}
+              onClick={() => router.push(`/actions/${index + 1}`)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)'
                 e.currentTarget.style.transform = 'translateY(-6px)'
