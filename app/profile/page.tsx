@@ -46,14 +46,13 @@ export default function ProfilePage() {
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* 1. Profile Strength - Hero Band (Flat + Spacing) */}
+          {/* 1. Profile Strength - Hero Band (Flat, no padding) */}
           <section
             className="transition-all duration-300"
             style={{
-              paddingTop: "32px",
-              paddingBottom: "32px",
+              paddingBottom: "24px",
               borderBottom: "1px solid #E5E7EB",
-              marginBottom: "24px",
+              marginBottom: "0",
             }}
           >
             {/* Inline metric with headline */}
