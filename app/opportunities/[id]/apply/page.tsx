@@ -392,14 +392,6 @@ export default function ApplyPage() {
   )
 }
 
-  const handleSave = () => {
-    setApplicationState("saved")
-  }
-
-  return (
-    <div style={{ background: "#F8FAFC", minHeight: "100vh" }}>
-      <TopNav />
-
       <main style={{ maxWidth: "900px", margin: "0 auto", padding: "32px 16px" }}>
         {/* Back Button */}
         <button
