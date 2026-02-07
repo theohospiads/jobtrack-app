@@ -46,11 +46,11 @@ export default function ProfilePage() {
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* 1. Profile Strength */}
+          {/* 1. Profile Strength - Optimized for Elite UX */}
           <section
-            className="rounded-2xl p-6 transition-all duration-300"
+            className="rounded-2xl p-8 transition-all duration-300"
             style={{
-              background: "#FFFFFF",
+              background: "linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%)",
               border: "1px solid #E5E7EB",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
             }}
@@ -61,70 +61,76 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "20px" }}>
-              <span
-                style={{
-                  color: "#2563EB",
-                  fontSize: "40px",
-                  fontWeight: "700",
-                  lineHeight: "1",
-                }}
-              >
-                72%
-              </span>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Strong profile for Product & Data roles in EU startups
-                </h3>
-                <p style={{ fontSize: "13px", color: "#64748B", margin: "0" }}>
-                  Adding 2–3 quantified results will increase your visibility by ~15%.
+            <div style={{ display: "flex", alignItems: "center", gap: "24px", marginBottom: "0" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <span
+                  style={{
+                    color: "#2563EB",
+                    fontSize: "44px",
+                    fontWeight: "700",
+                    lineHeight: "1",
+                    letterSpacing: "-1px",
+                  }}
+                >
+                  72%
+                </span>
+                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "8px 0 0 0", textTransform: "uppercase" }}>
+                  Profile Strength
                 </p>
               </div>
-            </div>
-            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-              <button
-                style={{
-                  background: "#2563EB",
-                  color: "#FFFFFF",
-                  border: "none",
-                  padding: "12px 20px",
-                  borderRadius: "8px",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#1E40AF"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#2563EB"
-                }}
-              >
-                Improve profile (3 quick wins)
-              </button>
-              <button
-                style={{
-                  background: "transparent",
-                  color: "#2563EB",
-                  border: "none",
-                  padding: "12px 0",
-                  borderRadius: "0",
-                  fontSize: "14px",
-                  fontWeight: "400",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.textDecoration = "underline"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.textDecoration = "none"
-                }}
-              >
-                See what's missing →
-              </button>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#0F172A", margin: "0 0 6px 0", lineHeight: "1.3" }}>
+                  Strong profile for Product & Data roles in EU startups
+                </h3>
+                <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 16px 0", lineHeight: "1.5" }}>
+                  Adding 2–3 quantified results will increase your visibility by ~15%.
+                </p>
+                <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                  <button
+                    style={{
+                      background: "#2563EB",
+                      color: "#FFFFFF",
+                      border: "none",
+                      padding: "11px 20px",
+                      borderRadius: "8px",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                      letterSpacing: "-0.2px",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "#1E40AF"
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "#2563EB"
+                    }}
+                  >
+                    Improve profile (3 quick wins)
+                  </button>
+                  <button
+                    style={{
+                      background: "transparent",
+                      color: "#2563EB",
+                      border: "none",
+                      padding: "0",
+                      fontSize: "13px",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                      textDecoration: "none",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.textDecoration = "underline"
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.textDecoration = "none"
+                    }}
+                  >
+                    See what's missing →
+                  </button>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -232,7 +238,7 @@ export default function ProfilePage() {
             </div>
           </section>
 
-          {/* 3. Career Targets */}
+          {/* 3. Career Targets - 3 Column Grid */}
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -250,40 +256,41 @@ export default function ProfilePage() {
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
               Career Targets
             </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
               {/* Primary Focus */}
               <div
                 style={{
-                  padding: "18px",
+                  padding: "20px",
                   background: "#F0F9FF",
                   borderRadius: "12px",
                   border: "2px solid #2563EB",
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "16px",
+                  flexDirection: "column",
+                  gap: "12px",
+                  height: "100%",
                 }}
               >
-                <div style={{ flex: 1 }}>
+                <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-                    <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                      Product Analyst
-                    </p>
                     <span
                       style={{
                         background: "#2563EB",
                         color: "#FFFFFF",
-                        padding: "2px 8px",
+                        padding: "3px 10px",
                         borderRadius: "4px",
-                        fontSize: "11px",
-                        fontWeight: "600",
+                        fontSize: "10px",
+                        fontWeight: "700",
+                        letterSpacing: "-0.3px",
                       }}
                     >
-                      Primary Focus
+                      PRIMARY
                     </span>
                   </div>
+                  <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    Product Analyst
+                  </p>
                   <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                    Strong fit — prioritize this role in your job search.
+                    Best match for your profile
                   </p>
                 </div>
                 <button
@@ -291,14 +298,14 @@ export default function ProfilePage() {
                     background: "#2563EB",
                     color: "#FFFFFF",
                     border: "none",
-                    padding: "8px 12px",
+                    padding: "10px 16px",
                     borderRadius: "6px",
-                    fontSize: "12px",
+                    fontSize: "13px",
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
+                    width: "100%",
+                    marginTop: "auto",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "#1E40AF"
@@ -314,22 +321,22 @@ export default function ProfilePage() {
               {/* Secondary Option */}
               <div
                 style={{
-                  padding: "16px",
+                  padding: "20px",
                   background: "#F8FAFC",
                   borderRadius: "12px",
                   border: "1px solid #E5E7EB",
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "16px",
+                  flexDirection: "column",
+                  gap: "12px",
+                  height: "100%",
                 }}
               >
-                <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Business Intelligence Analyst
+                <div>
+                  <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    BI Analyst
                   </p>
                   <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                    Strong fit — growing demand aligned with your skills.
+                    Growing demand, strong fit
                   </p>
                 </div>
                 <button
@@ -337,14 +344,14 @@ export default function ProfilePage() {
                     background: "#FFFFFF",
                     color: "#2563EB",
                     border: "1px solid #E5E7EB",
-                    padding: "8px 12px",
+                    padding: "10px 16px",
                     borderRadius: "6px",
-                    fontSize: "12px",
+                    fontSize: "13px",
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
+                    width: "100%",
+                    marginTop: "auto",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "#F1F5F9"
@@ -360,40 +367,52 @@ export default function ProfilePage() {
               {/* Stretch Option */}
               <div
                 style={{
-                  padding: "16px",
+                  padding: "20px",
                   background: "#F8FAFC",
                   borderRadius: "12px",
                   border: "1px solid #E5E7EB",
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "16px",
+                  flexDirection: "column",
+                  gap: "12px",
+                  height: "100%",
                 }}
               >
-                <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                <div>
+                  <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
                     Data Analyst
                   </p>
-                  <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 4px 0" }}>
-                    Moderate fit — one skill gap identified.
+                  <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 6px 0" }}>
+                    Skill gap: Advanced experimentation
                   </p>
-                  <p style={{ fontSize: "12px", color: "#2563EB", margin: 0, fontWeight: "500" }}>
-                    Missing: Advanced experimentation design
-                  </p>
+                  <button
+                    style={{
+                      background: "transparent",
+                      color: "#2563EB",
+                      border: "none",
+                      padding: "0",
+                      fontSize: "12px",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                      marginTop: "4px",
+                    }}
+                  >
+                    Learn skill
+                  </button>
                 </div>
                 <button
                   style={{
                     background: "#FFFFFF",
                     color: "#2563EB",
                     border: "1px solid #E5E7EB",
-                    padding: "8px 12px",
+                    padding: "10px 16px",
                     borderRadius: "6px",
-                    fontSize: "12px",
+                    fontSize: "13px",
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
+                    width: "100%",
+                    marginTop: "auto",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "#F1F5F9"
@@ -402,7 +421,7 @@ export default function ProfilePage() {
                     e.currentTarget.style.background = "#FFFFFF"
                   }}
                 >
-                  Build skill
+                  Add to search
                 </button>
               </div>
             </div>
