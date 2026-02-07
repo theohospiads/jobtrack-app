@@ -2,6 +2,7 @@
 
 import { TopNav } from "@/components/top-nav"
 import { PageHeader } from "@/components/page-header"
+import Link from "next/link"
 
 export default function DashboardPage() {
   return (
@@ -491,17 +492,19 @@ export default function DashboardPage() {
                     <p className="text-xs" style={{ color: "#64748B" }}>Acme Corp</p>
                   </div>
                 </div>
-                <button
+                <Link
+                  href="/opportunities/1"
                   className="px-3 py-1 rounded-lg text-xs font-medium transition-colors"
                   style={{
                     background: "#F1F5F9",
-                    color: "#2563EB"
+                    color: "#2563EB",
+                    textDecoration: "none",
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.background = "#E2E8F0"}
                   onMouseLeave={(e) => e.currentTarget.style.background = "#F1F5F9"}
                 >
                   View
-                </button>
+                </Link>
               </div>
 
               {/* Response 2 */}
