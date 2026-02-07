@@ -186,7 +186,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Recent Responses Section - Above Tutorials */}
+        {/* Application Health Section - Above Tutorials */}
         <div 
           className="mb-12 rounded-2xl p-8 transition-all duration-300"
           style={{
@@ -205,91 +205,75 @@ export default function DashboardPage() {
         >
             <div className="mb-6">
               <h3 className="text-xl font-semibold mb-1" style={{ color: "#0F172A" }}>
-                Recent Responses
+                Application Health
               </h3>
               <p className="text-sm" style={{ color: "#64748B" }}>
-                Latest responses you got
+                An overview of how your active applications are progressing
               </p>
             </div>
 
-            {/* Responses List */}
+            {/* Application Health List */}
             <div className="flex flex-col gap-4">
-              {/* Response 1 */}
+              {/* Health 1 */}
               <div className="flex items-center justify-between pb-4 border-b" style={{ borderColor: "#E5E7EB" }}>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-1">
                   <div
                     className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
                     style={{
                       width: "40px",
                       height: "40px",
-                      background: "#E0E7FF",
+                      background: "#DBEAFE",
                       color: "#2563EB",
                     }}
                   >
-                    JD
+                    PA
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Jane Doe</p>
-                    <p className="text-xs" style={{ color: "#64748B" }}>Acme Inc.</p>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Product Analyst Intern</p>
+                    <p className="text-xs" style={{ color: "#64748B" }}>Acme Corp • Applied 3 days ago</p>
                   </div>
                 </div>
-                <button
-                  className="px-3 py-1 rounded-lg text-xs font-medium transition-all"
-                  style={{
-                    background: "#F1F5F9",
-                    color: "#2563EB",
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#E2E8F0";
-                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#F1F5F9";
-                    e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.04)";
-                  }}
-                >
-                  View
-                </button>
+                <div className="flex items-center gap-3">
+                  <div style={{ textAlign: "right" }}>
+                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>78%</p>
+                    <p className="text-xs" style={{ color: "#64748B" }}>Health Score</p>
+                  </div>
+                  <div
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: "#10B981" }}
+                  />
+                </div>
               </div>
 
-              {/* Response 2 */}
+              {/* Health 2 */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-1">
                   <div
                     className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
                     style={{
                       width: "40px",
                       height: "40px",
-                      background: "#E0E7FF",
-                      color: "#2563EB",
+                      background: "#FEF3C7",
+                      color: "#D97706",
                     }}
                   >
-                    MR
+                    DA
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Mike Roberts</p>
-                    <p className="text-xs" style={{ color: "#64748B" }}>StartupXYZ</p>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Data Analyst</p>
+                    <p className="text-xs" style={{ color: "#64748B" }}>TechStart Inc • Applied 5 days ago</p>
                   </div>
                 </div>
-                <button
-                  className="px-3 py-1 rounded-lg text-xs font-medium transition-all"
-                  style={{
-                    background: "#F1F5F9",
-                    color: "#2563EB",
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#E2E8F0";
-                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#F1F5F9";
-                    e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.04)";
-                  }}
-                >
-                  View
-                </button>
+                <div className="flex items-center gap-3">
+                  <div style={{ textAlign: "right" }}>
+                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>62%</p>
+                    <p className="text-xs" style={{ color: "#64748B" }}>Health Score</p>
+                  </div>
+                  <div
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: "#F59E0B" }}
+                  />
+                </div>
               </div>
             </div>
         </div>
@@ -491,17 +475,18 @@ export default function DashboardPage() {
                     <p className="text-xs" style={{ color: "#64748B" }}>Acme Corp</p>
                   </div>
                 </div>
-                <button
-                  className="px-3 py-1 rounded-lg text-xs font-medium transition-colors"
+                <div
+                  className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
                   style={{
-                    background: "#F1F5F9",
-                    color: "#2563EB"
+                    width: "48px",
+                    height: "48px",
+                    background: "#F0F9FF",
+                    border: "2px solid #2563EB",
+                    color: "#2563EB",
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "#E2E8F0"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "#F1F5F9"}
                 >
-                  View
-                </button>
+                  87%
+                </div>
               </div>
 
               {/* Response 2 */}
@@ -523,17 +508,17 @@ export default function DashboardPage() {
                     <p className="text-xs" style={{ color: "#64748B" }}>TechStart Inc</p>
                   </div>
                 </div>
-                <button
-                  className="px-3 py-1 rounded-lg text-xs font-medium transition-colors"
+                <div
+                  className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
                   style={{
-                    background: "#F1F5F9",
-                    color: "#2563EB"
+                    width: "48px",
+                    height: "48px",
+                    background: "#FEF3C7",
+                    border: "2px solid #F59E0B",
+                    color: "#D97706",
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "#E2E8F0"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "#F1F5F9"}
                 >
-                  View
-                </button>
+                  72%
               </div>
             </div>
         </div>

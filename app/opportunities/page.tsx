@@ -117,6 +117,7 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
         border: "1px solid #E5E7EB",
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
       }}
+      onClick={() => router.push(`/opportunities/${opportunity.id}`)}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "#CBD5E1"
         e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)"
@@ -211,7 +212,10 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
 
         {/* Right Side: View More Button */}
         <button
-          onClick={() => router.push(`/opportunities/${opportunity.id}`)}
+          onClick={(e) => {
+            e.stopPropagation()
+            router.push(`/opportunities/${opportunity.id}`)
+          }}
           className="flex items-center gap-2 cursor-pointer text-sm font-medium rounded-lg px-3 py-2 whitespace-nowrap flex-shrink-0"
           style={{
             background: "#2563EB",
