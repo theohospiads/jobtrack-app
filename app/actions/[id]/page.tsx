@@ -451,9 +451,9 @@ export default function ActionDetailPage() {
             marginTop: 24,
           }}
         >
-          {/* Tasks to do - Title */}
+          {/* Steps to Move Forward - Title */}
           <h3 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: "0 0 16px 0" }}>
-            Tasks to do
+            Steps to Move Forward :
           </h3>
 
           {/* All tasks in single container */}
