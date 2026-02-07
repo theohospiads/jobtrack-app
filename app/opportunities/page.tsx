@@ -117,6 +117,7 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
         border: "1px solid #E5E7EB",
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
       }}
+      onClick={() => router.push(`/opportunities/${opportunity.id}`)}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "#CBD5E1"
         e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)"
