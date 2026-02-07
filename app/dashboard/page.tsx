@@ -475,17 +475,17 @@ export default function DashboardPage() {
                     <p className="text-xs" style={{ color: "#64748B" }}>Acme Corp</p>
                   </div>
                 </div>
-                <div
-                  className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
-                  style={{
-                    width: "48px",
-                    height: "48px",
-                    background: "#F0F9FF",
-                    border: "2px solid #2563EB",
-                    color: "#2563EB",
-                  }}
-                >
-                  87%
+                <div className="flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-center justify-center relative">
+                    <svg width="60" height="60" viewBox="0 0 100 100" className="transform -rotate-90">
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#E5E7EB" strokeWidth="8" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#2563EB" strokeWidth="8" strokeDasharray={`${(87 / 100) * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeLinecap="round" style={{ transition: "stroke-dasharray 0.3s ease" }} />
+                    </svg>
+                    <div className="absolute flex flex-col items-center justify-center">
+                      <span className="text-xs font-bold" style={{ color: "#2563EB" }}>87%</span>
+                      <span className="text-[10px] font-medium mt-0.5" style={{ color: "#2563EB" }}>Strong fit</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -508,17 +508,17 @@ export default function DashboardPage() {
                     <p className="text-xs" style={{ color: "#64748B" }}>TechStart Inc</p>
                   </div>
                 </div>
-                <div
-                  className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
-                  style={{
-                    width: "48px",
-                    height: "48px",
-                    background: "#F0F9FF",
-                    border: "2px solid #2563EB",
-                    color: "#2563EB",
-                  }}
-                >
-                  72%
+                <div className="flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-center justify-center relative">
+                    <svg width="60" height="60" viewBox="0 0 100 100" className="transform -rotate-90">
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#E5E7EB" strokeWidth="8" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="#2563EB" strokeWidth="8" strokeDasharray={`${(72 / 100) * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeLinecap="round" style={{ transition: "stroke-dasharray 0.3s ease" }} />
+                    </svg>
+                    <div className="absolute flex flex-col items-center justify-center">
+                      <span className="text-xs font-bold" style={{ color: "#2563EB" }}>72%</span>
+                      <span className="text-[10px] font-medium mt-0.5" style={{ color: "#2563EB" }}>Strong fit</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
