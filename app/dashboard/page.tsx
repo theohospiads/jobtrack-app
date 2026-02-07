@@ -240,7 +240,7 @@ export default function DashboardPage() {
                   </div>
                   <div
                     className="w-2 h-2 rounded-full"
-                    style={{ background: "#10B981" }}
+                    style={{ background: "#2563EB" }}
                   />
                 </div>
               </div>
@@ -271,7 +271,7 @@ export default function DashboardPage() {
                   </div>
                   <div
                     className="w-2 h-2 rounded-full"
-                    style={{ background: "#F59E0B" }}
+                    style={{ background: "#2563EB" }}
                   />
                 </div>
               </div>
