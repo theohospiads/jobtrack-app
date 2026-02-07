@@ -76,6 +76,10 @@ export default function ProfilePage() {
               background: "#FFFFFF",
               border: "1px solid #E5E7EB",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "20px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
@@ -84,6 +88,9 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
+            <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.5", flex: 1 }}>
+              This information is used to build your profile and generate your CV.
+            </p>
             <button
               onClick={() => router.push('/profile/information')}
               style={{
@@ -97,6 +104,8 @@ export default function ProfilePage() {
                 cursor: "pointer",
                 transition: "all 0.2s",
                 letterSpacing: "-0.2px",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "#1E40AF"
@@ -105,7 +114,7 @@ export default function ProfilePage() {
                 e.currentTarget.style.background = "#2563EB"
               }}
             >
-              View profile information
+              View profile details
             </button>
           </section>
 
