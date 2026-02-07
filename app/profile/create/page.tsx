@@ -56,20 +56,21 @@ export default function CreateProfilePage() {
     <div className="min-h-screen" style={{ backgroundColor: "#F8FAFC" }}>
       <TopNav />
       
-      <main className="mx-auto max-w-[600px] px-6 py-12">
+      <main className="mx-auto max-w-[600px] px-6 py-10">
         {/* Progress Bar */}
-        <div style={{ marginBottom: "32px" }}>
-          <div style={{ height: "4px", background: "#E5E7EB", borderRadius: "2px", overflow: "hidden", marginBottom: "12px" }}>
+        <div style={{ marginBottom: "40px" }}>
+          <div style={{ height: "6px", background: "#E5E7EB", borderRadius: "3px", overflow: "hidden", marginBottom: "12px" }}>
             <div
               style={{
                 height: "100%",
                 background: "#2563EB",
                 width: `${progress}%`,
                 transition: "width 0.3s ease",
+                borderRadius: "3px",
               }}
             />
           </div>
-          <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+          <p style={{ fontSize: "12px", color: "#64748B", margin: 0, fontWeight: "500" }}>
             Step {step} of {totalSteps}
           </p>
         </div>
@@ -77,10 +78,10 @@ export default function CreateProfilePage() {
         {/* Step 1: Target Role */}
         {step === 1 && (
           <div>
-            <h1 style={{ fontSize: "28px", fontWeight: "600", color: "#0F172A", margin: "0 0 8px 0" }}>
+            <h1 style={{ fontSize: "32px", fontWeight: "700", color: "#0F172A", margin: "0 0 8px 0", lineHeight: "1.2", letterSpacing: "-0.5px" }}>
               What's your target role?
             </h1>
-            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 24px 0" }}>
+            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 32px 0", lineHeight: "1.5" }}>
               We'll use this to personalize job matches and recommendations.
             </p>
 
@@ -122,10 +123,10 @@ export default function CreateProfilePage() {
         {/* Step 2: Seniority & Experience */}
         {step === 2 && (
           <div>
-            <h1 style={{ fontSize: "28px", fontWeight: "600", color: "#0F172A", margin: "0 0 8px 0" }}>
+            <h1 style={{ fontSize: "32px", fontWeight: "700", color: "#0F172A", margin: "0 0 8px 0", lineHeight: "1.2", letterSpacing: "-0.5px" }}>
               What's your seniority level?
             </h1>
-            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 24px 0" }}>
+            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 32px 0", lineHeight: "1.5" }}>
               This helps us match you with the right opportunities.
             </p>
 
@@ -187,10 +188,10 @@ export default function CreateProfilePage() {
         {/* Step 3: Industries & Locations */}
         {step === 3 && (
           <div>
-            <h1 style={{ fontSize: "28px", fontWeight: "600", color: "#0F172A", margin: "0 0 8px 0" }}>
+            <h1 style={{ fontSize: "32px", fontWeight: "700", color: "#0F172A", margin: "0 0 8px 0", lineHeight: "1.2", letterSpacing: "-0.5px" }}>
               What industries interest you?
             </h1>
-            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 24px 0" }}>
+            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 32px 0", lineHeight: "1.5" }}>
               Select all that apply (pick at least one).
             </p>
 
@@ -258,10 +259,10 @@ export default function CreateProfilePage() {
         {/* Step 4: Key Skills */}
         {step === 4 && (
           <div>
-            <h1 style={{ fontSize: "28px", fontWeight: "600", color: "#0F172A", margin: "0 0 8px 0" }}>
+            <h1 style={{ fontSize: "32px", fontWeight: "700", color: "#0F172A", margin: "0 0 8px 0", lineHeight: "1.2", letterSpacing: "-0.5px" }}>
               What are your core skills?
             </h1>
-            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 24px 0" }}>
+            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 32px 0", lineHeight: "1.5" }}>
               Pick your 3-5 strongest skills.
             </p>
 
@@ -297,10 +298,10 @@ export default function CreateProfilePage() {
         {/* Step 5: Company Preferences */}
         {step === 5 && (
           <div>
-            <h1 style={{ fontSize: "28px", fontWeight: "600", color: "#0F172A", margin: "0 0 8px 0" }}>
+            <h1 style={{ fontSize: "32px", fontWeight: "700", color: "#0F172A", margin: "0 0 8px 0", lineHeight: "1.2", letterSpacing: "-0.5px" }}>
               Company preferences?
             </h1>
-            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 24px 0" }}>
+            <p style={{ fontSize: "14px", color: "#64748B", margin: "0 0 32px 0", lineHeight: "1.5" }}>
               This helps us find the best matches for you.
             </p>
 
