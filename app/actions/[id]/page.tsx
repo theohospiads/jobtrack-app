@@ -566,6 +566,10 @@ export default function ActionDetailPage() {
           {/* Send a Follow-up Button */}
           <button
             type="button"
+            onClick={() => {
+              console.log("[v0] Button clicked, id:", id)
+              router.push(`/actions/${id}/send-follow-up`)
+            }}
             style={{
               background: "#2563EB",
               color: "#FFFFFF",
@@ -593,18 +597,6 @@ export default function ActionDetailPage() {
               e.currentTarget.style.background = "#2563EB"
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.25), 0 1px 3px rgba(0, 0, 0, 0.08)"
               e.currentTarget.style.transform = "translateY(0)"
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.transform = "translateY(0px)"
-              e.currentTarget.style.boxShadow = "0 2px 6px rgba(37, 99, 235, 0.2), 0 0px 2px rgba(0, 0, 0, 0.06)"
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)"
-              e.currentTarget.style.boxShadow = "0 12px 24px rgba(37, 99, 235, 0.35), 0 4px 8px rgba(0, 0, 0, 0.1)"
-            }}
-            onClick={() => {
-              console.log("[v0] Send follow-up clicked, navigating to /actions/" + id + "/send-follow-up")
-              router.push(`/actions/${id}/send-follow-up`)
             }}
           >
             Send a follow-up
