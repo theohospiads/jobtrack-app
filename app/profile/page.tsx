@@ -25,15 +25,15 @@ export default function ProfilePage() {
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
-              background: "#FFFFFF",
-              border: "1px solid #E5E7EB",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+              background: "transparent",
+              border: "none",
+              boxShadow: "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
+              e.currentTarget.style.boxShadow = "none"
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
+              e.currentTarget.style.boxShadow = "none"
             }}
           >
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
