@@ -145,56 +145,6 @@ export default function ProfilePage() {
             </div>
           </section>
 
-          {/* 2. How Your Profile Is Interpreted - Merged Summary */}
-          <section
-            className="rounded-2xl p-6 transition-all duration-300"
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #E5E7EB",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-            }}
-          >
-            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
-              How your profile is interpreted
-            </h2>
-            <div style={{ marginBottom: "20px" }}>
-              <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 4px 0", fontWeight: "500", lineHeight: "1.5" }}>
-                Early-career Product Analyst · Remote EU · Full-time
-              </p>
-              <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.5" }}>
-                Optimized for Product & BI roles — targeting fast-growing European startups with data-driven cultures
-              </p>
-            </div>
-            <button
-              onClick={() => router.push('/profile/preferences')}
-              style={{
-                background: "transparent",
-                color: "#2563EB",
-                border: "none",
-                padding: "0",
-                fontSize: "13px",
-                fontWeight: "500",
-                cursor: "pointer",
-                textDecoration: "underline",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.textDecoration = "none"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.textDecoration = "underline"
-              }}
-            >
-              Edit career & preferences →
-            </button>
-          </section>
-
-          {/* 3. Career Targets - 3 Column Grid */}
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
