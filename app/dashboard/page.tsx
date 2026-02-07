@@ -253,8 +253,8 @@ export default function DashboardPage() {
                     style={{
                       width: "40px",
                       height: "40px",
-                      background: "#FEF3C7",
-                      color: "#D97706",
+                      background: "#DBEAFE",
+                      color: "#2563EB",
                     }}
                   >
                     DA
@@ -513,9 +513,9 @@ export default function DashboardPage() {
                   style={{
                     width: "48px",
                     height: "48px",
-                    background: "#FEF3C7",
-                    border: "2px solid #F59E0B",
-                    color: "#D97706",
+                    background: "#F0F9FF",
+                    border: "2px solid #2563EB",
+                    color: "#2563EB",
                   }}
                 >
                   72%
