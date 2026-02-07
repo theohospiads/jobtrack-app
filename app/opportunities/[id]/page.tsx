@@ -611,6 +611,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
               alignItems: "center",
               gap: 8,
             }}
+            onClick={() => router.push(`/opportunities/${id}/apply`)}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "#1E40AF";
               e.currentTarget.style.boxShadow = "0 6px 16px rgba(37, 99, 235, 0.4)";
