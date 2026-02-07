@@ -519,6 +519,7 @@ export default function DashboardPage() {
                   }}
                 >
                   72%
+                </div>
               </div>
             </div>
         </div>
