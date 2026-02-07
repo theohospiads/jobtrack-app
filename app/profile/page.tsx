@@ -67,11 +67,8 @@ export default function ProfilePage() {
             </p>
 
             {/* Career positioning info */}
-            <p style={{ fontSize: "13px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>
+            <p style={{ fontSize: "13px", color: "#0F172A", margin: "0 0 16px 0", fontWeight: "500" }}>
               Early-career Product Analyst · Remote EU · Full-time
-            </p>
-            <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 16px 0" }}>
-              Optimized for Product & BI roles
             </p>
 
             {/* Action buttons */}
@@ -118,29 +115,6 @@ export default function ProfilePage() {
                 }}
               >
                 See what's missing →
-              </button>
-              <span style={{ fontSize: "13px", color: "#94A3B8" }}>·</span>
-              <button
-                onClick={() => router.push('/profile/preferences')}
-                style={{
-                  background: "transparent",
-                  color: "#64748B",
-                  border: "none",
-                  padding: "0",
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#2563EB"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "#64748B"
-                }}
-              >
-                Edit career & preferences →
               </button>
             </div>
           </section>
