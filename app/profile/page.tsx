@@ -40,23 +40,15 @@ export default function ProfilePage() {
               Profile Strength
             </h2>
             <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
-              <div
+              <span
                 style={{
-                  width: "80px",
-                  height: "80px",
-                  borderRadius: "50%",
-                  background: "#FFFFFF",
-                  border: "1px solid #E5E7EB",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
                   color: "#2563EB",
                   fontSize: "32px",
                   fontWeight: "700",
                 }}
               >
                 72%
-              </div>
+              </span>
               <div style={{ flex: 1 }}>
                 <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 8px 0" }}>
                   Your profile is optimized for Product & Data roles in EU startups.
