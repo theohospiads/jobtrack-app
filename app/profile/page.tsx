@@ -66,9 +66,58 @@ export default function ProfilePage() {
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
               What jobs we are currently optimizing for
             </h2>
-            <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.5" }}>
-              Early-career Product Analyst · Remote EU · Full-time
-            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
+              {/* Role */}
+              <div
+                style={{
+                  padding: "14px",
+                  background: "#F8FAFC",
+                  borderRadius: "8px",
+                  border: "1px solid #E5E7EB",
+                }}
+              >
+                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
+                  Primary Role
+                </p>
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                  Product Analyst
+                </p>
+              </div>
+
+              {/* Location */}
+              <div
+                style={{
+                  padding: "14px",
+                  background: "#F8FAFC",
+                  borderRadius: "8px",
+                  border: "1px solid #E5E7EB",
+                }}
+              >
+                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
+                  Location
+                </p>
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                  Remote EU
+                </p>
+              </div>
+
+              {/* Employment Type */}
+              <div
+                style={{
+                  padding: "14px",
+                  background: "#F8FAFC",
+                  borderRadius: "8px",
+                  border: "1px solid #E5E7EB",
+                }}
+              >
+                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
+                  Employment Type
+                </p>
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                  Full-time
+                </p>
+              </div>
+            </div>
           </section>
 
           {/* 2. View profile information */}
