@@ -601,6 +601,7 @@ export default function ActionDetailPage() {
               e.currentTarget.style.transform = "translateY(-2px)"
               e.currentTarget.style.boxShadow = "0 12px 24px rgba(37, 99, 235, 0.35), 0 4px 8px rgba(0, 0, 0, 0.1)"
             }}
+            onClick={() => router.push(`/actions/${id}/send-follow-up`)}
           >
             Send a follow-up
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
