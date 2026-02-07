@@ -2,7 +2,6 @@
 
 import { TopNav } from "@/components/top-nav"
 import { useParams, useRouter } from "next/navigation"
-import Link from "next/link"
 import { useState } from "react"
 
 interface ActionJob {
@@ -565,8 +564,12 @@ export default function ActionDetailPage() {
           </div>
 
           {/* Send a Follow-up Button */}
-          <Link
-            href={`/actions/${id}/send-follow-up`}
+          <button
+            type="button"
+            onClick={() => {
+              console.log("[v0] Button clicked, id:", id)
+              router.push(`/actions/${id}/send-follow-up`)
+            }}
             style={{
               background: "#2563EB",
               color: "#FFFFFF",
@@ -584,7 +587,6 @@ export default function ActionDetailPage() {
               flexShrink: 0,
               position: "relative",
               overflow: "hidden",
-              textDecoration: "none",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "#1E40AF"
@@ -601,7 +603,7 @@ export default function ActionDetailPage() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </Link>
+          </button>
         </div>
       </main>
     </div>
