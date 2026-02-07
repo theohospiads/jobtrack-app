@@ -66,7 +66,7 @@ export default function ProfilePage() {
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
               What jobs we are currently optimizing for
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {/* Role */}
               <div
                 style={{
