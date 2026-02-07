@@ -2,8 +2,10 @@
 
 import { TopNav } from "@/components/top-nav"
 import { PageHeader } from "@/components/page-header"
+import { useRouter } from "next/navigation"
 
 export default function DashboardPage() {
+  const router = useRouter()
   return (
     <div 
       className="min-h-screen min-w-[1280px]"
@@ -215,7 +217,25 @@ export default function DashboardPage() {
             {/* Application Health List */}
             <div className="flex flex-col gap-4">
               {/* Health 1 */}
-              <div className="flex items-center justify-between pb-4 border-b" style={{ borderColor: "#E5E7EB" }}>
+              <div 
+                className="flex items-center justify-between pb-4 border-b cursor-pointer transition-all duration-300"
+                style={{ borderColor: "#E5E7EB" }}
+                onClick={() => router.push('/actions/1')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
+                  e.currentTarget.style.borderRadius = "8px";
+                  e.currentTarget.style.paddingLeft = "8px";
+                  e.currentTarget.style.paddingRight = "8px";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.borderRadius = "0";
+                  e.currentTarget.style.paddingLeft = "0";
+                  e.currentTarget.style.paddingRight = "0";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
                 <div className="flex items-center gap-3 flex-1">
                   <div
                     className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
@@ -246,7 +266,24 @@ export default function DashboardPage() {
               </div>
 
               {/* Health 2 */}
-              <div className="flex items-center justify-between">
+              <div 
+                className="flex items-center justify-between cursor-pointer transition-all duration-300"
+                onClick={() => router.push('/actions/2')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
+                  e.currentTarget.style.borderRadius = "8px";
+                  e.currentTarget.style.paddingLeft = "8px";
+                  e.currentTarget.style.paddingRight = "8px";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.borderRadius = "0";
+                  e.currentTarget.style.paddingLeft = "0";
+                  e.currentTarget.style.paddingRight = "0";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
                 <div className="flex items-center gap-3 flex-1">
                   <div
                     className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
@@ -457,7 +494,25 @@ export default function DashboardPage() {
             {/* Responses List */}
             <div className="flex flex-col gap-4">
               {/* Response 1 */}
-              <div className="flex items-center justify-between pb-4 border-b" style={{ borderColor: "#E5E7EB" }}>
+              <div 
+                className="flex items-center justify-between pb-4 border-b cursor-pointer transition-all duration-300"
+                style={{ borderColor: "#E5E7EB" }}
+                onClick={() => router.push('/opportunities/1')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
+                  e.currentTarget.style.borderRadius = "8px";
+                  e.currentTarget.style.paddingLeft = "8px";
+                  e.currentTarget.style.paddingRight = "8px";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.borderRadius = "0";
+                  e.currentTarget.style.paddingLeft = "0";
+                  e.currentTarget.style.paddingRight = "0";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
                 <div className="flex items-center gap-3">
                   <div
                     className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
@@ -490,7 +545,24 @@ export default function DashboardPage() {
               </div>
 
               {/* Response 2 */}
-              <div className="flex items-center justify-between">
+              <div 
+                className="flex items-center justify-between cursor-pointer transition-all duration-300"
+                onClick={() => router.push('/opportunities/2')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
+                  e.currentTarget.style.borderRadius = "8px";
+                  e.currentTarget.style.paddingLeft = "8px";
+                  e.currentTarget.style.paddingRight = "8px";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.borderRadius = "0";
+                  e.currentTarget.style.paddingLeft = "0";
+                  e.currentTarget.style.paddingRight = "0";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
                 <div className="flex items-center gap-3">
                   <div
                     className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
