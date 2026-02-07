@@ -46,7 +46,7 @@ export default function ProfilePage() {
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* 1. Profile Strength - Compact Merged Card */}
+          {/* 1. What jobs we are currently optimizing for */}
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -61,62 +61,52 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            {/* Inline metric with headline */}
-            <p style={{ fontSize: "15px", color: "#0F172A", margin: "0 0 14px 0", fontWeight: "500", lineHeight: "1.5" }}>
-              <span style={{ fontSize: "18px", fontWeight: "700", color: "#2563EB" }}>72%</span> — Strong profile for Product & Data roles in EU startups
-            </p>
-
-            {/* Career positioning info */}
-            <p style={{ fontSize: "13px", color: "#0F172A", margin: "0 0 16px 0", fontWeight: "500" }}>
+            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
+              What jobs we are currently optimizing for
+            </h2>
+            <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.5" }}>
               Early-career Product Analyst · Remote EU · Full-time
             </p>
+          </section>
 
-            {/* Action buttons */}
-            <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-              <button
-                style={{
-                  background: "#2563EB",
-                  color: "#FFFFFF",
-                  border: "none",
-                  padding: "11px 18px",
-                  borderRadius: "8px",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  letterSpacing: "-0.2px",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#1E40AF"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#2563EB"
-                }}
-              >
-                Improve profile (3 quick wins)
-              </button>
-              <button
-                style={{
-                  background: "transparent",
-                  color: "#2563EB",
-                  border: "none",
-                  padding: "0",
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.textDecoration = "underline"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.textDecoration = "none"
-                }}
-              >
-                See what's missing →
-              </button>
-            </div>
+          {/* 2. View profile information */}
+          <section
+            className="rounded-2xl p-6 transition-all duration-300"
+            style={{
+              background: "#FFFFFF",
+              border: "1px solid #E5E7EB",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
+            }}
+          >
+            <button
+              onClick={() => router.push('/profile/information')}
+              style={{
+                background: "#2563EB",
+                color: "#FFFFFF",
+                border: "none",
+                padding: "11px 18px",
+                borderRadius: "8px",
+                fontSize: "13px",
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "all 0.2s",
+                letterSpacing: "-0.2px",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#1E40AF"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#2563EB"
+              }}
+            >
+              View profile information
+            </button>
           </section>
 
           <section
