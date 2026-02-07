@@ -134,7 +134,7 @@ export default function ProfilePage() {
             </div>
           </section>
 
-          {/* 2. Career DNA */}
+          {/* 2. How Your Profile Is Interpreted - Merged Summary */}
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -149,93 +149,38 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-              <h2 className="text-base font-semibold" style={{ color: "#0F172A" }}>
-                Career DNA
-              </h2>
-              <button
-                style={{
-                  background: "#F3F4F6",
-                  color: "#2563EB",
-                  border: "none",
-                  padding: "8px 12px",
-                  borderRadius: "6px",
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#E5E7EB"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#F3F4F6"
-                }}
-              >
-                Adjust inputs
-              </button>
+            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
+              How your profile is interpreted
+            </h2>
+            <div style={{ marginBottom: "20px" }}>
+              <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 4px 0", fontWeight: "500", lineHeight: "1.5" }}>
+                Early-career Product Analyst · Remote EU · Full-time
+              </p>
+              <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.5" }}>
+                Optimized for Product & BI roles — targeting fast-growing European startups with data-driven cultures
+              </p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-              {/* Career Stage */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Career Stage
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                  Early Career
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: "4px 0 0 0" }}>
-                  0-3 years in field
-                </p>
-              </div>
-
-              {/* Core Strengths */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Core Strengths
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                  Analytics & SQL
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: "4px 0 0 0" }}>
-                  Data-driven mindset
-                </p>
-              </div>
-
-              {/* Primary Role Family */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Primary Role
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                  Product Analyst
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: "4px 0 0 0" }}>
-                  Best fit for you
-                </p>
-              </div>
-            </div>
+            <button
+              onClick={() => router.push('/profile/preferences')}
+              style={{
+                background: "transparent",
+                color: "#2563EB",
+                border: "none",
+                padding: "0",
+                fontSize: "13px",
+                fontWeight: "500",
+                cursor: "pointer",
+                textDecoration: "underline",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.textDecoration = "none"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.textDecoration = "underline"
+              }}
+            >
+              Edit career & preferences →
+            </button>
           </section>
 
           {/* 3. Career Targets - 3 Column Grid */}
@@ -427,106 +372,7 @@ export default function ProfilePage() {
             </div>
           </section>
 
-          {/* 4. Personalization Rules */}
-          <section
-            className="rounded-2xl p-6 transition-all duration-300"
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #E5E7EB",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-            }}
-          >
-            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
-              Personalization Rules
-            </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
-              {/* Contract Type */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Contract Type
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Full-time
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects job visibility
-                </p>
-              </div>
 
-              {/* Work Style */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Work Style
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Remote / Hybrid
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects location filtering
-                </p>
-              </div>
-
-              {/* Locations */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Locations
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Paris, London, Remote EU
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects matching
-                </p>
-              </div>
-
-              {/* Salary Flexibility */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Salary Flexibility
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  ±15% range
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects seniority range
-                </p>
-              </div>
-            </div>
-          </section>
 
           {/* 5. Profile Quality Signals */}
           <section
