@@ -25,8 +25,8 @@ export default function ProfilePage() {
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
-              background: "transparent",
-              border: "none",
+              background: "#EFF6FF",
+              border: "1px solid #BFDBFE",
               boxShadow: "none",
             }}
             onMouseEnter={(e) => {
