@@ -201,7 +201,7 @@ export default function ProfilePage() {
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
               Career Targets
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               {/* Primary Focus */}
               <div
                 style={{
@@ -210,12 +210,13 @@ export default function ProfilePage() {
                   borderRadius: "12px",
                   border: "2px solid #2563EB",
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                  height: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "20px",
+                  justifyContent: "space-between",
                 }}
               >
-                <div>
+                <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
                     <span
                       style={{
@@ -249,8 +250,8 @@ export default function ProfilePage() {
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    width: "100%",
-                    marginTop: "auto",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "#1E40AF"
@@ -271,12 +272,13 @@ export default function ProfilePage() {
                   borderRadius: "12px",
                   border: "1px solid #E5E7EB",
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                  height: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "20px",
+                  justifyContent: "space-between",
                 }}
               >
-                <div>
+                <div style={{ flex: 1 }}>
                   <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
                     BI Analyst
                   </p>
@@ -295,8 +297,8 @@ export default function ProfilePage() {
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    width: "100%",
-                    marginTop: "auto",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "#F1F5F9"
@@ -317,12 +319,13 @@ export default function ProfilePage() {
                   borderRadius: "12px",
                   border: "1px solid #E5E7EB",
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                  height: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "20px",
+                  justifyContent: "space-between",
                 }}
               >
-                <div>
+                <div style={{ flex: 1 }}>
                   <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
                     Data Analyst
                   </p>
@@ -356,8 +359,8 @@ export default function ProfilePage() {
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    width: "100%",
-                    marginTop: "auto",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "#F1F5F9"
