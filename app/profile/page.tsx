@@ -46,14 +46,19 @@ export default function ProfilePage() {
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* 1. Profile Strength - Hero Band (Flat + Spacing) */}
+          {/* 1. Profile Strength - Compact Merged Card */}
           <section
-            className="transition-all duration-300"
+            className="rounded-2xl p-6 transition-all duration-300"
             style={{
-              paddingTop: "32px",
-              paddingBottom: "32px",
-              borderBottom: "1px solid #E5E7EB",
-              marginBottom: "24px",
+              background: "#FFFFFF",
+              border: "1px solid #E5E7EB",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
             {/* Inline metric with headline */}
