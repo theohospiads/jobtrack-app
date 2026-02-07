@@ -475,17 +475,18 @@ export default function DashboardPage() {
                     <p className="text-xs" style={{ color: "#64748B" }}>Acme Corp</p>
                   </div>
                 </div>
-                <button
-                  className="px-3 py-1 rounded-lg text-xs font-medium transition-colors"
+                <div
+                  className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
                   style={{
-                    background: "#F1F5F9",
-                    color: "#2563EB"
+                    width: "48px",
+                    height: "48px",
+                    background: "#F0F9FF",
+                    border: "2px solid #2563EB",
+                    color: "#2563EB",
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "#E2E8F0"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "#F1F5F9"}
                 >
-                  View
-                </button>
+                  87%
+                </div>
               </div>
 
               {/* Response 2 */}
@@ -507,17 +508,17 @@ export default function DashboardPage() {
                     <p className="text-xs" style={{ color: "#64748B" }}>TechStart Inc</p>
                   </div>
                 </div>
-                <button
-                  className="px-3 py-1 rounded-lg text-xs font-medium transition-colors"
+                <div
+                  className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
                   style={{
-                    background: "#F1F5F9",
-                    color: "#2563EB"
+                    width: "48px",
+                    height: "48px",
+                    background: "#FEF3C7",
+                    border: "2px solid #F59E0B",
+                    color: "#D97706",
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "#E2E8F0"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "#F1F5F9"}
                 >
-                  View
-                </button>
+                  72%
               </div>
             </div>
         </div>
