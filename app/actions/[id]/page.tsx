@@ -451,92 +451,48 @@ export default function ActionDetailPage() {
             marginTop: 24,
           }}
         >
-          {/* 15-minute actions */}
-          <div style={{ marginBottom: 20 }}>
-            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              15-minute actions
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {job.tasks.filter(t => t.duration === "15").map((task, index) => {
-                const actualIndex = job.tasks.indexOf(task)
-                return (
-                  <div
-                    key={actualIndex}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 12,
-                      fontSize: 14,
-                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                      padding: "12px 16px",
-                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
-                      borderRadius: 8,
-                      border: "1px solid #E5E7EB",
-                      transition: "all 0.2s",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={completedTasks[actualIndex] || false}
-                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
-                    />
-                    <div style={{ flex: 1 }}>
-                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
-                        {task.text}
-                      </p>
-                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                        {task.impact}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
+          {/* Tasks to do - Title */}
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: "0 0 16px 0" }}>
+            Tasks to do
+          </h3>
 
-          {/* 30-45 minute actions */}
-          <div>
-            <p style={{ fontSize: 12, color: "#64748B", fontWeight: 600, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              30–45 minute actions
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {job.tasks.filter(t => t.duration === "30-45").map((task, index) => {
-                const actualIndex = job.tasks.indexOf(task)
-                return (
-                  <div
-                    key={actualIndex}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 12,
-                      fontSize: 14,
-                      color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
-                      padding: "12px 16px",
-                      background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
-                      borderRadius: 8,
-                      border: "1px solid #E5E7EB",
-                      transition: "all 0.2s",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={completedTasks[actualIndex] || false}
-                      onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
-                      style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
-                    />
-                    <div style={{ flex: 1 }}>
-                      <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
-                        {task.text}
-                      </p>
-                      <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                        {task.impact}
-                      </p>
-                    </div>
+          {/* All tasks in single container */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {job.tasks.map((task, index) => {
+              const actualIndex = job.tasks.indexOf(task)
+              return (
+                <div
+                  key={actualIndex}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 12,
+                    fontSize: 14,
+                    color: completedTasks[actualIndex] ? "#94A3B8" : "#0F172A",
+                    padding: "12px 16px",
+                    background: completedTasks[actualIndex] ? "#F1F5F9" : "#F8FAFC",
+                    borderRadius: 8,
+                    border: "1px solid #E5E7EB",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={completedTasks[actualIndex] || false}
+                    onChange={(e) => setCompletedTasks({ ...completedTasks, [actualIndex]: e.target.checked })}
+                    style={{ width: 20, height: 20, cursor: "pointer", marginTop: 2, flexShrink: 0 }}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
+                      {task.text}
+                    </p>
+                    <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
+                      {task.impact}
+                    </p>
                   </div>
-                )
-              })}
-            </div>
+                </div>
+              )
+            })}
           </div>
         </div>
 
