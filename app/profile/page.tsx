@@ -36,49 +36,71 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
-              Profile Strength
-            </h2>
-            <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "20px" }}>
               <span
                 style={{
                   color: "#2563EB",
-                  fontSize: "32px",
+                  fontSize: "48px",
                   fontWeight: "700",
+                  lineHeight: "1",
                 }}
               >
                 72%
               </span>
               <div style={{ flex: 1 }}>
-                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 8px 0" }}>
-                  Your profile is optimized for Product & Data roles in EU startups.
-                </p>
+                <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                  Strong profile for Product & Data roles in EU startups
+                </h3>
                 <p style={{ fontSize: "13px", color: "#64748B", margin: "0" }}>
-                  Adding 2-3 quantified results would boost visibility by ~15%.
+                  Adding 2–3 quantified results will increase your visibility by ~15%.
                 </p>
               </div>
             </div>
-            <button
-              style={{
-                background: "#FFFFFF",
-                color: "#2563EB",
-                border: "1px solid #2563EB",
-                padding: "10px 16px",
-                borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: "500",
-                cursor: "pointer",
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#EFF6FF"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#FFFFFF"
-              }}
-            >
-              Improve profile inputs
-            </button>
+            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+              <button
+                style={{
+                  background: "#2563EB",
+                  color: "#FFFFFF",
+                  border: "none",
+                  padding: "12px 20px",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#1E40AF"
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#2563EB"
+                }}
+              >
+                Improve profile (3 quick wins)
+              </button>
+              <button
+                style={{
+                  background: "transparent",
+                  color: "#2563EB",
+                  border: "none",
+                  padding: "12px 0",
+                  borderRadius: "0",
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.textDecoration = "underline"
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.textDecoration = "none"
+                }}
+              >
+                See what's missing →
+              </button>
+            </div>
           </section>
 
           {/* 2. Career DNA */}
@@ -203,43 +225,68 @@ export default function ProfilePage() {
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
               Career Targets
             </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {/* Target 1 */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              {/* Primary Focus */}
               <div
                 style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
+                  padding: "18px",
+                  background: "#F0F9FF",
                   borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
+                  border: "2px solid #2563EB",
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: "flex-start",
+                  gap: "16px",
                 }}
               >
-                <div>
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Product Analyst
-                  </p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                    Strong alignment with your background
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                    <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                      Product Analyst
+                    </p>
+                    <span
+                      style={{
+                        background: "#2563EB",
+                        color: "#FFFFFF",
+                        padding: "2px 8px",
+                        borderRadius: "4px",
+                        fontSize: "11px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Primary Focus
+                    </span>
+                  </div>
+                  <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
+                    Strong fit — prioritize this role in your job search.
                   </p>
                 </div>
-                <div
+                <button
                   style={{
-                    background: "#ECFDF5",
-                    color: "#065F46",
-                    padding: "6px 12px",
+                    background: "#2563EB",
+                    color: "#FFFFFF",
+                    border: "none",
+                    padding: "8px 12px",
                     borderRadius: "6px",
                     fontSize: "12px",
-                    fontWeight: "600",
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    whiteSpace: "nowrap",
                     flexShrink: 0,
                   }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#1E40AF"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#2563EB"
+                  }}
                 >
-                  Strong
-                </div>
+                  Search jobs
+                </button>
               </div>
 
-              {/* Target 2 */}
+              {/* Secondary Option */}
               <div
                 style={{
                   padding: "16px",
@@ -248,65 +295,90 @@ export default function ProfilePage() {
                   border: "1px solid #E5E7EB",
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: "flex-start",
+                  gap: "16px",
                 }}
               >
-                <div>
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Data Analyst
-                  </p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                    Solid match with some gaps
-                  </p>
-                </div>
-                <div
-                  style={{
-                    background: "#FFF7ED",
-                    color: "#9A3412",
-                    padding: "6px 12px",
-                    borderRadius: "6px",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                    flexShrink: 0,
-                  }}
-                >
-                  Moderate
-                </div>
-              </div>
-
-              {/* Target 3 */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div>
+                <div style={{ flex: 1 }}>
                   <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
                     Business Intelligence Analyst
                   </p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                    Growing opportunity aligned with skills
+                  <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
+                    Strong fit — growing demand aligned with your skills.
                   </p>
                 </div>
-                <div
+                <button
                   style={{
-                    background: "#ECFDF5",
-                    color: "#065F46",
-                    padding: "6px 12px",
+                    background: "#FFFFFF",
+                    color: "#2563EB",
+                    border: "1px solid #E5E7EB",
+                    padding: "8px 12px",
                     borderRadius: "6px",
                     fontSize: "12px",
-                    fontWeight: "600",
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    whiteSpace: "nowrap",
                     flexShrink: 0,
                   }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#F1F5F9"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#FFFFFF"
+                  }}
                 >
-                  Strong
+                  Include in search
+                </button>
+              </div>
+
+              {/* Stretch Option */}
+              <div
+                style={{
+                  padding: "16px",
+                  background: "#F8FAFC",
+                  borderRadius: "12px",
+                  border: "1px solid #E5E7EB",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  gap: "16px",
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    Data Analyst
+                  </p>
+                  <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 4px 0" }}>
+                    Moderate fit — one skill gap identified.
+                  </p>
+                  <p style={{ fontSize: "12px", color: "#2563EB", margin: 0, fontWeight: "500" }}>
+                    Missing: Advanced experimentation design
+                  </p>
                 </div>
+                <button
+                  style={{
+                    background: "#FFFFFF",
+                    color: "#2563EB",
+                    border: "1px solid #E5E7EB",
+                    padding: "8px 12px",
+                    borderRadius: "6px",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#F1F5F9"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#FFFFFF"
+                  }}
+                >
+                  Build skill
+                </button>
               </div>
             </div>
           </section>
@@ -427,48 +499,58 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-              <h2 className="text-base font-semibold" style={{ color: "#0F172A" }}>
-                Profile Quality Signals
-              </h2>
-              <button
-                style={{
-                  background: "#2563EB",
-                  color: "#FFFFFF",
-                  border: "none",
-                  padding: "8px 16px",
-                  borderRadius: "6px",
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#1E40AF"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#2563EB"
-                }}
-              >
-                Improve profile
-              </button>
-            </div>
+            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
+              Profile Quality Signals
+            </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
-                <p style={{ fontSize: "14px", color: "#0F172A", margin: 0 }}>Quantified experience</p>
-                <span style={{ fontSize: "18px" }}>✅</span>
+              {/* Quantified Experience - Good */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
+                <div>
+                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Quantified experience</p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>Recruiters can quickly assess your impact.</p>
+                </div>
+                <span style={{ fontSize: "18px", flexShrink: 0 }}>✅</span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
-                <p style={{ fontSize: "14px", color: "#0F172A", margin: 0 }}>Role clarity</p>
-                <span style={{ fontSize: "18px" }}>✅</span>
+
+              {/* Role Clarity - Good */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
+                <div>
+                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Role clarity</p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>Your profile clearly targets specific roles.</p>
+                </div>
+                <span style={{ fontSize: "18px", flexShrink: 0 }}>✅</span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
-                <p style={{ fontSize: "14px", color: "#0F172A", margin: 0 }}>Skill depth</p>
-                <span style={{ fontSize: "18px" }}>⚠️</span>
+
+              {/* Skill Depth - Warning with action */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#FEF3C7", borderRadius: "8px", border: "1px solid #FCD34D" }}>
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Skill depth</p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: "0 0 6px 0" }}>Add one advanced example (SQL, experimentation, or metrics ownership).</p>
+                  <button
+                    style={{
+                      background: "transparent",
+                      color: "#2563EB",
+                      border: "none",
+                      padding: "0",
+                      fontSize: "12px",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    Fix skill depth
+                  </button>
+                </div>
+                <span style={{ fontSize: "18px", flexShrink: 0 }}>⚠️</span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
-                <p style={{ fontSize: "14px", color: "#0F172A", margin: 0 }}>Market positioning</p>
-                <span style={{ fontSize: "18px" }}>✅</span>
+
+              {/* Market Positioning - Good */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
+                <div>
+                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Market positioning</p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>Aligned with current hiring demand.</p>
+                </div>
+                <span style={{ fontSize: "18px", flexShrink: 0 }}>✅</span>
               </div>
             </div>
           </section>
