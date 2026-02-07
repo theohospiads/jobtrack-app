@@ -1,8 +1,11 @@
 'use client';
 
 import { TopNav } from "@/components/top-nav"
+import { useRouter } from "next/navigation"
 
 export default function ProfilePage() {
+  const router = useRouter()
+
   return (
     <div
       className="min-h-screen min-w-[1280px]"
@@ -10,14 +13,36 @@ export default function ProfilePage() {
     >
       <TopNav />
       <main className="mx-auto max-w-[1120px] px-6 pt-6 pb-10">
-        {/* Page Header */}
-        <header className="mb-8">
+        {/* Page Header with Create Profile Button */}
+        <header className="mb-8 flex items-center justify-between">
           <h1
             className="text-[32px] font-semibold leading-[1.2]"
             style={{ color: "#0F172A", letterSpacing: "-0.5px" }}
           >
             Profile
           </h1>
+          <button
+            onClick={() => router.push('/profile/create')}
+            style={{
+              background: "#2563EB",
+              color: "#FFFFFF",
+              border: "none",
+              padding: "12px 20px",
+              borderRadius: "8px",
+              fontSize: "14px",
+              fontWeight: "500",
+              cursor: "pointer",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#1E40AF"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "#2563EB"
+            }}
+          >
+            Create profile
+          </button>
         </header>
 
         <div className="flex flex-col gap-8">
@@ -40,7 +65,7 @@ export default function ProfilePage() {
               <span
                 style={{
                   color: "#2563EB",
-                  fontSize: "48px",
+                  fontSize: "40px",
                   fontWeight: "700",
                   lineHeight: "1",
                 }}
