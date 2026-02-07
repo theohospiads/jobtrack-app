@@ -14,8 +14,6 @@ export default function ApplyPage() {
   )
   const [selectedCV, setSelectedCV] = useState("GeneratedCV_2024.pdf")
   const [applicationState, setApplicationState] = useState<"ready" | "submitted" | "saved">("ready")
-  const [showRefuseModal, setShowRefuseModal] = useState(false)
-  const [refuseFeedback, setRefuseFeedback] = useState("")
 
   const handleApply = () => {
     setApplicationState("submitted")
@@ -23,11 +21,6 @@ export default function ApplyPage() {
 
   const handleSave = () => {
     setApplicationState("saved")
-  }
-
-  const handleRefuse = () => {
-    setShowRefuseModal(false)
-    setApplicationState("ready")
   }
 
   return (
@@ -313,112 +306,8 @@ export default function ApplyPage() {
               >
                 Save for Later
               </button>
-              <button
-                onClick={() => setShowRefuseModal(true)}
-                style={{
-                  background: "#FFFFFF",
-                  color: "#64748B",
-                  fontSize: 15,
-                  fontWeight: 400,
-                  padding: "12px 24px",
-                  borderRadius: 8,
-                  border: "1px solid #E5E7EB",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#F8FAFC"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#FFFFFF"
-                }}
-              >
-                Not Interested
-              </button>
             </div>
           </>
-        )}
-
-        {/* Refuse Modal */}
-        {showRefuseModal && (
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "rgba(0, 0, 0, 0.5)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 1000,
-            }}
-            onClick={() => setShowRefuseModal(false)}
-          >
-            <div
-              style={{
-                background: "#FFFFFF",
-                borderRadius: 12,
-                padding: 32,
-                maxWidth: 400,
-                boxShadow: "0 20px 25px rgba(0, 0, 0, 0.15)",
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
-                Not Interested?
-              </h3>
-              <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 16px 0" }}>
-                Help us improve by sharing why this role isn't right for you.
-              </p>
-              <textarea
-                value={refuseFeedback}
-                onChange={(e) => setRefuseFeedback(e.target.value)}
-                placeholder="Tell us what made you pass on this opportunity..."
-                style={{
-                  width: "100%",
-                  minHeight: 80,
-                  padding: 12,
-                  border: "1px solid #E5E7EB",
-                  borderRadius: 8,
-                  fontSize: 14,
-                  marginBottom: 16,
-                  fontFamily: "inherit",
-                }}
-              />
-              <div style={{ display: "flex", gap: 12 }}>
-                <button
-                  onClick={() => setShowRefuseModal(false)}
-                  style={{
-                    flex: 1,
-                    background: "#FFFFFF",
-                    color: "#64748B",
-                    padding: "10px 16px",
-                    borderRadius: 8,
-                    border: "1px solid #E5E7EB",
-                    cursor: "pointer",
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleRefuse}
-                  style={{
-                    flex: 1,
-                    background: "#2563EB",
-                    color: "#FFFFFF",
-                    padding: "10px 16px",
-                    borderRadius: 8,
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Confirm
-                </button>
-              </div>
-            </div>
-          </div>
         )}
       </main>
     </div>
