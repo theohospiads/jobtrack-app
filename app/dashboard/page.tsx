@@ -480,7 +480,7 @@ export default function DashboardPage() {
                   style={{
                     width: "48px",
                     height: "48px",
-                    background: "#F0F9FF",
+                    background: "#FFFFFF",
                     border: "2px solid #2563EB",
                     color: "#2563EB",
                   }}
@@ -513,7 +513,7 @@ export default function DashboardPage() {
                   style={{
                     width: "48px",
                     height: "48px",
-                    background: "#F0F9FF",
+                    background: "#FFFFFF",
                     border: "2px solid #2563EB",
                     color: "#2563EB",
                   }}
