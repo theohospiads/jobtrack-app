@@ -20,11 +20,21 @@ export default function CreateProfilePage() {
 
   const totalSteps = 5
 
+  const isStepValid = () => {
+    if (step === 1) return profileData.targetRole !== ''
+    if (step === 2) return profileData.seniority !== ''
+    if (step === 3) return profileData.industries.length > 0
+    if (step === 4) return profileData.skills.length > 0
+    if (step === 5) return profileData.companySize !== ''
+    return false
+  }
+
   const handleNext = () => {
+    if (!isStepValid()) return
+    
     if (step < totalSteps) {
       setStep(step + 1)
     } else {
-      // Save profile and redirect
       router.push('/profile')
     }
   }
@@ -40,6 +50,7 @@ export default function CreateProfilePage() {
   }
 
   const progress = (step / totalSteps) * 100
+  const isValid = isStepValid()
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#F8FAFC" }}>
@@ -383,45 +394,27 @@ export default function CreateProfilePage() {
           )}
           <button
             onClick={handleNext}
-            disabled={
-              (step === 1 && !profileData.targetRole) ||
-              (step === 2 && !profileData.seniority) ||
-              (step === 3 && profileData.industries.length === 0) ||
-              (step === 4 && profileData.skills.length === 0) ||
-              (step === 5 && !profileData.companySize)
-            }
+            disabled={!isValid}
             style={{
               flex: 1,
               padding: "12px 24px",
-              background: [1, 2, 3, 4, 5].some(s => 
-                (s === 1 && !profileData.targetRole) ||
-                (s === 2 && !profileData.seniority) ||
-                (s === 3 && profileData.industries.length === 0) ||
-                (s === 4 && profileData.skills.length === 0) ||
-                (s === 5 && !profileData.companySize)
-              ) && step === s ? "#D1D5DB" : "#2563EB",
+              background: isValid ? "#2563EB" : "#D1D5DB",
               color: "#FFFFFF",
               border: "none",
               borderRadius: "8px",
               fontSize: "14px",
               fontWeight: "500",
-              cursor: "pointer",
+              cursor: isValid ? "pointer" : "not-allowed",
               transition: "all 0.2s",
-              opacity: [1, 2, 3, 4, 5].some(s => 
-                (s === 1 && !profileData.targetRole) ||
-                (s === 2 && !profileData.seniority) ||
-                (s === 3 && profileData.industries.length === 0) ||
-                (s === 4 && profileData.skills.length === 0) ||
-                (s === 5 && !profileData.companySize)
-              ) && step === s ? 0.6 : 1,
+              opacity: isValid ? 1 : 0.6,
             }}
             onMouseEnter={(e) => {
-              if (e.currentTarget.style.opacity !== "0.6") {
+              if (isValid) {
                 e.currentTarget.style.background = "#1E40AF"
               }
             }}
             onMouseLeave={(e) => {
-              if (e.currentTarget.style.opacity !== "0.6") {
+              if (isValid) {
                 e.currentTarget.style.background = "#2563EB"
               }
             }}
