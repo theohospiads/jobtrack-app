@@ -258,6 +258,29 @@ export default function ApplyPage() {
             {/* Action Buttons */}
             <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
               <button
+                onClick={handleSave}
+                style={{
+                  flex: 1,
+                  background: "#FFFFFF",
+                  color: "#2563EB",
+                  fontSize: 15,
+                  fontWeight: 400,
+                  padding: "12px 24px",
+                  borderRadius: 8,
+                  border: "1px solid #E5E7EB",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#F8FAFC"
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#FFFFFF"
+                }}
+              >
+                Save for Later
+              </button>
+              <button
                 onClick={handleApply}
                 style={{
                   flex: 1,
@@ -282,29 +305,6 @@ export default function ApplyPage() {
                 }}
               >
                 Apply & Send
-              </button>
-              <button
-                onClick={handleSave}
-                style={{
-                  flex: 1,
-                  background: "#FFFFFF",
-                  color: "#2563EB",
-                  fontSize: 15,
-                  fontWeight: 400,
-                  padding: "12px 24px",
-                  borderRadius: 8,
-                  border: "1px solid #E5E7EB",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#F8FAFC"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#FFFFFF"
-                }}
-              >
-                Save for Later
               </button>
             </div>
           </>
