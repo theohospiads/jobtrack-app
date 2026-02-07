@@ -9,12 +9,12 @@ export default function ProfilePage() {
       style={{ backgroundColor: "#F8FAFC" }}
     >
       <TopNav />
-      <main className="mx-auto max-w-[1120px] px-6 pt-8 pb-16">
+      <main className="mx-auto max-w-[1120px] px-6 pt-6 pb-10">
         {/* Page Header */}
         <header className="mb-8">
           <h1
-            className="text-2xl font-semibold"
-            style={{ color: "#0F172A" }}
+            className="text-[32px] font-semibold leading-[1.2]"
+            style={{ color: "#0F172A", letterSpacing: "-0.5px" }}
           >
             Profile
           </h1>
