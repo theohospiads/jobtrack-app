@@ -26,9 +26,9 @@ export default function ProfilePage() {
           <button
             onClick={() => router.push('/profile/create')}
             style={{
-              background: "#2563EB",
-              color: "#FFFFFF",
-              border: "none",
+              background: "transparent",
+              color: "#64748B",
+              border: "1px solid #E5E7EB",
               padding: "12px 20px",
               borderRadius: "8px",
               fontSize: "14px",
@@ -37,10 +37,12 @@ export default function ProfilePage() {
               transition: "all 0.2s",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#1E40AF"
+              e.currentTarget.style.background = "#F1F5F9"
+              e.currentTarget.style.color = "#0F172A"
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#2563EB"
+              e.currentTarget.style.background = "transparent"
+              e.currentTarget.style.color = "#64748B"
             }}
           >
             Create profile
@@ -145,9 +147,9 @@ export default function ProfilePage() {
             <button
               onClick={() => setShowProfileDetails(!showProfileDetails)}
               style={{
-                background: "#2563EB",
-                color: "#FFFFFF",
-                border: "none",
+                background: "transparent",
+                color: "#64748B",
+                border: "1px solid #E5E7EB",
                 padding: "11px 18px",
                 borderRadius: "8px",
                 fontSize: "13px",
@@ -159,10 +161,12 @@ export default function ProfilePage() {
                 flexShrink: 0,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#1E40AF"
+                e.currentTarget.style.background = "#F1F5F9"
+                e.currentTarget.style.color = "#0F172A"
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#2563EB"
+                e.currentTarget.style.background = "transparent"
+                e.currentTarget.style.color = "#64748B"
               }}
             >
               View profile details
