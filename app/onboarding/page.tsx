@@ -68,16 +68,10 @@ const QUESTIONS: Question[] = [
 
 export default function OnboardingPage() {
   const router = useRouter()
-  const { isAuthenticated, updateProfile } = useAuth()
+  const { updateProfile } = useAuth()
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/sign-up')
-    }
-  }, [isAuthenticated, router])
 
   const question = QUESTIONS[currentStep]
   const progress = ((currentStep + 1) / QUESTIONS.length) * 100
