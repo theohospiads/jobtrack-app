@@ -15,38 +15,14 @@ export default function ProfilePage() {
     >
       <TopNav />
       <main className="mx-auto max-w-[1120px] px-6 pt-6 pb-10">
-        {/* Page Header with Create Profile Button */}
-        <header className="mb-8 flex items-center justify-between">
+        {/* Page Header */}
+        <header className="mb-8">
           <h1
             className="text-[32px] font-semibold leading-[1.2]"
             style={{ color: "#0F172A", letterSpacing: "-0.5px" }}
           >
             Profile
           </h1>
-          <button
-            onClick={() => router.push('/profile/create')}
-            style={{
-              background: "transparent",
-              color: "#64748B",
-              border: "1px solid #E5E7EB",
-              padding: "12px 20px",
-              borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: "500",
-              cursor: "pointer",
-              transition: "all 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#F1F5F9"
-              e.currentTarget.style.color = "#0F172A"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent"
-              e.currentTarget.style.color = "#64748B"
-            }}
-          >
-            Create profile
-          </button>
         </header>
 
         <div className="flex flex-col gap-8">
@@ -147,9 +123,9 @@ export default function ProfilePage() {
             <button
               onClick={() => setShowProfileDetails(!showProfileDetails)}
               style={{
-                background: "transparent",
-                color: "#64748B",
-                border: "1px solid #E5E7EB",
+                background: "#2563EB",
+                color: "#FFFFFF",
+                border: "none",
                 padding: "11px 18px",
                 borderRadius: "8px",
                 fontSize: "13px",
@@ -161,12 +137,10 @@ export default function ProfilePage() {
                 flexShrink: 0,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#F1F5F9"
-                e.currentTarget.style.color = "#0F172A"
+                e.currentTarget.style.background = "#1E40AF"
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent"
-                e.currentTarget.style.color = "#64748B"
+                e.currentTarget.style.background = "#2563EB"
               }}
             >
               View profile details
