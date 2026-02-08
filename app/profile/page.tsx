@@ -1,27 +1,32 @@
 'use client';
 
 import { TopNav } from "@/components/top-nav"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export default function ProfilePage() {
+  const router = useRouter()
+  const [showProfileDetails, setShowProfileDetails] = useState(false)
+
   return (
     <div
       className="min-h-screen min-w-[1280px]"
       style={{ backgroundColor: "#F8FAFC" }}
     >
       <TopNav />
-      <main className="mx-auto max-w-[1120px] px-6 pt-8 pb-16">
+      <main className="mx-auto max-w-[1120px] px-6 pt-6 pb-10">
         {/* Page Header */}
         <header className="mb-8">
           <h1
-            className="text-2xl font-semibold"
-            style={{ color: "#0F172A" }}
+            className="text-[32px] font-semibold leading-[1.2]"
+            style={{ color: "#0F172A", letterSpacing: "-0.5px" }}
           >
             Profile
           </h1>
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* 1. Profile Strength */}
+          {/* 1. What jobs we are currently optimizing for */}
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -36,178 +41,260 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "20px" }}>
-              <span
+            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
+              What jobs we are currently optimizing for
+            </h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
+              {/* Role */}
+              <div
                 style={{
-                  color: "#2563EB",
-                  fontSize: "48px",
-                  fontWeight: "700",
-                  lineHeight: "1",
-                }}
-              >
-                72%
-              </span>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Strong profile for Product & Data roles in EU startups
-                </h3>
-                <p style={{ fontSize: "13px", color: "#64748B", margin: "0" }}>
-                  Adding 2–3 quantified results will increase your visibility by ~15%.
-                </p>
-              </div>
-            </div>
-            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-              <button
-                style={{
-                  background: "#2563EB",
-                  color: "#FFFFFF",
-                  border: "none",
-                  padding: "12px 20px",
+                  padding: "14px",
+                  background: "#F8FAFC",
                   borderRadius: "8px",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#1E40AF"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#2563EB"
-                }}
-              >
-                Improve profile (3 quick wins)
-              </button>
-              <button
-                style={{
-                  background: "transparent",
-                  color: "#2563EB",
-                  border: "none",
-                  padding: "12px 0",
-                  borderRadius: "0",
-                  fontSize: "14px",
-                  fontWeight: "400",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.textDecoration = "underline"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.textDecoration = "none"
-                }}
-              >
-                See what's missing →
-              </button>
-            </div>
-          </section>
-
-          {/* 2. Career DNA */}
-          <section
-            className="rounded-2xl p-6 transition-all duration-300"
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #E5E7EB",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-              <h2 className="text-base font-semibold" style={{ color: "#0F172A" }}>
-                Career DNA
-              </h2>
-              <button
-                style={{
-                  background: "#F3F4F6",
-                  color: "#2563EB",
-                  border: "none",
-                  padding: "8px 12px",
-                  borderRadius: "6px",
-                  fontSize: "13px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#E5E7EB"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#F3F4F6"
-                }}
-              >
-                Adjust inputs
-              </button>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-              {/* Career Stage */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
                   border: "1px solid #E5E7EB",
                 }}
               >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Career Stage
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                  Early Career
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: "4px 0 0 0" }}>
-                  0-3 years in field
-                </p>
-              </div>
-
-              {/* Core Strengths */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Core Strengths
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                  Analytics & SQL
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: "4px 0 0 0" }}>
-                  Data-driven mindset
-                </p>
-              </div>
-
-              {/* Primary Role Family */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
+                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
                   Primary Role
                 </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
                   Product Analyst
                 </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: "4px 0 0 0" }}>
-                  Best fit for you
+              </div>
+
+              {/* Location */}
+              <div
+                style={{
+                  padding: "14px",
+                  background: "#F8FAFC",
+                  borderRadius: "8px",
+                  border: "1px solid #E5E7EB",
+                }}
+              >
+                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
+                  Location
+                </p>
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                  Remote EU
+                </p>
+              </div>
+
+              {/* Employment Type */}
+              <div
+                style={{
+                  padding: "14px",
+                  background: "#F8FAFC",
+                  borderRadius: "8px",
+                  border: "1px solid #E5E7EB",
+                }}
+              >
+                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
+                  Employment Type
+                </p>
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                  Full-time
                 </p>
               </div>
             </div>
           </section>
 
-          {/* 3. Career Targets */}
+          {/* 2. View profile information */}
+          <section
+            className="rounded-2xl p-6 transition-all duration-300"
+            style={{
+              background: "#FFFFFF",
+              border: "1px solid #E5E7EB",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "20px",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
+            }}
+          >
+            <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.5", flex: 1 }}>
+              This information is used to build your profile and generate your CV.
+            </p>
+            <button
+              onClick={() => setShowProfileDetails(!showProfileDetails)}
+              style={{
+                background: "#2563EB",
+                color: "#FFFFFF",
+                border: "none",
+                padding: "11px 18px",
+                borderRadius: "8px",
+                fontSize: "13px",
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "all 0.2s",
+                letterSpacing: "-0.2px",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#1E40AF"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#2563EB"
+              }}
+            >
+              View profile details
+            </button>
+          </section>
+
+          {/* Profile Details Modal/Expandable Section */}
+          {showProfileDetails && (
+            <section
+              className="rounded-2xl p-6 transition-all duration-300"
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #E5E7EB",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
+                <div>
+                  <h2 className="text-base font-semibold" style={{ color: "#0F172A", margin: 0 }}>
+                    Profile Strength
+                  </h2>
+                  <p style={{ fontSize: "13px", color: "#64748B", margin: "4px 0 0 0" }}>
+                    Strong profile for Product & Data roles in EU startups
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowProfileDetails(false)}
+                  style={{
+                    background: "transparent",
+                    color: "#64748B",
+                    border: "none",
+                    padding: "0",
+                    fontSize: "18px",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#0F172A"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "#64748B"
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "20px" }}>
+                {/* Score Card */}
+                <div
+                  style={{
+                    padding: "16px",
+                    background: "#F8FAFC",
+                    borderRadius: "12px",
+                    border: "1px solid #E5E7EB",
+                  }}
+                >
+                  <p style={{ fontSize: "32px", fontWeight: "700", color: "#2563EB", margin: 0 }}>72%</p>
+                  <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "8px 0 0 0", textTransform: "uppercase" }}>
+                    Overall Score
+                  </p>
+                </div>
+
+                {/* Career Stage */}
+                <div
+                  style={{
+                    padding: "16px",
+                    background: "#F8FAFC",
+                    borderRadius: "12px",
+                    border: "1px solid #E5E7EB",
+                  }}
+                >
+                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    Early Career
+                  </p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                    0–3 years in field
+                  </p>
+                </div>
+
+                {/* Location */}
+                <div
+                  style={{
+                    padding: "16px",
+                    background: "#F8FAFC",
+                    borderRadius: "12px",
+                    border: "1px solid #E5E7EB",
+                  }}
+                >
+                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    Remote EU
+                  </p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                    Work location preference
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", gap: "12px" }}>
+                <button
+                  onClick={() => router.push('/profile/preferences')}
+                  style={{
+                    background: "#2563EB",
+                    color: "#FFFFFF",
+                    border: "none",
+                    padding: "11px 18px",
+                    borderRadius: "8px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    letterSpacing: "-0.2px",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#1E40AF"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#2563EB"
+                  }}
+                >
+                  Edit profile details
+                </button>
+                <button
+                  style={{
+                    background: "transparent",
+                    color: "#2563EB",
+                    border: "1px solid #E5E7EB",
+                    padding: "11px 18px",
+                    borderRadius: "8px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#F1F5F9"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent"
+                  }}
+                  onClick={() => setShowProfileDetails(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </section>
+          )}
+
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -229,36 +316,38 @@ export default function ProfilePage() {
               {/* Primary Focus */}
               <div
                 style={{
-                  padding: "18px",
+                  padding: "20px",
                   background: "#F0F9FF",
                   borderRadius: "12px",
                   border: "2px solid #2563EB",
                   display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "20px",
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "16px",
                 }}
               >
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-                    <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                      Product Analyst
-                    </p>
                     <span
                       style={{
                         background: "#2563EB",
                         color: "#FFFFFF",
-                        padding: "2px 8px",
+                        padding: "3px 10px",
                         borderRadius: "4px",
-                        fontSize: "11px",
-                        fontWeight: "600",
+                        fontSize: "10px",
+                        fontWeight: "700",
+                        letterSpacing: "-0.3px",
                       }}
                     >
-                      Primary Focus
+                      PRIMARY
                     </span>
                   </div>
+                  <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    Product Analyst
+                  </p>
                   <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                    Strong fit — prioritize this role in your job search.
+                    Best match for your profile
                   </p>
                 </div>
                 <button
@@ -266,9 +355,9 @@ export default function ProfilePage() {
                     background: "#2563EB",
                     color: "#FFFFFF",
                     border: "none",
-                    padding: "8px 12px",
+                    padding: "10px 16px",
                     borderRadius: "6px",
-                    fontSize: "12px",
+                    fontSize: "13px",
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
@@ -289,22 +378,23 @@ export default function ProfilePage() {
               {/* Secondary Option */}
               <div
                 style={{
-                  padding: "16px",
+                  padding: "20px",
                   background: "#F8FAFC",
                   borderRadius: "12px",
                   border: "1px solid #E5E7EB",
                   display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "20px",
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "16px",
                 }}
               >
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Business Intelligence Analyst
+                  <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    BI Analyst
                   </p>
                   <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                    Strong fit — growing demand aligned with your skills.
+                    Growing demand, strong fit
                   </p>
                 </div>
                 <button
@@ -312,9 +402,9 @@ export default function ProfilePage() {
                     background: "#FFFFFF",
                     color: "#2563EB",
                     border: "1px solid #E5E7EB",
-                    padding: "8px 12px",
+                    padding: "10px 16px",
                     borderRadius: "6px",
-                    fontSize: "12px",
+                    fontSize: "13px",
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
@@ -335,35 +425,48 @@ export default function ProfilePage() {
               {/* Stretch Option */}
               <div
                 style={{
-                  padding: "16px",
+                  padding: "20px",
                   background: "#F8FAFC",
                   borderRadius: "12px",
                   border: "1px solid #E5E7EB",
                   display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "20px",
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "16px",
                 }}
               >
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                  <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
                     Data Analyst
                   </p>
-                  <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 4px 0" }}>
-                    Moderate fit — one skill gap identified.
+                  <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 6px 0" }}>
+                    Skill gap: Advanced experimentation
                   </p>
-                  <p style={{ fontSize: "12px", color: "#2563EB", margin: 0, fontWeight: "500" }}>
-                    Missing: Advanced experimentation design
-                  </p>
+                  <button
+                    style={{
+                      background: "transparent",
+                      color: "#2563EB",
+                      border: "none",
+                      padding: "0",
+                      fontSize: "12px",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                      marginTop: "4px",
+                    }}
+                  >
+                    Learn skill
+                  </button>
                 </div>
                 <button
                   style={{
                     background: "#FFFFFF",
                     color: "#2563EB",
                     border: "1px solid #E5E7EB",
-                    padding: "8px 12px",
+                    padding: "10px 16px",
                     borderRadius: "6px",
-                    fontSize: "12px",
+                    fontSize: "13px",
                     fontWeight: "500",
                     cursor: "pointer",
                     transition: "all 0.2s",
@@ -377,183 +480,13 @@ export default function ProfilePage() {
                     e.currentTarget.style.background = "#FFFFFF"
                   }}
                 >
-                  Build skill
+                  Add to search
                 </button>
               </div>
             </div>
           </section>
 
-          {/* 4. Personalization Rules */}
-          <section
-            className="rounded-2xl p-6 transition-all duration-300"
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #E5E7EB",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-            }}
-          >
-            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
-              Personalization Rules
-            </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
-              {/* Contract Type */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Contract Type
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Full-time
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects job visibility
-                </p>
-              </div>
 
-              {/* Work Style */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Work Style
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Remote / Hybrid
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects location filtering
-                </p>
-              </div>
-
-              {/* Locations */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Locations
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Paris, London, Remote EU
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects matching
-                </p>
-              </div>
-
-              {/* Salary Flexibility */}
-              <div
-                style={{
-                  padding: "16px",
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
-                  Salary Flexibility
-                </p>
-                <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  ±15% range
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Affects seniority range
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* 5. Profile Quality Signals */}
-          <section
-            className="rounded-2xl p-6 transition-all duration-300"
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #E5E7EB",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-            }}
-          >
-            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
-              Profile Quality Signals
-            </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {/* Quantified Experience - Good */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
-                <div>
-                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Quantified experience</p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>Recruiters can quickly assess your impact.</p>
-                </div>
-                <span style={{ fontSize: "18px", flexShrink: 0 }}>✅</span>
-              </div>
-
-              {/* Role Clarity - Good */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
-                <div>
-                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Role clarity</p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>Your profile clearly targets specific roles.</p>
-                </div>
-                <span style={{ fontSize: "18px", flexShrink: 0 }}>✅</span>
-              </div>
-
-              {/* Skill Depth - Warning with action */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#FEF3C7", borderRadius: "8px", border: "1px solid #FCD34D" }}>
-                <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Skill depth</p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: "0 0 6px 0" }}>Add one advanced example (SQL, experimentation, or metrics ownership).</p>
-                  <button
-                    style={{
-                      background: "transparent",
-                      color: "#2563EB",
-                      border: "none",
-                      padding: "0",
-                      fontSize: "12px",
-                      fontWeight: "500",
-                      cursor: "pointer",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    Fix skill depth
-                  </button>
-                </div>
-                <span style={{ fontSize: "18px", flexShrink: 0 }}>⚠️</span>
-              </div>
-
-              {/* Market Positioning - Good */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "12px 16px", background: "#F8FAFC", borderRadius: "8px" }}>
-                <div>
-                  <p style={{ fontSize: "14px", color: "#0F172A", margin: "0 0 2px 0", fontWeight: "500" }}>Market positioning</p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>Aligned with current hiring demand.</p>
-                </div>
-                <span style={{ fontSize: "18px", flexShrink: 0 }}>✅</span>
-              </div>
-            </div>
-          </section>
 
           {/* 6. CV Generator */}
           <section

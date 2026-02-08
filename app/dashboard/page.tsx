@@ -58,8 +58,7 @@ export default function DashboardPage() {
 
         {/* Tabs */}
         
-        <div className="mb-12 grid grid-cols-4 gap-4">
-          {/* Matches Found */}
+        <div className="mb-12 grid grid-cols-4 gap-5">
           <div
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -78,20 +77,11 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium" style={{ color: "#64748B" }}>
-                Matches Found
-              </h3>
-            </div>
-            <p className="text-2xl font-semibold mb-2" style={{ color: "#0F172A" }}>
-              10
-            </p>
-            <p className="text-xs" style={{ color: "#2563EB" }}>
-              +18% from last week
-            </p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Matches Found</h3>
+            <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>10</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+18% from last week</p>
           </div>
 
-          {/* Outreach Sent */}
           <div
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -110,20 +100,11 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium" style={{ color: "#64748B" }}>
-                Outreach Sent
-              </h3>
-            </div>
-            <p className="text-2xl font-semibold mb-2" style={{ color: "#0F172A" }}>
-              42
-            </p>
-            <p className="text-xs" style={{ color: "#2563EB" }}>
-              +7 from last week
-            </p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Outreach Sent</h3>
+            <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>42</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+7 from last week</p>
           </div>
 
-          {/* Responses Received */}
           <div
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -142,20 +123,11 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium" style={{ color: "#64748B" }}>
-                Responses Received
-              </h3>
-            </div>
-            <p className="text-2xl font-semibold mb-2" style={{ color: "#0F172A" }}>
-              4
-            </p>
-            <p className="text-xs" style={{ color: "#2563EB" }}>
-              +2 new responses
-            </p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Responses Received</h3>
+            <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>4</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+2 new responses</p>
           </div>
 
-          {/* Interview Rate */}
           <div
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -174,17 +146,9 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium" style={{ color: "#64748B" }}>
-                Interview Rate
-              </h3>
-            </div>
-            <p className="text-2xl font-semibold mb-2" style={{ color: "#0F172A" }}>
-              +3.2%
-            </p>
-            <p className="text-xs" style={{ color: "#2563EB" }}>
-              +2.1% reply rate
-            </p>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Interview Rate</h3>
+            <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>+3.2%</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+2.1% reply rate</p>
           </div>
         </div>
 

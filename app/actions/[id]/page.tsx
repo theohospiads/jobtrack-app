@@ -184,7 +184,7 @@ export default function ActionDetailPage() {
     <div style={{ background: "#F8FAFC", minHeight: "100vh", paddingBottom: 100 }}>
       <TopNav />
 
-      <main style={{ maxWidth: "900px", margin: "0 auto", padding: "24px 16px" }}>
+      <main style={{ maxWidth: "900px", margin: "0 auto", padding: "20px 16px" }}>
         {/* Back Button */}
         <button
           onClick={() => router.back()}
@@ -218,43 +218,43 @@ export default function ActionDetailPage() {
         </button>
 
         {/* PRIMARY CARD - Above the fold */}
-        <div style={{ marginBottom: 24 }}>
+        <div style={{ marginBottom: 32 }}>
           <div
             style={{
               background: "#FFFFFF",
               border: "1px solid #E5E7EB",
               borderRadius: 12,
-              padding: 24,
+              padding: 28,
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
             }}
           >
             {/* Job Title */}
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
+            <h1 style={{ fontSize: 32, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0", lineHeight: "1.2", letterSpacing: "-0.5px" }}>
               {job.title}
             </h1>
 
             {/* Company Info */}
-            <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 20px 0" }}>
+            <p style={{ fontSize: 13, color: "#64748B", margin: "0 0 24px 0", fontWeight: 500 }}>
               {job.company} · {job.location} · {job.workType}
             </p>
 
             {/* Current Stage */}
-            <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase" }}>
+            <div style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
                 Current Stage
               </p>
-              <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: 0 }}>
+              <p style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: 0 }}>
                 {job.stages[job.currentStage]?.name}
               </p>
             </div>
 
             {/* Progress Bar */}
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: 24 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <span style={{ fontSize: 12, color: "#64748B" }}>Application Progress</span>
-                <span style={{ fontSize: 12, fontWeight: 600, color: "#0F172A" }}>{Math.round(progressPercentage)}%</span>
+                <span style={{ fontSize: 12, color: "#64748B", fontWeight: 500 }}>Application Progress</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "#0F172A" }}>{Math.round(progressPercentage)}%</span>
               </div>
-              <div style={{ height: 6, background: "#E5E7EB", borderRadius: 4 }}>
+              <div style={{ height: 8, background: "#E5E7EB", borderRadius: 4 }}>
                 <div
                   style={{
                     width: `${progressPercentage}%`,
@@ -268,7 +268,7 @@ export default function ActionDetailPage() {
             </div>
 
             {/* Reassurance Message */}
-            <p style={{ fontSize: 14, color: "#0F172A", margin: 0, fontWeight: 500 }}>
+            <p style={{ fontSize: 14, color: "#0F172A", margin: 0, fontWeight: 500, lineHeight: "1.5" }}>
               You're doing great. Things are moving forward — stay focused on what's next.
             </p>
           </div>
@@ -276,9 +276,9 @@ export default function ActionDetailPage() {
 
         {/* "What Usually Happens" - Single line */}
         {job.recruiterSignals && (
-          <div style={{ marginBottom: 24 }}>
-            <p style={{ fontSize: 13, color: "#64748B", margin: 0 }}>
-              <span style={{ fontWeight: 600 }}>What to expect:</span> Typical review time {job.recruiterSignals.reviewTime} • Ghosting risk: {job.recruiterSignals.ghostingProbability}
+          <div style={{ marginBottom: 32 }}>
+            <p style={{ fontSize: 13, color: "#64748B", margin: 0, fontWeight: 500, lineHeight: "1.5" }}>
+              <span style={{ fontWeight: 700, color: "#0F172A" }}>What to expect:</span> Typical review time {job.recruiterSignals.reviewTime} • Ghosting risk: {job.recruiterSignals.ghostingProbability}
             </p>
           </div>
         )}
