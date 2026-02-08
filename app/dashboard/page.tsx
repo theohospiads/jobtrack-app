@@ -3,9 +3,20 @@
 import { TopNav } from "@/components/top-nav"
 import { PageHeader } from "@/components/page-header"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function DashboardPage() {
   const router = useRouter()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
   return (
     <div 
       className="min-h-screen min-w-[1280px]"
@@ -15,7 +26,6 @@ export default function DashboardPage() {
     >
       <TopNav />
       <main className="mx-auto max-w-[1120px] px-6 pt-6 pb-10">
-        <PageHeader />
         
         {/* Dashboard Header with Date Range */}
         <div className="mb-8 flex items-center justify-between">
