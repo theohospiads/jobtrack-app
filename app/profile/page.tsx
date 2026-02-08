@@ -26,7 +26,7 @@ export default function ProfilePage() {
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* 1. What jobs we are currently optimizing for */}
+          {/* 1. How the system is currently optimizing */}
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -42,10 +42,10 @@ export default function ProfilePage() {
             }}
           >
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
-              What jobs we are currently optimizing for
+              How your profile is currently optimized
             </h2>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
-              {/* Role */}
+              {/* Optimization Focus */}
               <div
                 style={{
                   padding: "14px",
@@ -55,14 +55,17 @@ export default function ProfilePage() {
                 }}
               >
                 <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
-                  Primary Role
+                  Optimization Focus
                 </p>
-                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
                   Product Analyst
                 </p>
+                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                  Primary role driving job ranking & CV generation
+                </p>
               </div>
 
-              {/* Location */}
+              {/* Market Scope */}
               <div
                 style={{
                   padding: "14px",
@@ -72,14 +75,17 @@ export default function ProfilePage() {
                 }}
               >
                 <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
-                  Location
+                  Market Scope
                 </p>
-                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                  Remote EU
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                  Remote · Europe
+                </p>
+                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                  On-site roles intentionally excluded
                 </p>
               </div>
 
-              {/* Employment Type */}
+              {/* Search Strategy */}
               <div
                 style={{
                   padding: "14px",
@@ -89,10 +95,13 @@ export default function ProfilePage() {
                 }}
               >
                 <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
-                  Employment Type
+                  Search Strategy
                 </p>
-                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                  Full-time
+                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                  Focused & selective
+                </p>
+                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                  Higher relevance, fewer but stronger matches
                 </p>
               </div>
             </div>
