@@ -7,6 +7,11 @@ import { useState } from "react"
 export default function ProfilePage() {
   const router = useRouter()
   const [showProfileDetails, setShowProfileDetails] = useState(false)
+  const [careerTargets, setCareerTargets] = useState({
+    productAnalyst: true,
+    biAnalyst: false,
+    dataAnalyst: false,
+  })
 
   return (
     <div
@@ -350,29 +355,30 @@ export default function ProfilePage() {
                     Best match for your profile
                   </p>
                 </div>
-                <button
+                <div
                   style={{
-                    background: "#2563EB",
-                    color: "#FFFFFF",
-                    border: "none",
-                    padding: "10px 16px",
-                    borderRadius: "6px",
-                    fontSize: "13px",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
                     whiteSpace: "nowrap",
                     flexShrink: 0,
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#1E40AF"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#2563EB"
-                  }}
                 >
-                  Search jobs
-                </button>
+                  <input
+                    type="checkbox"
+                    checked={careerTargets.productAnalyst}
+                    onChange={(e) => setCareerTargets({ ...careerTargets, productAnalyst: e.target.checked })}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      cursor: "pointer",
+                      accentColor: "#2563EB",
+                    }}
+                  />
+                  <label style={{ fontSize: "13px", color: "#0F172A", fontWeight: "500", cursor: "pointer", margin: 0 }}>
+                    Include in job search
+                  </label>
+                </div>
               </div>
 
               {/* Secondary Option */}
@@ -397,29 +403,30 @@ export default function ProfilePage() {
                     Growing demand, strong fit
                   </p>
                 </div>
-                <button
+                <div
                   style={{
-                    background: "#FFFFFF",
-                    color: "#2563EB",
-                    border: "1px solid #E5E7EB",
-                    padding: "10px 16px",
-                    borderRadius: "6px",
-                    fontSize: "13px",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
                     whiteSpace: "nowrap",
                     flexShrink: 0,
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#F1F5F9"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#FFFFFF"
-                  }}
                 >
-                  Include in search
-                </button>
+                  <input
+                    type="checkbox"
+                    checked={careerTargets.biAnalyst}
+                    onChange={(e) => setCareerTargets({ ...careerTargets, biAnalyst: e.target.checked })}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      cursor: "pointer",
+                      accentColor: "#2563EB",
+                    }}
+                  />
+                  <label style={{ fontSize: "13px", color: "#0F172A", fontWeight: "500", cursor: "pointer", margin: 0 }}>
+                    Include in job search
+                  </label>
+                </div>
               </div>
 
               {/* Stretch Option */}
@@ -440,7 +447,7 @@ export default function ProfilePage() {
                   <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
                     Data Analyst
                   </p>
-                  <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 6px 0" }}>
+                  <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 8px 0" }}>
                     Skill gap: Advanced experimentation
                   </p>
                   <button
@@ -453,35 +460,41 @@ export default function ProfilePage() {
                       fontWeight: "500",
                       cursor: "pointer",
                       textDecoration: "underline",
-                      marginTop: "4px",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.textDecoration = "none"
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.textDecoration = "underline"
                     }}
                   >
-                    Learn skill
+                    Learn skill →
                   </button>
                 </div>
-                <button
+                <div
                   style={{
-                    background: "#FFFFFF",
-                    color: "#2563EB",
-                    border: "1px solid #E5E7EB",
-                    padding: "10px 16px",
-                    borderRadius: "6px",
-                    fontSize: "13px",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
                     whiteSpace: "nowrap",
                     flexShrink: 0,
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#F1F5F9"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#FFFFFF"
-                  }}
                 >
-                  Add to search
-                </button>
+                  <input
+                    type="checkbox"
+                    checked={careerTargets.dataAnalyst}
+                    onChange={(e) => setCareerTargets({ ...careerTargets, dataAnalyst: e.target.checked })}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      cursor: "pointer",
+                      accentColor: "#2563EB",
+                    }}
+                  />
+                  <label style={{ fontSize: "13px", color: "#0F172A", fontWeight: "500", cursor: "pointer", margin: 0 }}>
+                    Include in job search
+                  </label>
+                </div>
               </div>
             </div>
           </section>
