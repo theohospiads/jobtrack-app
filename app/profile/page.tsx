@@ -33,7 +33,7 @@ export default function ProfilePage() {
         <div className="flex flex-col gap-8">
           {/* 1. Search Readiness & Impact */}
           <section
-            className="rounded-2xl p-6 transition-all duration-300"
+            className="rounded-2xl p-8 transition-all duration-300"
             style={{
               background: "#FFFFFF",
               border: "1px solid #E5E7EB",
@@ -46,132 +46,369 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "4px" }}>
-              Search Readiness
-            </h2>
-            <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 16px 0" }}>
-              How your profile currently performs in the job market
-            </p>
+            {/* Section Header */}
+            <div style={{ marginBottom: "28px" }}>
+              <h2 className="text-xl font-semibold" style={{ color: "#0F172A", margin: "0 0 8px 0" }}>
+                Search Readiness
+              </h2>
+              <p style={{ fontSize: "14px", color: "#64748B", margin: 0 }}>
+                How your profile currently performs in the job market
+              </p>
+            </div>
 
-            {/* Readiness Score */}
-            <div style={{ marginBottom: "20px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-                <span style={{ fontSize: "24px", fontWeight: "700", color: "#2563EB" }}>78%</span>
-                <span style={{ fontSize: "13px", color: "#F59E0B", fontWeight: "600" }}>🟡</span>
+            {/* Main Score Card with Visual Progress */}
+            <div
+              style={{
+                background: "#F0F9FF",
+                border: "1px solid #BFDBFE",
+                borderRadius: "12px",
+                padding: "24px",
+                marginBottom: "28px",
+                display: "flex",
+                alignItems: "center",
+                gap: "24px",
+              }}
+            >
+              {/* Circular Progress Indicator */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, position: "relative", width: "100px", height: "100px" }}>
+                <svg width="100" height="100" viewBox="0 0 100 100" className="transform -rotate-90">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#E5E7EB" strokeWidth="8" />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="#2563EB"
+                    strokeWidth="8"
+                    strokeDasharray={`${(78 / 100) * 2 * Math.PI * 42} ${2 * Math.PI * 42}`}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div style={{ position: "absolute", textAlign: "center" }}>
+                  <p style={{ fontSize: "28px", fontWeight: "700", color: "#2563EB", margin: 0 }}>78%</p>
+                  <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "4px 0 0 0" }}>
+                    READY
+                  </p>
+                </div>
               </div>
-              <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                Good — but missing signals for senior roles
-              </p>
+
+              {/* Score Interpretation */}
+              <div style={{ flex: 1 }}>
+                <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 6px 0" }}>
+                  Good — but missing signals for senior roles
+                </p>
+                <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.6" }}>
+                  Your profile shows strong alignment with early-to-mid career roles. Adding signals for seniority (e.g., advanced experimentation, project leadership) would unlock higher-seniority matches.
+                </p>
+              </div>
             </div>
 
-            {/* What this affects */}
-            <div style={{ marginBottom: "20px" }}>
-              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 10px 0", textTransform: "uppercase" }}>
-                What this affects
-              </p>
-              <ul style={{ margin: 0, paddingLeft: "20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                <li style={{ fontSize: "13px", color: "#0F172A", margin: 0 }}>Ranking in Opportunities</li>
-                <li style={{ fontSize: "13px", color: "#0F172A", margin: 0 }}>Match confidence scores (72–92%)</li>
-                <li style={{ fontSize: "13px", color: "#0F172A", margin: 0 }}>CV strength during Apply</li>
-                <li style={{ fontSize: "13px", color: "#0F172A", margin: 0 }}>Interview likelihood</li>
-              </ul>
+            {/* Two-Column Layout: Impact + Strengths */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "28px" }}>
+              {/* What this affects */}
+              <div
+                style={{
+                  background: "#F8FAFC",
+                  border: "1px solid #E5E7EB",
+                  borderRadius: "12px",
+                  padding: "20px",
+                }}
+              >
+                <h3 style={{ fontSize: "11px", fontWeight: "700", color: "#64748B", margin: "0 0 14px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                  What This Affects
+                </h3>
+                <ul style={{ margin: 0, paddingLeft: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <li style={{ fontSize: "13px", color: "#0F172A", margin: 0, paddingLeft: "24px", position: "relative", fontWeight: "500" }}>
+                    <span style={{ position: "absolute", left: "0", color: "#2563EB", fontWeight: "600" }}>→</span>
+                    Ranking in Opportunities
+                  </li>
+                  <li style={{ fontSize: "13px", color: "#0F172A", margin: 0, paddingLeft: "24px", position: "relative", fontWeight: "500" }}>
+                    <span style={{ position: "absolute", left: "0", color: "#2563EB", fontWeight: "600" }}>→</span>
+                    Match confidence (72–92%)
+                  </li>
+                  <li style={{ fontSize: "13px", color: "#0F172A", margin: 0, paddingLeft: "24px", position: "relative", fontWeight: "500" }}>
+                    <span style={{ position: "absolute", left: "0", color: "#2563EB", fontWeight: "600" }}>→</span>
+                    CV strength during Apply
+                  </li>
+                  <li style={{ fontSize: "13px", color: "#0F172A", margin: 0, paddingLeft: "24px", position: "relative", fontWeight: "500" }}>
+                    <span style={{ position: "absolute", left: "0", color: "#2563EB", fontWeight: "600" }}>→</span>
+                    Interview likelihood
+                  </li>
+                </ul>
+              </div>
+
+              {/* Strengths */}
+              <div
+                style={{
+                  background: "#ECFDF5",
+                  border: "1px solid #A7F3D0",
+                  borderRadius: "12px",
+                  padding: "20px",
+                }}
+              >
+                <h3 style={{ fontSize: "11px", fontWeight: "700", color: "#047857", margin: "0 0 14px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                  Strengths
+                </h3>
+                <ul style={{ margin: 0, paddingLeft: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <li style={{ fontSize: "13px", color: "#065F46", margin: 0, paddingLeft: "24px", position: "relative", fontWeight: "500" }}>
+                    <span style={{ position: "absolute", left: "0" }}>✓</span>
+                    Strong Product Analyst alignment
+                  </li>
+                  <li style={{ fontSize: "13px", color: "#065F46", margin: 0, paddingLeft: "24px", position: "relative", fontWeight: "500" }}>
+                    <span style={{ position: "absolute", left: "0" }}>✓</span>
+                    Remote EU market well-covered
+                  </li>
+                  <li style={{ fontSize: "13px", color: "#065F46", margin: 0, paddingLeft: "24px", position: "relative", fontWeight: "500" }}>
+                    <span style={{ position: "absolute", left: "0" }}>✓</span>
+                    Consistent match quality
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            {/* Strengths */}
-            <div style={{ marginBottom: "20px" }}>
-              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 10px 0", textTransform: "uppercase" }}>
-                Strengths
-              </p>
-              <ul style={{ margin: 0, paddingLeft: "20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                <li style={{ fontSize: "13px", color: "#0F172A", margin: 0 }}>✓ Strong alignment with Product Analyst</li>
-                <li style={{ fontSize: "13px", color: "#0F172A", margin: 0 }}>✓ Remote EU market well-covered</li>
-                <li style={{ fontSize: "13px", color: "#0F172A", margin: 0 }}>✓ Good match consistency across roles</li>
-              </ul>
-            </div>
-
-            {/* Current Blockers */}
-            <div style={{ marginBottom: "20px" }}>
-              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 10px 0", textTransform: "uppercase" }}>
+            {/* Current Blockers - Compact Cards */}
+            <div style={{ marginBottom: "28px" }}>
+              <h3 style={{ fontSize: "11px", fontWeight: "700", color: "#64748B", margin: "0 0 14px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
                 Current Blockers
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                <div style={{ padding: "12px", background: "#FEF3C7", borderRadius: "8px", border: "1px solid #FCD34D" }}>
-                  <p style={{ fontSize: "13px", color: "#0F172A", margin: "0 0 4px 0", fontWeight: "500" }}>
-                    ⚠ Missing signal: Advanced experimentation
-                  </p>
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {/* Blocker 1 */}
+                <div
+                  style={{
+                    padding: "16px",
+                    background: "#FEF3C7",
+                    borderRadius: "10px",
+                    border: "1px solid #FCD34D",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontSize: "13px", color: "#92400E", margin: "0 0 2px 0", fontWeight: "600" }}>
+                      Missing: Advanced experimentation
+                    </p>
+                    <p style={{ fontSize: "12px", color: "#B45309", margin: 0 }}>
+                      +6–8% to Data Analyst fit
+                    </p>
+                  </div>
                   <button
                     style={{
-                      background: "transparent",
-                      color: "#2563EB",
+                      background: "#FBBF24",
+                      color: "#78350F",
                       border: "none",
-                      padding: "0",
+                      padding: "7px 12px",
+                      borderRadius: "6px",
                       fontSize: "12px",
-                      fontWeight: "500",
+                      fontWeight: "600",
                       cursor: "pointer",
-                      textDecoration: "underline",
+                      transition: "all 0.2s",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "#F59E0B"
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "#FBBF24"
                     }}
                   >
-                    Learn skill →
+                    Learn
                   </button>
                 </div>
-                <div style={{ padding: "12px", background: "#FEF3C7", borderRadius: "8px", border: "1px solid #FCD34D" }}>
-                  <p style={{ fontSize: "13px", color: "#0F172A", margin: "0 0 4px 0", fontWeight: "500" }}>
-                    ⚠ Data Analyst roles capped at ~88% fit
-                  </p>
+
+                {/* Blocker 2 */}
+                <div
+                  style={{
+                    padding: "16px",
+                    background: "#FEF3C7",
+                    borderRadius: "10px",
+                    border: "1px solid #FCD34D",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontSize: "13px", color: "#92400E", margin: "0 0 2px 0", fontWeight: "600" }}>
+                      Data Analyst capped at 88% fit
+                    </p>
+                    <p style={{ fontSize: "12px", color: "#B45309", margin: 0 }}>
+                      Senior-level experience gap
+                    </p>
+                  </div>
                   <button
                     style={{
-                      background: "transparent",
-                      color: "#2563EB",
+                      background: "#FBBF24",
+                      color: "#78350F",
                       border: "none",
-                      padding: "0",
+                      padding: "7px 12px",
+                      borderRadius: "6px",
                       fontSize: "12px",
-                      fontWeight: "500",
+                      fontWeight: "600",
                       cursor: "pointer",
-                      textDecoration: "underline",
+                      transition: "all 0.2s",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "#F59E0B"
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "#FBBF24"
                     }}
                   >
-                    Add experience →
+                    Add exp
                   </button>
                 </div>
-                <div style={{ padding: "12px", background: "#FEF3C7", borderRadius: "8px", border: "1px solid #FCD34D" }}>
-                  <p style={{ fontSize: "13px", color: "#0F172A", margin: "0 0 4px 0", fontWeight: "500" }}>
-                    ⚠ Senior roles downranked
-                  </p>
+
+                {/* Blocker 3 */}
+                <div
+                  style={{
+                    padding: "16px",
+                    background: "#FEF3C7",
+                    borderRadius: "10px",
+                    border: "1px solid #FCD34D",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontSize: "13px", color: "#92400E", margin: "0 0 2px 0", fontWeight: "600" }}>
+                      Senior roles downranked
+                    </p>
+                    <p style={{ fontSize: "12px", color: "#B45309", margin: 0 }}>
+                      Gain 1+ year of focused experience
+                    </p>
+                  </div>
                   <button
                     style={{
-                      background: "transparent",
-                      color: "#2563EB",
+                      background: "#FBBF24",
+                      color: "#78350F",
                       border: "none",
-                      padding: "0",
+                      padding: "7px 12px",
+                      borderRadius: "6px",
                       fontSize: "12px",
-                      fontWeight: "500",
+                      fontWeight: "600",
                       cursor: "pointer",
-                      textDecoration: "underline",
+                      transition: "all 0.2s",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "#F59E0B"
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "#FBBF24"
                     }}
                   >
-                    Adjust target →
+                    Adjust
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Primary Optimization Focus */}
-            <div style={{ borderTop: "1px solid #E5E7EB", paddingTop: "20px" }}>
-              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 10px 0", textTransform: "uppercase" }}>
-                Primary Optimization Focus
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "16px" }}>🎯</span>
-                  <p style={{ fontSize: "13px", color: "#0F172A", margin: 0, fontWeight: "500" }}>Product Analyst (Primary)</p>
+            {/* Recommended Focus - Bottom Section */}
+            <div
+              style={{
+                background: "#F9FAFB",
+                borderTop: "1px solid #E5E7EB",
+                marginLeft: "-32px",
+                marginRight: "-32px",
+                marginBottom: "-32px",
+                padding: "24px 32px",
+                borderBottomLeftRadius: "12px",
+                borderBottomRightRadius: "12px",
+              }}
+            >
+              <h3 style={{ fontSize: "11px", fontWeight: "700", color: "#64748B", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Your Focus Strategy
+              </h3>
+              <div style={{ display: "flex", gap: "16px" }}>
+                {/* Primary Focus */}
+                <div
+                  style={{
+                    flex: 1,
+                    padding: "16px",
+                    background: "#FFFFFF",
+                    borderRadius: "10px",
+                    border: "2px solid #2563EB",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                    <div
+                      style={{
+                        width: "28px",
+                        height: "28px",
+                        borderRadius: "6px",
+                        background: "#2563EB",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#FFFFFF",
+                        fontSize: "14px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      1
+                    </div>
+                    <p style={{ fontSize: "12px", fontWeight: "700", color: "#2563EB", margin: 0, textTransform: "uppercase" }}>
+                      Primary
+                    </p>
+                  </div>
+                  <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    Product Analyst
+                  </p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                    92% avg match
+                  </p>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "16px" }}>🧭</span>
-                  <p style={{ fontSize: "13px", color: "#0F172A", margin: 0, fontWeight: "500" }}>BI Analyst (Secondary)</p>
+
+                {/* Secondary Focus */}
+                <div
+                  style={{
+                    flex: 1,
+                    padding: "16px",
+                    background: "#FFFFFF",
+                    borderRadius: "10px",
+                    border: "1px solid #E5E7EB",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                    <div
+                      style={{
+                        width: "28px",
+                        height: "28px",
+                        borderRadius: "6px",
+                        background: "#64748B",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#FFFFFF",
+                        fontSize: "14px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      2
+                    </div>
+                    <p style={{ fontSize: "12px", fontWeight: "700", color: "#64748B", margin: 0, textTransform: "uppercase" }}>
+                      Secondary
+                    </p>
+                  </div>
+                  <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
+                    BI Analyst
+                  </p>
+                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                    85% avg match
+                  </p>
                 </div>
               </div>
-              <p style={{ fontSize: "12px", color: "#64748B", margin: "10px 0 0 0", fontStyle: "italic" }}>
-                This improves relevance but reduces role diversity
+              <p style={{ fontSize: "12px", color: "#64748B", margin: "12px 0 0 0", fontStyle: "italic" }}>
+                This focus improves relevance but reduces diversity. Add Data Analyst signals to broaden reach.
               </p>
             </div>
           </section>
