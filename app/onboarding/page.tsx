@@ -16,7 +16,7 @@ type Question = {
 const QUESTIONS: Question[] = [
   {
     id: 'current_role',
-    question: 'What's your current role?',
+    question: "What's your current role?",
     subtitle: 'Help us understand your background',
     type: 'input',
     placeholder: 'e.g. Product Manager, Data Analyst...',
