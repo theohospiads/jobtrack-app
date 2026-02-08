@@ -4,81 +4,249 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth-provider'
 
+type ProfileType = 'student' | 'employed' | 'job-seeker' | 'career-change' | null
+
 type Question = {
   id: string
   question: string
   subtitle: string
   type: 'choice' | 'input'
-  options?: { label: string; value: string }[]
+  options?: { label: string; value: string; hint?: string }[]
   placeholder?: string
+  recommended?: string
 }
 
-const QUESTIONS: Question[] = [
+const PROFILE_QUESTIONS: Question[] = [
   {
-    id: 'current_role',
-    question: "What's your current role?",
-    subtitle: 'Help us understand your background',
-    type: 'input',
-    placeholder: 'e.g. Product Manager, Data Analyst...',
-  },
-  {
-    id: 'experience',
-    question: 'How many years of experience?',
-    subtitle: 'We customize opportunities by seniority',
+    id: 'profile_type',
+    question: 'What describes you best?',
+    subtitle: 'We will customize your job search experience',
     type: 'choice',
     options: [
-      { label: '0-2 years', value: '0-2' },
-      { label: '2-5 years', value: '2-5' },
-      { label: '5-10 years', value: '5-10' },
-      { label: '10+ years', value: '10+' },
-    ],
-  },
-  {
-    id: 'target_role',
-    question: 'What role do you want?',
-    subtitle: 'Your primary job search focus',
-    type: 'input',
-    placeholder: 'e.g. Senior Product Manager...',
-  },
-  {
-    id: 'work_location',
-    question: 'Where do you want to work?',
-    subtitle: 'We only show matching locations',
-    type: 'choice',
-    options: [
-      { label: 'Remote only', value: 'remote' },
-      { label: 'Remote + EU', value: 'remote-eu' },
-      { label: 'Remote + Global', value: 'remote-global' },
-      { label: 'Flexible (including on-site)', value: 'flexible' },
-    ],
-  },
-  {
-    id: 'salary_range',
-    question: 'What salary range?',
-    subtitle: 'Helps us filter relevant opportunities',
-    type: 'choice',
-    options: [
-      { label: '$50k - $75k', value: '50-75' },
-      { label: '$75k - $100k', value: '75-100' },
-      { label: '$100k - $150k', value: '100-150' },
-      { label: '$150k+', value: '150+' },
+      { label: 'Student', value: 'student', hint: 'Studying, looking for internship or entry-level' },
+      { label: 'Employed', value: 'employed', hint: 'Currently working, open to new opportunities' },
+      { label: 'Looking for a job', value: 'job-seeker', hint: 'Not currently working, actively searching' },
+      { label: 'Career change', value: 'career-change', hint: 'Transitioning to a new field or role' },
     ],
   },
 ]
 
+const ADAPTIVE_QUESTIONS: Record<ProfileType, Question[]> = {
+  student: [
+    {
+      id: 'field_of_study',
+      question: 'What is your field of study?',
+      subtitle: 'Help us find the best opportunities for you',
+      type: 'input',
+      placeholder: 'e.g. Computer Science, Business, Design...',
+    },
+    {
+      id: 'graduation',
+      question: 'When do you graduate?',
+      subtitle: 'We will prioritize opportunities that fit your timeline',
+      type: 'choice',
+      options: [
+        { label: 'This year', value: 'this-year' },
+        { label: 'Next year', value: 'next-year' },
+        { label: 'More than 1 year away', value: 'later' },
+      ],
+      recommended: 'this-year',
+    },
+    {
+      id: 'target_role',
+      question: 'What type of role interests you?',
+      subtitle: 'Internship, entry-level, or both?',
+      type: 'choice',
+      options: [
+        { label: 'Internship (temporary)', value: 'internship' },
+        { label: 'Entry-level full-time', value: 'entry-level' },
+        { label: 'Both options', value: 'both' },
+      ],
+      recommended: 'both',
+    },
+    {
+      id: 'work_location',
+      question: 'Where would you like to work?',
+      subtitle: 'Remote, on-site, or flexible?',
+      type: 'choice',
+      options: [
+        { label: 'Remote only', value: 'remote' },
+        { label: 'On-site', value: 'on-site' },
+        { label: 'Hybrid or flexible', value: 'hybrid' },
+      ],
+      recommended: 'remote',
+    },
+  ],
+  employed: [
+    {
+      id: 'current_role',
+      question: "What's your current role?",
+      subtitle: 'Help us understand your background',
+      type: 'input',
+      placeholder: 'e.g. Senior Product Manager, Data Scientist...',
+    },
+    {
+      id: 'experience',
+      question: 'Years of experience in your field?',
+      subtitle: 'This helps us match senior-level opportunities',
+      type: 'choice',
+      options: [
+        { label: '0-2 years', value: '0-2' },
+        { label: '2-5 years', value: '2-5' },
+        { label: '5-10 years', value: '5-10' },
+        { label: '10+ years', value: '10+' },
+      ],
+    },
+    {
+      id: 'looking_for',
+      question: 'What are you looking for?',
+      subtitle: 'Similar role, growth, or change?',
+      type: 'choice',
+      options: [
+        { label: 'Similar role at better company', value: 'similar' },
+        { label: 'Growth/promotion opportunity', value: 'growth' },
+        { label: 'Career change or pivot', value: 'change' },
+      ],
+      recommended: 'growth',
+    },
+    {
+      id: 'work_location',
+      question: 'Work location preference?',
+      subtitle: 'Remote, on-site, or flexible?',
+      type: 'choice',
+      options: [
+        { label: 'Remote only', value: 'remote' },
+        { label: 'On-site', value: 'on-site' },
+        { label: 'Flexible (no preference)', value: 'flexible' },
+      ],
+      recommended: 'remote',
+    },
+    {
+      id: 'salary_expectations',
+      question: 'Salary expectations?',
+      subtitle: 'Helps us prioritize opportunities within your range',
+      type: 'choice',
+      options: [
+        { label: '$80k - $120k', value: '80-120' },
+        { label: '$120k - $180k', value: '120-180' },
+        { label: '$180k - $250k', value: '180-250' },
+        { label: '$250k+', value: '250+' },
+      ],
+    },
+  ],
+  'job-seeker': [
+    {
+      id: 'target_role',
+      question: 'What role are you targeting?',
+      subtitle: 'Your primary job search focus',
+      type: 'input',
+      placeholder: 'e.g. Product Manager, Data Analyst...',
+    },
+    {
+      id: 'years_experience',
+      question: 'Years of experience?',
+      subtitle: 'Total professional experience',
+      type: 'choice',
+      options: [
+        { label: '0-2 years', value: '0-2' },
+        { label: '2-5 years', value: '2-5' },
+        { label: '5-10 years', value: '5-10' },
+        { label: '10+ years', value: '10+' },
+      ],
+    },
+    {
+      id: 'urgency',
+      question: 'How urgently do you need a job?',
+      subtitle: 'This helps prioritize your recommendations',
+      type: 'choice',
+      options: [
+        { label: 'Immediately (within 1 month)', value: 'urgent' },
+        { label: 'Soon (1-3 months)', value: 'soon' },
+        { label: 'Not urgent (3+ months)', value: 'flexible' },
+      ],
+      recommended: 'soon',
+    },
+    {
+      id: 'work_location',
+      question: 'Where do you want to work?',
+      subtitle: 'Remote, on-site, or flexible?',
+      type: 'choice',
+      options: [
+        { label: 'Remote only', value: 'remote' },
+        { label: 'On-site', value: 'on-site' },
+        { label: 'Flexible (no preference)', value: 'flexible' },
+      ],
+      recommended: 'remote',
+    },
+  ],
+  'career-change': [
+    {
+      id: 'previous_role',
+      question: 'What was your previous role?',
+      subtitle: 'Help us highlight transferable skills',
+      type: 'input',
+      placeholder: 'e.g. Marketing Manager, Software Engineer...',
+    },
+    {
+      id: 'target_role',
+      question: "What's your new target role?",
+      subtitle: 'What field are you pivoting to?',
+      type: 'input',
+      placeholder: 'e.g. Product Manager, Data Science...',
+    },
+    {
+      id: 'relevant_experience',
+      question: 'Do you have experience in the new field?',
+      subtitle: 'Internship, projects, or transition years?',
+      type: 'choice',
+      options: [
+        { label: 'No experience yet', value: 'none' },
+        { label: 'Some related experience', value: 'some' },
+        { label: 'Yes, significant experience', value: 'significant' },
+      ],
+    },
+    {
+      id: 'work_location',
+      question: 'Work location preference?',
+      subtitle: 'Remote, on-site, or flexible?',
+      type: 'choice',
+      options: [
+        { label: 'Remote only', value: 'remote' },
+        { label: 'On-site', value: 'on-site' },
+        { label: 'Flexible (no preference)', value: 'flexible' },
+      ],
+      recommended: 'remote',
+    },
+  ],
+  null: [],
+}
+
 export default function OnboardingPage() {
   const router = useRouter()
   const { updateProfile } = useAuth()
+  const [profileType, setProfileType] = useState<ProfileType>(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const question = QUESTIONS[currentStep]
-  const progress = ((currentStep + 1) / QUESTIONS.length) * 100
+  // Get questions for current profile type
+  const adaptiveQuestions = profileType ? ADAPTIVE_QUESTIONS[profileType] : []
+  const allQuestions = profileType === null ? PROFILE_QUESTIONS : adaptiveQuestions
+  const question = allQuestions[currentStep]
+
+  // Calculate total steps: 1 for profile type + adaptive questions
+  const totalSteps = 1 + (profileType ? adaptiveQuestions.length : 0)
+  const progress = ((currentStep + 1) / totalSteps) * 100
 
   const handleChoice = (value: string) => {
-    setAnswers({ ...answers, [question.id]: value })
-    handleNext()
+    if (question.id === 'profile_type') {
+      setProfileType(value as ProfileType)
+      setAnswers({ ...answers, [question.id]: value })
+      setCurrentStep(0) // Reset to first adaptive question
+    } else {
+      setAnswers({ ...answers, [question.id]: value })
+      handleNext()
+    }
   }
 
   const handleInputChange = (value: string) => {
@@ -86,7 +254,7 @@ export default function OnboardingPage() {
   }
 
   const handleNext = () => {
-    if (currentStep < QUESTIONS.length - 1) {
+    if (currentStep < allQuestions.length - 1) {
       setCurrentStep(currentStep + 1)
     } else {
       handleComplete()
@@ -95,15 +263,13 @@ export default function OnboardingPage() {
 
   const handleComplete = async () => {
     setIsSubmitting(true)
-    // Store profile data
     updateProfile(answers)
-    // Simulate a small delay for better UX
     setTimeout(() => {
       router.push('/dashboard')
     }, 300)
   }
 
-  const canProceed = answers[question.id]?.trim().length > 0
+  const canProceed = question.type === 'choice' || answers[question.id]?.trim().length > 0
 
   return (
     <div
@@ -155,7 +321,7 @@ export default function OnboardingPage() {
               letterSpacing: '0.5px',
             }}
           >
-            Step {currentStep + 1} of {QUESTIONS.length}
+            Step {currentStep + 1} of {totalSteps}
           </p>
         </div>
 
@@ -238,7 +404,7 @@ export default function OnboardingPage() {
                 }
               }}
             >
-              {currentStep === QUESTIONS.length - 1
+              {currentStep === allQuestions.length - 1
                 ? isSubmitting
                   ? 'Setting up...'
                   : 'Complete Setup'
@@ -264,6 +430,9 @@ export default function OnboardingPage() {
                   textAlign: 'left',
                   borderColor: answers[question.id] === option.value ? '#2563EB' : '#E5E7EB',
                   letterSpacing: '-0.2px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4px',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = '#2563EB'
@@ -279,7 +448,18 @@ export default function OnboardingPage() {
                   }
                 }}
               >
-                {option.label}
+                <span>{option.label}</span>
+                {option.hint && (
+                  <span
+                    style={{
+                      fontSize: '12px',
+                      color: answers[question.id] === option.value ? '#0369A1' : '#94A3B8',
+                      fontWeight: '400',
+                    }}
+                  >
+                    {option.hint}
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -294,7 +474,7 @@ export default function OnboardingPage() {
             margin: 0,
           }}
         >
-          Takes just 2 minutes · No payment required
+          Takes just 90 seconds · No payment required
         </p>
       </div>
     </div>
