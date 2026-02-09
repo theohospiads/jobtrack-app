@@ -26,7 +26,7 @@ export default function ProfilePage() {
         </header>
 
         <div className="flex flex-col gap-8">
-          {/* 1. How the system is currently optimizing */}
+          {/* 1. Your Best Assets */}
           <section
             className="rounded-2xl p-6 transition-all duration-300"
             style={{
@@ -41,69 +41,58 @@ export default function ProfilePage() {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
             }}
           >
-            <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "16px" }}>
-              How your profile is currently optimized
-            </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
-              {/* Optimization Focus */}
-              <div
-                style={{
-                  padding: "14px",
-                  background: "#F8FAFC",
-                  borderRadius: "8px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
-                  Optimization Focus
-                </p>
-                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Product Analyst
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Primary role driving job ranking & CV generation
-                </p>
-              </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+              <h2 className="text-base font-semibold" style={{ color: "#0F172A", margin: 0 }}>
+                Your Best Assets
+              </h2>
+              <p style={{ fontSize: "12px", fontWeight: "500", color: "#94A3B8", margin: 0 }}>
+                What makes you stand out to employers
+              </p>
+            </div>
 
-              {/* Market Scope */}
-              <div
-                style={{
-                  padding: "14px",
-                  background: "#F8FAFC",
-                  borderRadius: "8px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
-                  Market Scope
-                </p>
-                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Remote · Europe
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  On-site roles intentionally excluded
-                </p>
-              </div>
-
-              {/* Search Strategy */}
-              <div
-                style={{
-                  padding: "14px",
-                  background: "#F8FAFC",
-                  borderRadius: "8px",
-                  border: "1px solid #E5E7EB",
-                }}
-              >
-                <p style={{ fontSize: "11px", fontWeight: "600", color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
-                  Search Strategy
-                </p>
-                <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Focused & selective
-                </p>
-                <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                  Higher relevance, fewer but stronger matches
-                </p>
-              </div>
+            {/* Top strengths */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {[
+                { label: "Product Analytics", detail: "SQL, A/B testing, metrics design", strength: "Top skill" },
+                { label: "Cross-functional Communication", detail: "Stakeholder alignment & storytelling with data", strength: "High demand" },
+                { label: "Remote-first Experience", detail: "Proven async collaboration & self-management", strength: "Differentiator" },
+              ].map((asset) => (
+                <div
+                  key={asset.label}
+                  style={{
+                    padding: "14px",
+                    background: "#F8FAFC",
+                    borderRadius: "8px",
+                    border: "1px solid #E5E7EB",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>
+                    <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: "0 0 3px 0" }}>
+                      {asset.label}
+                    </p>
+                    <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
+                      {asset.detail}
+                    </p>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: "600",
+                      color: "#2563EB",
+                      background: "#EFF6FF",
+                      padding: "4px 10px",
+                      borderRadius: "4px",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {asset.strength}
+                  </span>
+                </div>
+              ))}
             </div>
           </section>
 
