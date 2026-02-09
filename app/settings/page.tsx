@@ -326,8 +326,8 @@ export default function SettingsPage() {
                 {/* Name */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Full Name</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{user?.name || "Not set"}</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.fullName")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{user?.name || t("settings.notSet")}</p>
                   </div>
                   <button
                     style={{
@@ -344,15 +344,15 @@ export default function SettingsPage() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
                   >
-                    Edit
+                    {t("settings.edit")}
                   </button>
                 </div>
 
                 {/* Email */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Email Address</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{user?.email || "Not set"}</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.emailAddress")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{user?.email || t("settings.notSet")}</p>
                   </div>
                   <button
                     style={{
@@ -369,15 +369,15 @@ export default function SettingsPage() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
                   >
-                    Edit
+                    {t("settings.edit")}
                   </button>
                 </div>
 
                 {/* Target Role */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Target Role</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{profile?.target_role || profile?.current_role || "Not set"}</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.targetRole")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{profile?.target_role || profile?.current_role || t("settings.notSet")}</p>
                   </div>
                   <button
                     onClick={() => router.push("/profile/preferences")}
@@ -395,7 +395,7 @@ export default function SettingsPage() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
                   >
-                    Edit
+                    {t("settings.edit")}
                   </button>
                 </div>
               </div>
@@ -406,10 +406,10 @@ export default function SettingsPage() {
           {activeSection === "connections" && (
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
-                Connections
+                {t("settings.connections")}
               </h1>
               <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
-                Manage your linked accounts and integrations.
+                {t("settings.connectionsDesc")}
               </p>
 
               <div
@@ -420,10 +420,10 @@ export default function SettingsPage() {
                 }}
               >
                 {[
-                  { name: "LinkedIn", desc: "Import profile data and track applications", connected: true, color: "#0A66C2" },
-                  { name: "Gmail", desc: "Track responses and send applications", connected: true, color: "#EA4335" },
-                  { name: "Outlook", desc: "Email tracking and calendar scheduling", connected: false, color: "#0078D4" },
-                  { name: "Indeed", desc: "Sync job listings and application status", connected: false, color: "#2164F3" },
+                  { name: "LinkedIn", desc: t("settings.linkedinDesc"), connected: true, color: "#0A66C2" },
+                  { name: "Gmail", desc: t("settings.gmailDesc"), connected: true, color: "#EA4335" },
+                  { name: "Outlook", desc: t("settings.outlookDesc"), connected: false, color: "#0078D4" },
+                  { name: "Indeed", desc: t("settings.indeedDesc"), connected: false, color: "#2164F3" },
                 ].map((platform, i, arr) => (
                   <div
                     key={platform.name}
@@ -463,7 +463,7 @@ export default function SettingsPage() {
                     </div>
                     {platform.connected ? (
                       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <span style={{ fontSize: 12, fontWeight: 600, color: "#16A34A" }}>Connected</span>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: "#16A34A" }}>{t("settings.connected")}</span>
                         <button
                           style={{
                             background: "transparent",
@@ -479,7 +479,7 @@ export default function SettingsPage() {
                           onMouseEnter={(e) => { e.currentTarget.style.color = "#EF4444"; e.currentTarget.style.borderColor = "#FECACA" }}
                           onMouseLeave={(e) => { e.currentTarget.style.color = "#94A3B8"; e.currentTarget.style.borderColor = "#E5E7EB" }}
                         >
-                          Disconnect
+                          {t("settings.disconnect")}
                         </button>
                       </div>
                     ) : (
@@ -498,7 +498,7 @@ export default function SettingsPage() {
                         onMouseEnter={(e) => (e.currentTarget.style.background = "#1E293B")}
                         onMouseLeave={(e) => (e.currentTarget.style.background = "#0F172A")}
                       >
-                        Connect
+                        {t("settings.connect")}
                       </button>
                     )}
                   </div>
@@ -511,14 +511,14 @@ export default function SettingsPage() {
           {activeSection === "notifications" && (
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
-                Notifications
+                {t("settings.notifications")}
               </h1>
               <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
-                Choose how and when you want to be notified.
+                {t("settings.notificationsDesc")}
               </p>
 
               <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Channels
+                {t("settings.channels")}
               </p>
               <div
                 style={{
@@ -530,29 +530,29 @@ export default function SettingsPage() {
               >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Email Notifications</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Receive updates about new matches and responses.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.emailNotifications")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.emailNotificationsDesc")}</p>
                   </div>
                   <Toggle enabled={emailNotif} onToggle={() => setEmailNotif(!emailNotif)} />
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Push Notifications</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Get real-time browser alerts for urgent updates.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.pushNotifications")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.pushNotificationsDesc")}</p>
                   </div>
                   <Toggle enabled={pushNotif} onToggle={() => setPushNotif(!pushNotif)} />
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Weekly Digest</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>A summary of your job search activity every Monday.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.weeklyDigest")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.weeklyDigestDesc")}</p>
                   </div>
                   <Toggle enabled={weeklyDigest} onToggle={() => setWeeklyDigest(!weeklyDigest)} />
                 </div>
               </div>
 
               <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Activity
+                {t("settings.activity")}
               </p>
               <div
                 style={{
@@ -563,8 +563,8 @@ export default function SettingsPage() {
               >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Show Activity Status</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Let employers see that you are actively searching.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.showActivityStatus")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.showActivityStatusDesc")}</p>
                   </div>
                   <Toggle enabled={activityStatus} onToggle={() => setActivityStatus(!activityStatus)} />
                 </div>
@@ -576,14 +576,14 @@ export default function SettingsPage() {
           {activeSection === "privacy" && (
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
-                Privacy & Security
+                {t("settings.privacy")}
               </h1>
               <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
-                Control your visibility and manage your data.
+                {t("settings.privacyDesc")}
               </p>
 
               <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Visibility
+                {t("settings.visibility")}
               </p>
               <div
                 style={{
@@ -595,15 +595,15 @@ export default function SettingsPage() {
               >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Profile Visible to Recruiters</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Allow recruiters to discover and view your profile.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.profileVisible")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.profileVisibleDesc")}</p>
                   </div>
                   <Toggle enabled={profileVisible} onToggle={() => setProfileVisible(!profileVisible)} />
                 </div>
               </div>
 
               <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Data
+                {t("settings.data")}
               </p>
               <div
                 style={{
@@ -615,8 +615,8 @@ export default function SettingsPage() {
               >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Export Data</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Download a copy of all your data.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.exportData")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.exportDataDesc")}</p>
                   </div>
                   <button
                     style={{
@@ -633,13 +633,13 @@ export default function SettingsPage() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
                   >
-                    Export
+                    {t("settings.export")}
                   </button>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Clear Search History</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Remove all saved searches and recent activity.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.clearHistory")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.clearHistoryDesc")}</p>
                   </div>
                   <button
                     style={{
@@ -656,14 +656,14 @@ export default function SettingsPage() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
                   >
-                    Clear
+                    {t("settings.clear")}
                   </button>
                 </div>
               </div>
 
               {/* Danger Zone */}
               <p style={{ fontSize: 13, fontWeight: 600, color: "#EF4444", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Danger Zone
+                {t("settings.dangerZone")}
               </p>
               <div
                 style={{
@@ -674,8 +674,8 @@ export default function SettingsPage() {
               >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #FEF2F2" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Delete Account</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Permanently remove your account and all data.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.deleteAccount")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.deleteAccountDesc")}</p>
                   </div>
                   <button
                     style={{
@@ -692,13 +692,13 @@ export default function SettingsPage() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#FEF2F2"; e.currentTarget.style.borderColor = "#EF4444" }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#FECACA" }}
                   >
-                    Delete
+                    {t("settings.delete")}
                   </button>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Sign Out</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Log out of your account on this device.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.signOut")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.signOutDesc")}</p>
                   </div>
                   <button
                     onClick={signOut}
@@ -716,7 +716,7 @@ export default function SettingsPage() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
                   >
-                    Sign Out
+                    {t("settings.signOut")}
                   </button>
                 </div>
               </div>

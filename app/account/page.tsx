@@ -5,10 +5,12 @@ import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
 import { useEffect, useState, useMemo } from "react"
 import { Mail, MapPin, Briefcase, Calendar, ExternalLink } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export default function AccountPage() {
   const router = useRouter()
   const { user, profile } = useAuth()
+  const { t } = useLanguage()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -120,7 +122,7 @@ export default function AccountPage() {
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <Calendar size={15} color="#64748B" />
-                  <span style={{ fontSize: 13, color: "#475569" }}>Joined {memberSince}</span>
+                  <span style={{ fontSize: 13, color: "#475569" }}>{t("account.joined")} {memberSince}</span>
                 </div>
               </div>
 
@@ -152,7 +154,7 @@ export default function AccountPage() {
                     e.currentTarget.style.borderColor = "#E5E7EB"
                   }}
                 >
-                  Edit Profile
+                  {t("account.editProfile")}
                 </button>
                 <button
                   onClick={() => router.push("/settings")}
@@ -177,7 +179,7 @@ export default function AccountPage() {
                     e.currentTarget.style.borderColor = "#E5E7EB"
                   }}
                 >
-                  Account Settings
+                  {t("account.accountSettings")}
                 </button>
               </div>
             </div>
@@ -203,8 +205,8 @@ export default function AccountPage() {
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                <h2 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: 0 }}>Activity</h2>
-                <span style={{ fontSize: 12, color: "#94A3B8", fontWeight: 500 }}>Last 20 weeks</span>
+                <h2 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: 0 }}>{t("account.activity")}</h2>
+                <span style={{ fontSize: 12, color: "#94A3B8", fontWeight: 500 }}>{t("account.last20weeks")}</span>
               </div>
 
               {/* Heatmap grid */}
@@ -236,7 +238,7 @@ export default function AccountPage() {
 
               {/* Legend */}
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 12, justifyContent: "flex-end" }}>
-                <span style={{ fontSize: 11, color: "#94A3B8" }}>Less</span>
+                <span style={{ fontSize: 11, color: "#94A3B8" }}>{t("account.less")}</span>
                 {[0, 1, 2, 3].map((v) => (
                   <div
                     key={v}
@@ -248,7 +250,7 @@ export default function AccountPage() {
                     }}
                   />
                 ))}
-                <span style={{ fontSize: 11, color: "#94A3B8" }}>More</span>
+                <span style={{ fontSize: 11, color: "#94A3B8" }}>{t("account.more")}</span>
               </div>
             </div>
 
@@ -268,12 +270,12 @@ export default function AccountPage() {
                 e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
               }}
             >
-              <h2 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: "0 0 16px 0" }}>Overview</h2>
+              <h2 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: "0 0 16px 0" }}>{t("account.overview")}</h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
                 {[
-                  { label: "Applications Sent", value: "12" },
-                  { label: "Interviews", value: "3" },
-                  { label: "Responses", value: "5" },
+                  { label: t("account.applicationsSent"), value: "12" },
+                  { label: t("account.interviews"), value: "3" },
+                  { label: t("account.responses"), value: "5" },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -311,7 +313,7 @@ export default function AccountPage() {
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                <h2 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: 0 }}>Connected Accounts</h2>
+                <h2 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: 0 }}>{t("account.connectedAccounts")}</h2>
                 <button
                   onClick={() => router.push("/connect-accounts")}
                   style={{
@@ -327,15 +329,15 @@ export default function AccountPage() {
                     padding: 0,
                   }}
                 >
-                  Manage <ExternalLink size={13} />
+                  {t("account.manage")} <ExternalLink size={13} />
                 </button>
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
-                  { name: "LinkedIn", status: "Connected", connected: true },
-                  { name: "Gmail", status: "Connected", connected: true },
-                  { name: "Indeed", status: "Not connected", connected: false },
+                  { name: "LinkedIn", status: t("account.connectedStatus"), connected: true },
+                  { name: "Gmail", status: t("account.connectedStatus"), connected: true },
+                  { name: "Indeed", status: t("account.notConnectedStatus"), connected: false },
                 ].map((account) => (
                   <div
                     key={account.name}

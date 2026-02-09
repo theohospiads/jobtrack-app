@@ -15,7 +15,7 @@ export function TopNav() {
   const pathname = usePathname()
   const router = useRouter()
   const { signOut, user } = useAuth()
-  const { t, language } = useLanguage()
+  const { t, language, setLanguage } = useLanguage()
   const accountMenuRef = useRef<HTMLDivElement>(null)
 
   const tabs = useMemo(() => [
@@ -354,6 +354,10 @@ export function TopNav() {
                   <button
                     key={item.label}
                     onClick={() => {
+                      if (item.label === t("nav.language")) {
+                        setLanguage(language === 'en' ? 'fr' : 'en')
+                        return
+                      }
                       setAccountMenuOpen(false)
                       if (item.href) router.push(item.href)
                     }}
