@@ -30,7 +30,20 @@ const fitStyleKeys: Record<FitLevel, string> = {
 // - Max 2 "Strong fit"
 // - Remaining are "Good fit"
 // - Max 1 "Stretch", only if explicitly labeled
-const opportunities: Opportunity[] = [
+interface OpportunityData {
+  id: string
+  roleTitle: string
+  company: string
+  location: string
+  workStyle: string
+  fitLevel: FitLevel
+  fitStrength: number
+  explanationKey: string
+  metaSignalKeys: string[]
+  estimatedSalary?: string
+}
+
+const opportunitiesData: OpportunityData[] = [
   {
     id: "1",
     roleTitle: "Product Analyst Intern",
@@ -39,8 +52,8 @@ const opportunities: Opportunity[] = [
     workStyle: "Hybrid",
     fitLevel: "strong",
     fitStrength: 92,
-    explanation: "Your profile closely matches the role's requirements, and similar candidates received interviews here within 2 weeks.",
-    metaSignals: ["3 days ago", "Low applicant volume", "Intern-friendly"],
+    explanationKey: "opp.data.explanation1",
+    metaSignalKeys: ["opp.data.3daysAgo", "opp.data.lowApplicant", "opp.data.internFriendly"],
     estimatedSalary: "$32,000 - $38,000",
   },
   {
@@ -51,8 +64,8 @@ const opportunities: Opportunity[] = [
     workStyle: "Remote",
     fitLevel: "strong",
     fitStrength: 88,
-    explanation: "Your SQL and Python skills match 90% of the requirements. This company has hired from your university before.",
-    metaSignals: ["5 days ago", "Responds quickly"],
+    explanationKey: "opp.data.explanation2",
+    metaSignalKeys: ["opp.data.5daysAgo", "opp.data.respondsQuickly"],
     estimatedSalary: "$45,000 - $55,000",
   },
   {
@@ -63,8 +76,8 @@ const opportunities: Opportunity[] = [
     workStyle: "On-site",
     fitLevel: "good",
     fitStrength: 72,
-    explanation: "Your analytics background is relevant, and the team is actively expanding. Previous applicants with similar profiles advanced to interviews.",
-    metaSignals: ["1 week ago", "Growing team"],
+    explanationKey: "opp.data.explanation3",
+    metaSignalKeys: ["opp.data.1weekAgo", "opp.data.growingTeam"],
     estimatedSalary: "$52,000 - $62,000",
   },
   {
@@ -75,8 +88,8 @@ const opportunities: Opportunity[] = [
     workStyle: "Hybrid",
     fitLevel: "good",
     fitStrength: 65,
-    explanation: "Your project experience aligns with their product focus. They value analytical backgrounds for this role.",
-    metaSignals: ["4 days ago", "Startup environment"],
+    explanationKey: "opp.data.explanation4",
+    metaSignalKeys: ["opp.data.4daysAgo", "opp.data.startupEnv"],
     estimatedSalary: "$48,000 - $58,000",
   },
   {
@@ -87,8 +100,8 @@ const opportunities: Opportunity[] = [
     workStyle: "On-site",
     fitLevel: "stretch",
     fitStrength: 48,
-    explanation: "This role typically requires more experience, but your quantitative skills could bridge the gap. Worth trying if you have capacity.",
-    metaSignals: ["2 days ago", "Competitive"],
+    explanationKey: "opp.data.explanation5",
+    metaSignalKeys: ["opp.data.2daysAgo", "opp.data.competitive"],
     estimatedSalary: "$60,000 - $75,000",
   },
 ]
@@ -105,7 +118,7 @@ function FitPill({ level }: { level: FitLevel }) {
   )
 }
 
-function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; index: number }) {
+function OpportunityCard({ opportunity, index }: { opportunity: OpportunityData; index: number }) {
   const router = useRouter()
   const { t } = useLanguage()
   const isAltStyle = index % 2 === 1
@@ -184,7 +197,7 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
             className="text-[13px] font-medium"
             style={{ color: "#64748B" }}
           >
-            {opportunity.company} · {opportunity.location} · {opportunity.workStyle} ({opportunity.metaSignals[0]})
+            {opportunity.company} · {opportunity.location} · {opportunity.workStyle} ({t(opportunity.metaSignalKeys[0])})
           </p>
           
           {/* Role Title */}
@@ -296,7 +309,7 @@ function EmptyState() {
 export default function OpportunitiesPage() {
   const { t } = useLanguage()
   const showEmpty = false // Toggle for empty state demo
-  const visibleOpportunities = opportunities.slice(0, 5)
+  const visibleOpportunities = opportunitiesData.slice(0, 5)
 
   return (
     <div

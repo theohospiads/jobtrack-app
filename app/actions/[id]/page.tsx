@@ -5,71 +5,72 @@ import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
 import { useLanguage } from "@/components/language-provider"
 
-interface ActionJob {
+interface ActionJobData {
   id: string
   title: string
   company: string
   location: string
   workType: string
-  appliedDate: string
+  appliedDateKey: string
   currentStage: number
   totalStages: number
+  salary?: string
   stages: {
-    name: string
+    nameKey: string
     status: "completed" | "current" | "upcoming"
     date?: string
   }[]
   tasks: {
-    text: string
+    textKey: string
     completed: boolean
     duration: "15" | "30-45"
-    impact: string
+    impactKey: string
   }[]
   nextAction?: {
-    title: string
+    titleKey: string
     icon: string
     recommendation: boolean
   }
   recruiterSignals?: {
-    reviewTime: string
-    profileView: string
-    ghostingProbability: string
+    reviewTimeKey: string
+    profileViewKey: string
+    ghostingProbabilityKey: string
   }
 }
 
-const actionJobs: Record<string, ActionJob> = {
+const actionJobsData: Record<string, ActionJobData> = {
   "1": {
     id: "1",
     title: "Product Analyst Intern",
     company: "Acme Corp",
     location: "Paris",
     workType: "Hybrid",
-    appliedDate: "3 days ago",
+    appliedDateKey: "opp.data.3daysAgo",
     currentStage: 1,
     totalStages: 4,
     salary: "$65,000 - $75,000",
     stages: [
-      { name: "Application Submitted", status: "completed", date: "Jan 28, 2026" },
-      { name: "Application Review", status: "current" },
-      { name: "Interview", status: "upcoming" },
-      { name: "Decision", status: "upcoming" }
+      { nameKey: "actionDetail.data.applicationSubmitted", status: "completed", date: "Jan 28, 2026" },
+      { nameKey: "actionDetail.data.applicationReview", status: "current" },
+      { nameKey: "actionDetail.data.interview", status: "upcoming" },
+      { nameKey: "actionDetail.data.decision", status: "upcoming" }
     ],
     tasks: [
-      { text: "Send follow-up email", completed: false, duration: "15", impact: "Increases response rate by 25%" },
-      { text: "Prepare 2-3 interview questions", completed: false, duration: "30-45", impact: "Candidates who prepare increase success rate by ~30%" },
-      { text: "Research company background", completed: true, duration: "30-45", impact: "Shows genuine interest to recruiters" },
-      { text: "Tailor CV for this role", completed: false, duration: "30-45", impact: "+6% impact on Application Health" },
-      { text: "Prepare 'Tell me about yourself' answer", completed: false, duration: "15", impact: "First impression matters most" }
+      { textKey: "actionDetail.data.sendFollowUp", completed: false, duration: "15", impactKey: "actionDetail.data.sendFollowUpImpact" },
+      { textKey: "actionDetail.data.prepareQuestions", completed: false, duration: "30-45", impactKey: "actionDetail.data.prepareQuestionsImpact" },
+      { textKey: "actionDetail.data.researchCompany", completed: true, duration: "30-45", impactKey: "actionDetail.data.researchCompanyImpact" },
+      { textKey: "actionDetail.data.tailorCV", completed: false, duration: "30-45", impactKey: "actionDetail.data.tailorCVImpact" },
+      { textKey: "actionDetail.data.prepareTellMe", completed: false, duration: "15", impactKey: "actionDetail.data.prepareTellMeImpact" }
     ],
     nextAction: {
-      title: "Send follow-up email in 2 days",
-      icon: "✉️",
+      titleKey: "actionDetail.data.sendFollowUp2days",
+      icon: "\u2709\uFE0F",
       recommendation: true
     },
     recruiterSignals: {
-      reviewTime: "5–7 days average",
-      profileView: "Likely within 48 hours",
-      ghostingProbability: "Low"
+      reviewTimeKey: "actionDetail.data.reviewTime1",
+      profileViewKey: "actionDetail.data.profileView1",
+      ghostingProbabilityKey: "actionDetail.data.low"
     }
   },
   "2": {
@@ -78,29 +79,29 @@ const actionJobs: Record<string, ActionJob> = {
     company: "TechStart Inc",
     location: "London",
     workType: "Remote",
-    appliedDate: "5 days ago",
+    appliedDateKey: "opp.data.5daysAgo",
     currentStage: 2,
     totalStages: 4,
     salary: "$72,000 - $88,000",
     stages: [
-      { name: "Application Submitted", status: "completed", date: "Jan 26, 2026" },
-      { name: "Application Review", status: "completed", date: "Jan 28, 2026" },
-      { name: "Technical Assessment", status: "current" },
-      { name: "Final Interview", status: "upcoming" }
+      { nameKey: "actionDetail.data.applicationSubmitted", status: "completed", date: "Jan 26, 2026" },
+      { nameKey: "actionDetail.data.applicationReview", status: "completed", date: "Jan 28, 2026" },
+      { nameKey: "actionDetail.data.technicalAssessment", status: "current" },
+      { nameKey: "actionDetail.data.finalInterview", status: "upcoming" }
     ],
     tasks: [
-      { text: "Complete coding challenge", completed: false, duration: "30-45", impact: "Critical for advancement" },
-      { text: "Schedule technical call", completed: false, duration: "15", impact: "Shows promptness and interest" }
+      { textKey: "actionDetail.data.completeCoding", completed: false, duration: "30-45", impactKey: "actionDetail.data.completeCodingImpact" },
+      { textKey: "actionDetail.data.scheduleTechnical", completed: false, duration: "15", impactKey: "actionDetail.data.scheduleTechnicalImpact" }
     ],
     nextAction: {
-      title: "Complete coding challenge",
-      icon: "💻",
+      titleKey: "actionDetail.data.completeCodingChallenge",
+      icon: "\uD83D\uDCBB",
       recommendation: true
     },
     recruiterSignals: {
-      reviewTime: "2–3 days for assessments",
-      profileView: "Already confirmed",
-      ghostingProbability: "Very Low"
+      reviewTimeKey: "actionDetail.data.reviewTime2",
+      profileViewKey: "actionDetail.data.profileView2",
+      ghostingProbabilityKey: "actionDetail.data.veryLow"
     }
   },
   "3": {
@@ -109,28 +110,28 @@ const actionJobs: Record<string, ActionJob> = {
     company: "DataFlow",
     location: "New York",
     workType: "On-site",
-    appliedDate: "2 days ago",
+    appliedDateKey: "opp.data.2daysAgo",
     currentStage: 1,
     totalStages: 3,
     salary: "$78,000 - $95,000",
     stages: [
-      { name: "Application Submitted", status: "completed", date: "Jan 29, 2026" },
-      { name: "Screening Call", status: "current" },
-      { name: "Final Round", status: "upcoming" }
+      { nameKey: "actionDetail.data.applicationSubmitted", status: "completed", date: "Jan 29, 2026" },
+      { nameKey: "actionDetail.data.screeningCall", status: "current" },
+      { nameKey: "actionDetail.data.finalRound", status: "upcoming" }
     ],
     tasks: [
-      { text: "Review job requirements", completed: false, duration: "15", impact: "Foundation for all prep" },
-      { text: "Submit portfolio", completed: false, duration: "30-45", impact: "Differentiates you from 80% of candidates" }
+      { textKey: "actionDetail.data.reviewJobReq", completed: false, duration: "15", impactKey: "actionDetail.data.reviewJobReqImpact" },
+      { textKey: "actionDetail.data.submitPortfolio", completed: false, duration: "30-45", impactKey: "actionDetail.data.submitPortfolioImpact" }
     ],
     nextAction: {
-      title: "Submit portfolio link",
-      icon: "📂",
+      titleKey: "actionDetail.data.submitPortfolioLink",
+      icon: "\uD83D\uDCC2",
       recommendation: true
     },
     recruiterSignals: {
-      reviewTime: "4–5 days for screening",
-      profileView: "Likely today",
-      ghostingProbability: "Low"
+      reviewTimeKey: "actionDetail.data.reviewTime3",
+      profileViewKey: "actionDetail.data.profileView3",
+      ghostingProbabilityKey: "actionDetail.data.low"
     }
   }
 }
@@ -159,7 +160,7 @@ export default function ActionDetailPage() {
   const router = useRouter()
   const { t } = useLanguage()
   const id = params.id as string
-  const job = actionJobs[id] || actionJobs["1"]
+  const job = actionJobsData[id] || actionJobsData["1"]
   const [completedTasks, setCompletedTasks] = useState<Record<number, boolean>>(
     job.tasks.reduce((acc, _, i) => ({ ...acc, [i]: false }), {})
   )
@@ -246,7 +247,7 @@ export default function ActionDetailPage() {
                 {t("actionDetail.currentStage")}
               </p>
               <p style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: 0 }}>
-                {job.stages[job.currentStage]?.name}
+                {job.stages[job.currentStage] ? t(job.stages[job.currentStage].nameKey) : ""}
               </p>
             </div>
 
@@ -280,7 +281,7 @@ export default function ActionDetailPage() {
         {job.recruiterSignals && (
           <div style={{ marginBottom: 32 }}>
             <p style={{ fontSize: 13, color: "#64748B", margin: 0, fontWeight: 500, lineHeight: "1.5" }}>
-              <span style={{ fontWeight: 700, color: "#0F172A" }}>{t("actionDetail.whatToExpect")}</span> {t("actionDetail.typicalReview")} {job.recruiterSignals.reviewTime} • {t("actionDetail.ghostingRisk")}: {job.recruiterSignals.ghostingProbability}
+              <span style={{ fontWeight: 700, color: "#0F172A" }}>{t("actionDetail.whatToExpect")}</span> {t("actionDetail.typicalReview")} {t(job.recruiterSignals.reviewTimeKey)} • {t("actionDetail.ghostingRisk")}: {t(job.recruiterSignals.ghostingProbabilityKey)}
             </p>
           </div>
         )}
@@ -351,7 +352,7 @@ export default function ActionDetailPage() {
                       }}
                     >
                       {job.stages.map(
-                        (stage: { status: string; name: string; date?: string }, index: number) => (
+                        (stage: { status: string; nameKey: string; date?: string }, index: number) => (
                           <div
                             key={index}
                             style={{
@@ -405,7 +406,7 @@ export default function ActionDetailPage() {
                                 }}
                               >
                                 {stage.status === "completed" ? t("actionDetail.your") : ""}
-                                {stage.name}
+                                {t(stage.nameKey)}
                               </p>
                               {stage.date && (
                                 <p
@@ -486,10 +487,10 @@ export default function ActionDetailPage() {
                   />
                   <div style={{ flex: 1 }}>
                     <p style={{ margin: "0 0 4px 0", textDecoration: completedTasks[actualIndex] ? "line-through" : "none", fontWeight: 500 }}>
-                      {task.text}
+                      {t(task.textKey)}
                     </p>
                     <p style={{ fontSize: 12, color: "#2563EB", margin: 0 }}>
-                      {task.impact}
+                      {t(task.impactKey)}
                     </p>
                   </div>
                 </div>
@@ -525,7 +526,6 @@ export default function ActionDetailPage() {
           <button
             type="button"
             onClick={() => {
-              console.log("[v0] Button clicked, id:", id)
               router.push(`/actions/${id}/send-follow-up`)
             }}
             style={{

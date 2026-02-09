@@ -9,20 +9,20 @@ export default function ActionsPage() {
   const { t } = useLanguage()
   const secondaryActions = [
     {
-      title: "Follow up with TechStart Inc",
-      subtext: "10 days since application"
+      title: t("actions.data.followUpTechStart"),
+      subtext: t("actions.data.10daysSince")
     },
     {
-      title: "Follow up with DataFlow",
-      subtext: "7 days since application"
+      title: t("actions.data.followUpDataFlow"),
+      subtext: t("actions.data.7daysSince")
     },
     {
-      title: "Update resume for Product roles",
-      subtext: "Increases match rate by ~15%"
+      title: t("actions.data.updateResume"),
+      subtext: t("actions.data.increasesMatch")
     },
     {
-      title: "Add portfolio link to LinkedIn",
-      subtext: "Boosts profile visibility"
+      title: t("actions.data.addPortfolio"),
+      subtext: t("actions.data.boostsVisibility")
     }
   ]
 
@@ -32,72 +32,72 @@ export default function ActionsPage() {
       company: "Acme Corp",
       location: "Paris",
       workType: "Hybrid",
-      appliedDate: "3 days ago",
+      appliedDate: t("opp.data.3daysAgo"),
       nextTasks: [
-        { text: "Follow up email", urgency: 3 },
-        { text: "Prepare interview", urgency: 2 }
+        { text: t("actions.data.followUpEmail"), urgency: 3 },
+        { text: t("actions.data.prepareInterview"), urgency: 2 }
       ],
-      urgency: "Very urgent"
+      urgency: t("actions.veryUrgent")
     },
     {
       title: "Data Analyst",
       company: "TechStart Inc",
       location: "London",
       workType: "Remote",
-      appliedDate: "5 days ago",
+      appliedDate: t("opp.data.5daysAgo"),
       nextTasks: [
-        { text: "Coding challenge", urgency: 2 },
-        { text: "Schedule call", urgency: 1 }
+        { text: t("actions.data.codingChallenge"), urgency: 2 },
+        { text: t("actions.data.scheduleCall"), urgency: 1 }
       ],
-      urgency: "Urgent"
+      urgency: t("actions.urgent")
     },
     {
       title: "Business Analyst",
       company: "DataFlow",
       location: "New York",
       workType: "On-site",
-      appliedDate: "2 days ago",
+      appliedDate: t("opp.data.2daysAgo"),
       nextTasks: [
-        { text: "Review requirements", urgency: 2 },
-        { text: "Submit portfolio", urgency: 3 }
+        { text: t("actions.data.reviewRequirements"), urgency: 2 },
+        { text: t("actions.data.submitPortfolio"), urgency: 3 }
       ],
-      urgency: "Normal"
+      urgency: t("actions.normal")
     },
     {
       title: "UX Designer",
       company: "Creative Studios",
       location: "Berlin",
       workType: "Remote",
-      appliedDate: "1 day ago",
+      appliedDate: t("opp.data.1dayAgo"),
       nextTasks: [
-        { text: "Portfolio review", urgency: 1 },
-        { text: "Design test", urgency: 2 }
+        { text: t("actions.data.portfolioReview"), urgency: 1 },
+        { text: t("actions.data.designTest"), urgency: 2 }
       ],
-      urgency: "Urgent"
+      urgency: t("actions.urgent")
     },
     {
       title: "Senior Developer",
       company: "TechCorp",
       location: "San Francisco",
       workType: "Hybrid",
-      appliedDate: "4 days ago",
+      appliedDate: t("opp.data.4daysAgo"),
       nextTasks: [
-        { text: "Phone screen", urgency: 3 },
-        { text: "Technical interview", urgency: 2 }
+        { text: t("actions.data.phoneScreen"), urgency: 3 },
+        { text: t("actions.data.technicalInterview"), urgency: 2 }
       ],
-      urgency: "Very urgent"
+      urgency: t("actions.veryUrgent")
     },
     {
       title: "Marketing Manager",
       company: "Growth Labs",
       location: "Boston",
       workType: "Remote",
-      appliedDate: "6 days ago",
+      appliedDate: t("opp.data.6daysAgo"),
       nextTasks: [
-        { text: "Case study", urgency: 1 },
-        { text: "Final round", urgency: 2 }
+        { text: t("actions.data.caseStudy"), urgency: 1 },
+        { text: t("actions.data.finalRound"), urgency: 2 }
       ],
-      urgency: "Normal"
+      urgency: t("actions.normal")
     }
   ]
 
