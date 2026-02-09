@@ -15,17 +15,7 @@ export default function AccountPage() {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null
-
-  const name = user?.name || "User"
-  const email = user?.email || "user@email.com"
-  const initials = name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2)
-  const profileType = profile?.profile_type || "Job Seeker"
-  const targetRole = profile?.target_role || profile?.current_role || "Not set"
-  const location = profile?.location || "Not set"
-  const memberSince = "February 2026"
-
-  // Generate activity heatmap data (last 12 weeks)
+  // Generate activity heatmap data (last 12 weeks) - must be before early return
   const heatmapData = useMemo(() => {
     const weeks = 20
     const days = 7
@@ -33,7 +23,6 @@ export default function AccountPage() {
     for (let w = 0; w < weeks; w++) {
       const week: number[] = []
       for (let d = 0; d < days; d++) {
-        // More activity in recent weeks
         const recency = w / weeks
         const chance = recency * 0.6
         if (Math.random() < chance) {
@@ -46,6 +35,16 @@ export default function AccountPage() {
     }
     return data
   }, [])
+
+  if (!mounted) return null
+
+  const name = user?.name || "User"
+  const email = user?.email || "user@email.com"
+  const initials = name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2)
+  const profileType = profile?.profile_type || "Job Seeker"
+  const targetRole = profile?.target_role || profile?.current_role || "Not set"
+  const location = profile?.location || "Not set"
+  const memberSince = "February 2026"
 
   const getHeatColor = (value: number) => {
     if (value === 0) return "#F1F5F9"
