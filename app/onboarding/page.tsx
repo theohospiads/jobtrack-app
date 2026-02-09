@@ -234,9 +234,15 @@ export default function OnboardingPage() {
   const question = isProfileSelectionStep ? PROFILE_SELECTION : adaptiveQuestions[currentStep]
 
   // Calculate total steps correctly
-  const totalSteps = profileType === null ? 1 : adaptiveQuestions.length
-  const displayStep = profileType === null ? 1 : currentStep + 1
-  const progress = (displayStep / (totalSteps + 1)) * 100
+  // Profile selection (1) + adaptive questions based on profile type
+  const getExpectedSteps = () => {
+    if (profileType === null) return 5 // Average of all profile types
+    return adaptiveQuestions.length
+  }
+  
+  const totalSteps = 1 + getExpectedSteps() // 1 for profile selection + questions
+  const displayStep = profileType === null ? 1 : 1 + currentStep + 1
+  const progress = (displayStep / totalSteps) * 100
 
   const handleProfileSelect = (value: string) => {
     setFadeIn(false)
@@ -334,16 +340,6 @@ export default function OnboardingPage() {
               }}
             >
               Step {displayStep} of {totalSteps}
-            </p>
-            <p
-              style={{
-                fontSize: '12px',
-                fontWeight: '500',
-                color: '#94A3B8',
-                margin: 0,
-              }}
-            >
-              ~{Math.ceil((totalSteps - displayStep) * 15)}s left
             </p>
           </div>
         </div>
