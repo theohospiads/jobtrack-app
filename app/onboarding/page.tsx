@@ -16,20 +16,18 @@ type Question = {
   recommended?: string
 }
 
-const PROFILE_QUESTIONS: Question[] = [
-  {
-    id: 'profile_type',
-    question: 'What describes you best?',
-    subtitle: 'We will customize your job search experience',
-    type: 'choice',
-    options: [
-      { label: 'Student', value: 'student', hint: 'Studying, looking for internship or entry-level' },
-      { label: 'Employed', value: 'employed', hint: 'Currently working, open to new opportunities' },
-      { label: 'Looking for a job', value: 'job-seeker', hint: 'Not currently working, actively searching' },
-      { label: 'Career change', value: 'career-change', hint: 'Transitioning to a new field or role' },
-    ],
-  },
-]
+const PROFILE_SELECTION: Question = {
+  id: 'profile_type',
+  question: 'What describes you best?',
+  subtitle: 'We will customize your job search experience',
+  type: 'choice',
+  options: [
+    { label: 'Student', value: 'student', hint: 'Studying, looking for internship or entry-level' },
+    { label: 'Employed', value: 'employed', hint: 'Currently working, open to new opportunities' },
+    { label: 'Looking for a job', value: 'job-seeker', hint: 'Not currently working, actively searching' },
+    { label: 'Career change', value: 'career-change', hint: 'Transitioning to a new field or role' },
+  ],
+}
 
 const ADAPTIVE_QUESTIONS: Record<ProfileType, Question[]> = {
   student: [
@@ -228,25 +226,30 @@ export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [fadeIn, setFadeIn] = useState(true)
 
   // Get questions for current profile type
   const adaptiveQuestions = profileType ? ADAPTIVE_QUESTIONS[profileType] : []
-  const allQuestions = profileType === null ? PROFILE_QUESTIONS : adaptiveQuestions
-  const question = allQuestions[currentStep]
+  const isProfileSelectionStep = profileType === null
+  const question = isProfileSelectionStep ? PROFILE_SELECTION : adaptiveQuestions[currentStep]
 
-  // Calculate total steps: 1 for profile type + adaptive questions
-  const totalSteps = 1 + (profileType ? adaptiveQuestions.length : 0)
-  const progress = ((currentStep + 1) / totalSteps) * 100
+  // Calculate total steps correctly
+  const totalSteps = profileType === null ? 1 : adaptiveQuestions.length
+  const displayStep = profileType === null ? 1 : currentStep + 1
+  const progress = (displayStep / (totalSteps + 1)) * 100
+
+  const handleProfileSelect = (value: string) => {
+    setFadeIn(false)
+    setTimeout(() => {
+      setProfileType(value as ProfileType)
+      setCurrentStep(0)
+      setFadeIn(true)
+    }, 200)
+  }
 
   const handleChoice = (value: string) => {
-    if (question.id === 'profile_type') {
-      setProfileType(value as ProfileType)
-      setAnswers({ ...answers, [question.id]: value })
-      setCurrentStep(0) // Reset to first adaptive question
-    } else {
-      setAnswers({ ...answers, [question.id]: value })
-      handleNext()
-    }
+    setAnswers({ ...answers, [question.id]: value })
+    handleNext()
   }
 
   const handleInputChange = (value: string) => {
@@ -254,8 +257,12 @@ export default function OnboardingPage() {
   }
 
   const handleNext = () => {
-    if (currentStep < allQuestions.length - 1) {
-      setCurrentStep(currentStep + 1)
+    if (currentStep < adaptiveQuestions.length - 1) {
+      setFadeIn(false)
+      setTimeout(() => {
+        setCurrentStep(currentStep + 1)
+        setFadeIn(true)
+      }, 200)
     } else {
       handleComplete()
     }
@@ -263,10 +270,11 @@ export default function OnboardingPage() {
 
   const handleComplete = async () => {
     setIsSubmitting(true)
-    updateProfile(answers)
+    const finalAnswers = { ...answers, profile_type: profileType }
+    updateProfile(finalAnswers)
     setTimeout(() => {
       router.push('/dashboard')
-    }, 300)
+    }, 500)
   }
 
   const canProceed = question.type === 'choice' || answers[question.id]?.trim().length > 0
@@ -278,25 +286,27 @@ export default function OnboardingPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#F8FAFC',
+        background: 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)',
         padding: '24px',
       }}
     >
       <div
         style={{
           width: '100%',
-          maxWidth: '520px',
+          maxWidth: '540px',
           display: 'flex',
           flexDirection: 'column',
           gap: '48px',
+          opacity: fadeIn ? 1 : 0.5,
+          transition: 'opacity 200ms ease',
         }}
       >
-        {/* Progress Bar */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {/* Progress Section */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div
             style={{
               width: '100%',
-              height: '3px',
+              height: '4px',
               background: '#E5E7EB',
               borderRadius: '100px',
               overflow: 'hidden',
@@ -306,34 +316,48 @@ export default function OnboardingPage() {
               style={{
                 width: `${progress}%`,
                 height: '100%',
-                background: '#2563EB',
-                transition: 'width 300ms ease',
+                background: 'linear-gradient(90deg, #2563EB 0%, #1E40AF 100%)',
+                transition: 'width 500ms cubic-bezier(0.34, 1.56, 0.64, 1)',
+                borderRadius: '100px',
               }}
             />
           </div>
-          <p
-            style={{
-              fontSize: '12px',
-              fontWeight: '600',
-              color: '#64748B',
-              margin: 0,
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-            }}
-          >
-            Step {currentStep + 1} of {totalSteps}
-          </p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <p
+              style={{
+                fontSize: '12px',
+                fontWeight: '600',
+                color: '#64748B',
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}
+            >
+              Step {displayStep} of {totalSteps}
+            </p>
+            <p
+              style={{
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#94A3B8',
+                margin: 0,
+              }}
+            >
+              ~{Math.ceil((totalSteps - displayStep) * 15)}s left
+            </p>
+          </div>
         </div>
 
-        {/* Question */}
+        {/* Question Section */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <h1
             style={{
               fontSize: '32px',
-              fontWeight: '600',
+              fontWeight: '700',
               color: '#0F172A',
               margin: 0,
               lineHeight: '1.2',
+              letterSpacing: '-0.5px',
             }}
           >
             {question.question}
@@ -344,6 +368,7 @@ export default function OnboardingPage() {
               color: '#64748B',
               margin: 0,
               lineHeight: '1.6',
+              fontWeight: '400',
             }}
           >
             {question.subtitle}
@@ -352,7 +377,7 @@ export default function OnboardingPage() {
 
         {/* Input / Choices */}
         {question.type === 'input' ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <input
               type="text"
               value={answers[question.id] || ''}
@@ -374,9 +399,16 @@ export default function OnboardingPage() {
                 fontFamily: 'inherit',
                 transition: 'all 200ms ease',
                 outline: 'none',
+                boxShadow: 'none',
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = '#2563EB')}
-              onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#2563EB'
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.1)'
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#E5E7EB'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
             />
             <button
               onClick={handleNext}
@@ -392,31 +424,38 @@ export default function OnboardingPage() {
                 cursor: canProceed && !isSubmitting ? 'pointer' : 'not-allowed',
                 transition: 'all 200ms ease',
                 letterSpacing: '-0.2px',
+                boxShadow: canProceed && !isSubmitting ? '0 4px 12px rgba(37, 99, 235, 0.25)' : 'none',
               }}
               onMouseEnter={(e) => {
                 if (canProceed && !isSubmitting) {
                   e.currentTarget.style.background = '#1E40AF'
+                  e.currentTarget.style.transform = 'translateY(-1px)'
                 }
               }}
               onMouseLeave={(e) => {
                 if (canProceed && !isSubmitting) {
                   e.currentTarget.style.background = '#2563EB'
+                  e.currentTarget.style.transform = 'translateY(0)'
                 }
               }}
             >
-              {currentStep === allQuestions.length - 1
+              {currentStep === adaptiveQuestions.length - 1
                 ? isSubmitting
-                  ? 'Setting up...'
+                  ? 'Setting up your profile...'
                   : 'Complete Setup'
                 : 'Continue'}
             </button>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {question.options?.map((option) => (
+            {question.options?.map((option, idx) => (
               <button
                 key={option.value}
-                onClick={() => handleChoice(option.value)}
+                onClick={() =>
+                  isProfileSelectionStep
+                    ? handleProfileSelect(option.value)
+                    : handleChoice(option.value)
+                }
                 style={{
                   padding: '14px 16px',
                   borderRadius: '10px',
@@ -433,11 +472,16 @@ export default function OnboardingPage() {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '4px',
+                  animationDelay: `${idx * 50}ms`,
+                  animation: fadeIn ? 'slideUp 300ms ease forwards' : 'none',
+                  transform: fadeIn ? 'translateY(0)' : 'translateY(10px)',
+                  opacity: fadeIn ? 1 : 0.5,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = '#2563EB'
                   if (answers[question.id] !== option.value) {
                     e.currentTarget.style.background = '#F8FAFC'
+                    e.currentTarget.style.transform = 'translateY(-1px)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -445,6 +489,7 @@ export default function OnboardingPage() {
                     answers[question.id] === option.value ? '#2563EB' : '#E5E7EB'
                   if (answers[question.id] !== option.value) {
                     e.currentTarget.style.background = '#FFFFFF'
+                    e.currentTarget.style.transform = 'translateY(0)'
                   }
                 }}
               >
@@ -465,18 +510,52 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Skip indicator */}
-        <p
+        {/* Footer */}
+        <div
           style={{
-            fontSize: '12px',
-            color: '#94A3B8',
-            textAlign: 'center',
-            margin: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '8px',
+            paddingTop: '12px',
+            borderTop: '1px solid #E5E7EB',
           }}
         >
-          Takes just 90 seconds · No payment required
-        </p>
+          <p
+            style={{
+              fontSize: '12px',
+              color: '#94A3B8',
+              margin: 0,
+              fontWeight: '500',
+            }}
+          >
+            Takes just 60 seconds
+          </p>
+          <span style={{ color: '#E5E7EB' }}>•</span>
+          <p
+            style={{
+              fontSize: '12px',
+              color: '#94A3B8',
+              margin: 0,
+              fontWeight: '500',
+            }}
+          >
+            No payment required
+          </p>
+        </div>
       </div>
+
+      <style>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   )
 }
