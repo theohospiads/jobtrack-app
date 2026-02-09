@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth-provider'
 import { useState, useEffect } from 'react'
+import { ArrowLeft } from 'lucide-react'
 
 const PLATFORMS = [
   // Email
@@ -94,6 +95,28 @@ export default function ConnectAccountsPage() {
       {/* Header */}
       <div style={{ borderBottom: '1px solid #E2E8F0', backgroundColor: '#FFFFFF' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 32px' }}>
+          <button
+            onClick={() => router.push('/onboarding')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'none',
+              border: 'none',
+              color: '#64748B',
+              fontSize: '13px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              padding: '0',
+              marginBottom: '16px',
+              transition: 'color 0.15s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#0F172A' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#64748B' }}
+          >
+            <ArrowLeft size={16} />
+            Back to onboarding
+          </button>
           <h1 style={{ fontSize: '28px', fontWeight: '600', margin: '0', color: '#0F172A', letterSpacing: '-0.5px' }}>
             Connect Your Accounts
           </h1>
@@ -347,57 +370,31 @@ export default function ConnectAccountsPage() {
         backgroundColor: '#FFFFFF',
         padding: '20px 32px',
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
-          <button
-            onClick={() => router.push('/dashboard')}
-            style={{
-              padding: '10px 24px',
-              backgroundColor: 'transparent',
-              color: '#64748B',
-              border: '1px solid #E2E8F0',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#F1F5F9'
-              e.currentTarget.style.borderColor = '#D4D4D8'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent'
-              e.currentTarget.style.borderColor = '#E2E8F0'
-            }}
-          >
-            Skip for Now
-          </button>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <button
             onClick={handleContinue}
-            disabled={connectedPlatforms.size === 0}
             style={{
-              padding: '10px 32px',
-              backgroundColor: connectedPlatforms.size === 0 ? '#CBD5E1' : '#2563EB',
+              padding: '10px 28px',
+              backgroundColor: '#2563EB',
               color: '#FFFFFF',
               border: 'none',
               borderRadius: '8px',
               fontSize: '14px',
               fontWeight: '600',
-              cursor: connectedPlatforms.size === 0 ? 'not-allowed' : 'pointer',
+              cursor: 'pointer',
               transition: 'all 0.2s',
+              boxShadow: '0 2px 8px rgba(37, 99, 235, 0.2)',
             }}
             onMouseEnter={(e) => {
-              if (connectedPlatforms.size > 0) {
-                e.currentTarget.style.backgroundColor = '#1E40AF'
-              }
+              e.currentTarget.style.backgroundColor = '#1E40AF'
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)'
             }}
             onMouseLeave={(e) => {
-              if (connectedPlatforms.size > 0) {
-                e.currentTarget.style.backgroundColor = '#2563EB'
-              }
+              e.currentTarget.style.backgroundColor = '#2563EB'
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(37, 99, 235, 0.2)'
             }}
           >
-            Go to Dashboard
+            {connectedPlatforms.size > 0 ? 'Continue' : 'Skip for now'}
           </button>
         </div>
       </div>
