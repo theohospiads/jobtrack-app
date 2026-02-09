@@ -162,140 +162,117 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Start Your Journey Section - Elite Hero CTA */}
+        {/* Start Your Journey Section - Consistent Design */}
         <div 
-          className="mb-12 rounded-2xl p-8 transition-all duration-300 overflow-hidden relative"
+          className="mb-12 rounded-2xl p-8 transition-all duration-300"
           style={{
-            background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
-            border: "1px solid #334155",
-            boxShadow: "0 8px 32px rgba(15, 23, 42, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+            background: "#FFFFFF",
+            border: "1px solid #E5E7EB",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "#CBD5E1";
+            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "#E5E7EB";
+            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
           }}
         >
-          {/* Decorative gradient orb */}
+          <div className="mb-6">
+            <h3 className="text-xl font-semibold mb-2" style={{ color: "#0F172A" }}>
+              Start Your Journey
+            </h3>
+            <p className="text-sm" style={{ color: "#64748B" }}>
+              You're all set! Explore job opportunities tailored to your profile and accelerate your search.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", marginBottom: "24px" }}>
+            <button
+              onClick={() => router.push('/opportunities')}
+              className="transition-all duration-300"
+              style={{
+                background: "#2563EB",
+                color: "#FFFFFF",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "8px",
+                fontSize: "13px",
+                fontWeight: "600",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(37, 99, 235, 0.2)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#1E40AF";
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#2563EB";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(37, 99, 235, 0.2)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              Explore Opportunities
+            </button>
+
+            <button
+              onClick={() => router.push('/profile')}
+              className="transition-all duration-300"
+              style={{
+                background: "#F8FAFC",
+                color: "#64748B",
+                border: "1px solid #E5E7EB",
+                padding: "10px 20px",
+                borderRadius: "8px",
+                fontSize: "13px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#F1F5F9";
+                e.currentTarget.style.borderColor = "#CBD5E1";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#F8FAFC";
+                e.currentTarget.style.borderColor = "#E5E7EB";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              View Profile
+            </button>
+          </div>
+
+          {/* Info Highlight */}
           <div 
             style={{
-              position: 'absolute',
-              top: '-80px',
-              right: '-80px',
-              width: '300px',
-              height: '300px',
-              background: 'radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%)',
-              borderRadius: '50%',
-              pointerEvents: 'none',
+              padding: "16px",
+              background: "#F8FAFC",
+              border: "1px solid #E5E7EB",
+              borderRadius: "8px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
-          />
-
-          <div style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ maxWidth: '700px', marginBottom: '32px' }}>
-              <h2 
-                className="text-4xl font-bold mb-4 leading-[1.2]"
-                style={{ color: '#FFFFFF', letterSpacing: '-0.5px' }}
-              >
-                Start Your Journey
-              </h2>
-              <p 
-                className="text-lg"
-                style={{ color: '#CBD5E1', lineHeight: '1.6', margin: 0 }}
-              >
-                You're all set! Connect with job opportunities tailored to your profile. Explore matches, track applications, and accelerate your job search.
+          >
+            <div>
+              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                Next Step
+              </p>
+              <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                Browse 10+ personalized matches
               </p>
             </div>
-
-            {/* CTA Buttons */}
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <button
-                onClick={() => router.push('/opportunities')}
-                className="transition-all duration-300"
-                style={{
-                  background: '#2563EB',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  padding: '12px 28px',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#1E40AF';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(37, 99, 235, 0.4)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#2563EB';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                Explore Opportunities
-              </button>
-              
-              <button
-                onClick={() => router.push('/profile')}
-                className="transition-all duration-300"
-                style={{
-                  background: 'transparent',
-                  color: '#E0E7FF',
-                  border: '1px solid #475569',
-                  padding: '12px 28px',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(37, 99, 235, 0.1)';
-                  e.currentTarget.style.borderColor = '#2563EB';
-                  e.currentTarget.style.color = '#E0E7FF';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.borderColor = '#475569';
-                  e.currentTarget.style.color = '#E0E7FF';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                View Profile
-              </button>
-            </div>
-
-            {/* Info Cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginTop: '40px' }}>
-              <div>
-                <p style={{ fontSize: '13px', fontWeight: '600', color: '#64748B', margin: '0 0 8px 0', textTransform: 'uppercase' }}>
-                  Next Step
-                </p>
-                <p style={{ fontSize: '15px', fontWeight: '600', color: '#FFFFFF', margin: 0 }}>
-                  Browse 10+ matches
-                </p>
-                <p style={{ fontSize: '13px', color: '#94A3B8', margin: '4px 0 0 0' }}>
-                  Personalized for you
-                </p>
-              </div>
-              <div>
-                <p style={{ fontSize: '13px', fontWeight: '600', color: '#64748B', margin: '0 0 8px 0', textTransform: 'uppercase' }}>
-                  Connected Accounts
-                </p>
-                <p style={{ fontSize: '15px', fontWeight: '600', color: '#FFFFFF', margin: 0 }}>
-                  LinkedIn · Gmail
-                </p>
-                <p style={{ fontSize: '13px', color: '#94A3B8', margin: '4px 0 0 0' }}>
-                  Ready to apply
-                </p>
-              </div>
-              <div>
-                <p style={{ fontSize: '13px', fontWeight: '600', color: '#64748B', margin: '0 0 8px 0', textTransform: 'uppercase' }}>
-                  Time to First Match
-                </p>
-                <p style={{ fontSize: '15px', fontWeight: '600', color: '#FFFFFF', margin: 0 }}>
-                  ~2 minutes
-                </p>
-                <p style={{ fontSize: '13px', color: '#94A3B8', margin: '4px 0 0 0' }}>
-                  Start exploring now
-                </p>
-              </div>
+            <div style={{ textAlign: "right" }}>
+              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                Time to first match
+              </p>
+              <p style={{ fontSize: "14px", fontWeight: "600", color: "#2563EB", margin: 0 }}>
+                ~2 minutes
+              </p>
             </div>
           </div>
         </div>
