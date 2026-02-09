@@ -279,7 +279,7 @@ export default function OnboardingPage() {
     const finalAnswers = { ...answers, profile_type: profileType }
     updateProfile(finalAnswers)
     setTimeout(() => {
-      router.push('/dashboard')
+      router.push('/connect-accounts')
     }, 500)
   }
 

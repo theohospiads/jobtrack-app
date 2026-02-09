@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!mounted) return
 
-    const publicRoutes = ['/sign-up', '/onboarding', '/']
+    const publicRoutes = ['/sign-up', '/onboarding', '/connect-accounts', '/']
     const isPublicRoute = publicRoutes.includes(pathname)
 
     if (!isAuthenticated && !isPublicRoute) {
