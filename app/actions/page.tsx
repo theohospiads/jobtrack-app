@@ -2,9 +2,11 @@
 
 import { TopNav } from "@/components/top-nav"
 import { useRouter } from "next/navigation"
+import { useLanguage } from "@/components/language-provider"
 
 export default function ActionsPage() {
   const router = useRouter()
+  const { t } = useLanguage()
   const secondaryActions = [
     {
       title: "Follow up with TechStart Inc",
@@ -123,7 +125,7 @@ export default function ActionsPage() {
               color: '#0F172A'
             }}
           >
-            Application
+            {t("actions.title")}
           </h1>
         </header>
 
@@ -201,7 +203,7 @@ export default function ActionsPage() {
           {/* Search by Name */}
           <input
             type="text"
-            placeholder="Search by job title..."
+            placeholder={t("actions.searchPlaceholder")}
             style={{
               padding: '8px 12px',
               fontSize: 13,
@@ -245,10 +247,10 @@ export default function ActionsPage() {
               e.target.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.04)'
             }}
           >
-            <option value="">Filter by urgency</option>
-            <option value="very-urgent">Very urgent</option>
-            <option value="urgent">Urgent</option>
-            <option value="normal">Normal</option>
+            <option value="">{t("actions.filterUrgency")}</option>
+            <option value="very-urgent">{t("actions.veryUrgent")}</option>
+            <option value="urgent">{t("actions.urgent")}</option>
+            <option value="normal">{t("actions.normal")}</option>
           </select>
 
           {/* Filter by Date */}
@@ -273,11 +275,11 @@ export default function ActionsPage() {
               e.target.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.04)'
             }}
           >
-            <option value="">Filter by date</option>
-            <option value="1-day">Last 1 day</option>
-            <option value="3-days">Last 3 days</option>
-            <option value="7-days">Last 7 days</option>
-            <option value="all">All time</option>
+            <option value="">{t("actions.filterDate")}</option>
+            <option value="1-day">{t("actions.last1Day")}</option>
+            <option value="3-days">{t("actions.last3Days")}</option>
+            <option value="7-days">{t("actions.last7Days")}</option>
+            <option value="all">{t("actions.allTime")}</option>
           </select>
         </div>
 
@@ -359,13 +361,13 @@ export default function ActionsPage() {
                   marginBottom: 12
                 }}
               >
-                Applied {card.appliedDate}
+                {t("actions.applied")} {card.appliedDate}
               </p>
 
               {/* Progress Bar and View Tasks */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 {/* Tasks Label */}
-                <span style={{ fontSize: 14, fontWeight: 600, color: '#0F172A', flexShrink: 0 }}>Tasks:</span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: '#0F172A', flexShrink: 0 }}>{t("actions.tasks")}</span>
                 
                 {/* Progress Bar */}
                 <div style={{ flex: 1, height: 6, background: '#E5E7EB', borderRadius: 3, overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)' }}>
@@ -434,7 +436,7 @@ export default function ActionsPage() {
               e.currentTarget.style.transform = 'translateY(0)'
             }}
           >
-            Load more
+            {t("actions.loadMore")}
           </button>
         </div>
       </main>

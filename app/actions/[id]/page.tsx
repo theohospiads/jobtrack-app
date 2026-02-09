@@ -3,6 +3,7 @@
 import { TopNav } from "@/components/top-nav"
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 
 interface ActionJob {
   id: string
@@ -156,6 +157,7 @@ const alternativeJobs = [
 export default function ActionDetailPage() {
   const params = useParams()
   const router = useRouter()
+  const { t } = useLanguage()
   const id = params.id as string
   const job = actionJobs[id] || actionJobs["1"]
   const [completedTasks, setCompletedTasks] = useState<Record<number, boolean>>(
@@ -214,7 +216,7 @@ export default function ActionDetailPage() {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Back to Applications
+          {t("actionDetail.backToApps")}
         </button>
 
         {/* PRIMARY CARD - Above the fold */}
@@ -241,7 +243,7 @@ export default function ActionDetailPage() {
             {/* Current Stage */}
             <div style={{ marginBottom: 24 }}>
               <p style={{ fontSize: 11, fontWeight: 700, color: "#64748B", margin: "0 0 8px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Current Stage
+                {t("actionDetail.currentStage")}
               </p>
               <p style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: 0 }}>
                 {job.stages[job.currentStage]?.name}
@@ -251,7 +253,7 @@ export default function ActionDetailPage() {
             {/* Progress Bar */}
             <div style={{ marginBottom: 24 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <span style={{ fontSize: 12, color: "#64748B", fontWeight: 500 }}>Application Progress</span>
+                <span style={{ fontSize: 12, color: "#64748B", fontWeight: 500 }}>{t("actionDetail.appProgress")}</span>
                 <span style={{ fontSize: 13, fontWeight: 700, color: "#0F172A" }}>{Math.round(progressPercentage)}%</span>
               </div>
               <div style={{ height: 8, background: "#E5E7EB", borderRadius: 4 }}>
@@ -269,7 +271,7 @@ export default function ActionDetailPage() {
 
             {/* Reassurance Message */}
             <p style={{ fontSize: 14, color: "#0F172A", margin: 0, fontWeight: 500, lineHeight: "1.5" }}>
-              You're doing great. Things are moving forward — stay focused on what's next.
+              {t("actionDetail.reassurance")}
             </p>
           </div>
         </div>
@@ -278,7 +280,7 @@ export default function ActionDetailPage() {
         {job.recruiterSignals && (
           <div style={{ marginBottom: 32 }}>
             <p style={{ fontSize: 13, color: "#64748B", margin: 0, fontWeight: 500, lineHeight: "1.5" }}>
-              <span style={{ fontWeight: 700, color: "#0F172A" }}>What to expect:</span> Typical review time {job.recruiterSignals.reviewTime} • Ghosting risk: {job.recruiterSignals.ghostingProbability}
+              <span style={{ fontWeight: 700, color: "#0F172A" }}>{t("actionDetail.whatToExpect")}</span> {t("actionDetail.typicalReview")} {job.recruiterSignals.reviewTime} • {t("actionDetail.ghostingRisk")}: {job.recruiterSignals.ghostingProbability}
             </p>
           </div>
         )}
@@ -286,7 +288,7 @@ export default function ActionDetailPage() {
         {/* Timeline Section */}
         <div style={{ marginBottom: 24 }}>
           <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-            Application Timeline
+            {t("actionDetail.timeline")}
           </p>
           <div
             style={{
@@ -402,7 +404,7 @@ export default function ActionDetailPage() {
                                   lineHeight: 1.4,
                                 }}
                               >
-                                {stage.status === "completed" ? "Your " : ""}
+                                {stage.status === "completed" ? t("actionDetail.your") : ""}
                                 {stage.name}
                               </p>
                               {stage.date && (
@@ -425,7 +427,7 @@ export default function ActionDetailPage() {
                                     fontWeight: 500,
                                   }}
                                 >
-                                  In progress
+                                  {t("actionDetail.inProgress")}
                                 </p>
                               )}
                             </div>
@@ -453,7 +455,7 @@ export default function ActionDetailPage() {
         >
           {/* Steps to Move Forward - Title */}
           <h3 style={{ fontSize: 16, fontWeight: 600, color: "#0F172A", margin: "0 0 16px 0" }}>
-            Steps to Move Forward :
+            {t("actionDetail.stepsForward")}
           </h3>
 
           {/* All tasks in single container */}
@@ -516,7 +518,7 @@ export default function ActionDetailPage() {
               boxShadow: "0 4px 12px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08)",
             }}
           >
-            Estimated Salary: {job.salary}
+            {t("actionDetail.estimatedSalary")} {job.salary}
           </div>
 
           {/* Send a Follow-up Button */}
@@ -555,7 +557,7 @@ export default function ActionDetailPage() {
               e.currentTarget.style.transform = "translateY(0)"
             }}
           >
-            Send a follow-up
+            {t("actionDetail.sendFollowUp")}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

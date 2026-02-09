@@ -3,6 +3,7 @@
 import { TopNav } from "@/components/top-nav"
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 
 const actionJobs: Record<string, any> = {
   "1": {
@@ -28,6 +29,7 @@ const actionJobs: Record<string, any> = {
 export default function SendFollowUpPage() {
   const params = useParams()
   const router = useRouter()
+  const { t } = useLanguage()
   const id = params.id as string
   const job = actionJobs[id] || actionJobs["1"]
 
@@ -74,14 +76,14 @@ export default function SendFollowUpPage() {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Back to Application
+          {t("followUp.backToApp")}
         </button>
 
         {state === "ready" && (
           <>
             {/* Page Title */}
             <h1 style={{ fontSize: 28, fontWeight: 700, color: "#0F172A", margin: "0 0 24px 0" }}>
-              Send a follow-up
+              {t("followUp.title")}
             </h1>
 
             {/* Job Context Card */}
@@ -100,7 +102,7 @@ export default function SendFollowUpPage() {
             >
               <div>
                 <p style={{ fontSize: 11, fontWeight: 600, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-                  Role
+                  {t("followUp.role")}
                 </p>
                 <p style={{ fontSize: 13, color: "#0F172A", margin: 0 }}>
                   {job.title}
@@ -108,7 +110,7 @@ export default function SendFollowUpPage() {
               </div>
               <div>
                 <p style={{ fontSize: 11, fontWeight: 600, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-                  Company
+                  {t("followUp.company")}
                 </p>
                 <p style={{ fontSize: 13, color: "#0F172A", margin: 0 }}>
                   {job.company}
@@ -116,7 +118,7 @@ export default function SendFollowUpPage() {
               </div>
               <div>
                 <p style={{ fontSize: 11, fontWeight: 600, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-                  Stage
+                  {t("followUp.stage")}
                 </p>
                 <p style={{ fontSize: 13, color: "#0F172A", margin: 0 }}>
                   {job.currentStage}
@@ -124,7 +126,7 @@ export default function SendFollowUpPage() {
               </div>
               <div>
                 <p style={{ fontSize: 11, fontWeight: 600, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-                  Applied on
+                  {t("followUp.appliedOn")}
                 </p>
                 <p style={{ fontSize: 13, color: "#0F172A", margin: 0 }}>
                   {job.appliedDate}
@@ -144,10 +146,10 @@ export default function SendFollowUpPage() {
               }}
             >
               <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 6px 0", textTransform: "uppercase" }}>
-                Suggested follow-up message
+                {t("followUp.suggestedMessage")}
               </p>
               <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 16px 0" }}>
-                Polite, concise, and optimized for your current application stage
+                {t("followUp.messageDesc")}
               </p>
 
               <textarea
@@ -178,10 +180,10 @@ export default function SendFollowUpPage() {
                 }}
               >
                 <p style={{ fontSize: 12, fontWeight: 600, color: "#2563EB", margin: "0 0 2px 0" }}>
-                  Recommended timing
+                  {t("followUp.recommendedTiming")}
                 </p>
                 <p style={{ fontSize: 12, color: "#0F172A", margin: 0 }}>
-                  5–7 days after application
+                  {t("followUp.timingValue")}
                 </p>
               </div>
             </div>
@@ -189,10 +191,10 @@ export default function SendFollowUpPage() {
             {/* System Notes */}
             <div style={{ marginBottom: 24 }}>
               <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 6px 0" }}>
-                • Sending a follow-up increases response likelihood
+                {t("followUp.note1")}
               </p>
               <p style={{ fontSize: 12, color: "#64748B", margin: 0 }}>
-                • One follow-up per application stage
+                {t("followUp.note2")}
               </p>
             </div>
 
@@ -219,7 +221,7 @@ export default function SendFollowUpPage() {
                   e.currentTarget.style.background = "#FFFFFF"
                 }}
               >
-                Cancel
+                {t("followUp.cancel")}
               </button>
               <button
                 style={{
@@ -241,7 +243,7 @@ export default function SendFollowUpPage() {
                   e.currentTarget.style.background = "#FFFFFF"
                 }}
               >
-                Edit message
+                {t("followUp.editMessage")}
               </button>
               <button
                 onClick={handleSendFollowUp}
@@ -267,7 +269,7 @@ export default function SendFollowUpPage() {
                   e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)"
                 }}
               >
-                Send follow-up
+                {t("followUp.send")}
               </button>
             </div>
           </>
@@ -289,10 +291,10 @@ export default function SendFollowUpPage() {
               <path d="M18 24L22 28L30 20" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
-              Follow-up sent successfully
+              {t("followUp.sentTitle")}
             </h2>
             <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 24px 0" }}>
-              Your follow-up message has been sent. You'll be notified if there's a response.
+              {t("followUp.sentDesc")}
             </p>
             <button
               onClick={() => router.push(`/actions/${id}`)}
@@ -314,7 +316,7 @@ export default function SendFollowUpPage() {
                 e.currentTarget.style.background = "#2563EB"
               }}
             >
-              Back to Application Details
+              {t("followUp.backToDetails")}
             </button>
           </div>
         )}
@@ -331,10 +333,10 @@ export default function SendFollowUpPage() {
             }}
           >
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
-              Follow-up cancelled
+              {t("followUp.cancelledTitle")}
             </h2>
             <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 24px 0" }}>
-              You can send a follow-up later when you're ready.
+              {t("followUp.cancelledDesc")}
             </p>
             <button
               onClick={() => router.push(`/actions/${id}`)}
@@ -356,7 +358,7 @@ export default function SendFollowUpPage() {
                 e.currentTarget.style.background = "#2563EB"
               }}
             >
-              Back to Application Details
+              {t("followUp.backToDetails")}
             </button>
           </div>
         )}
