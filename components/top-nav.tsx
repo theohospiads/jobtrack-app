@@ -345,7 +345,7 @@ export function TopNav() {
 
                 {/* Menu items */}
                 {[
-                  { label: "Profile", icon: User, href: "/profile" },
+                  { label: "Profile", icon: User, href: "/account" },
                   { label: "Settings", icon: Settings, href: "/settings" },
                   { label: "Language", icon: Globe, href: null },
                 ].map((item) => (
