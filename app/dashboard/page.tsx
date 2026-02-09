@@ -4,9 +4,11 @@ import { TopNav } from "@/components/top-nav"
 import { PageHeader } from "@/components/page-header"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 
 export default function DashboardPage() {
   const router = useRouter()
+  const { t } = useLanguage()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function DashboardPage() {
             className="text-[32px] font-semibold leading-[1.2]"
             style={{ color: "#0F172A", letterSpacing: "-0.5px" }}
           >
-            Dashboard
+            {t("dashboard.title")}
           </h1>
           <button 
             className="flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer transition-all"
@@ -87,9 +89,9 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Matches Found</h3>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>{t("dashboard.matchesFound")}</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>10</p>
-            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+18% from last week</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>{`+18% ${t("dashboard.fromLastWeek")}`}</p>
           </div>
 
           <div
@@ -110,9 +112,9 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Outreach Sent</h3>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>{t("dashboard.outreachSent")}</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>42</p>
-            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+7 from last week</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>{`+7 ${t("dashboard.fromLastWeek")}`}</p>
           </div>
 
           <div
@@ -133,9 +135,9 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Responses Received</h3>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>{t("dashboard.responsesReceived")}</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>4</p>
-            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+2 new responses</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>{`+2 ${t("dashboard.newResponses")}`}</p>
           </div>
 
           <div
@@ -156,9 +158,9 @@ export default function DashboardPage() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>Interview Rate</h3>
+            <h3 className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#64748B", letterSpacing: "0.5px", margin: 0 }}>{t("dashboard.interviewRate")}</h3>
             <p className="text-3xl font-bold mb-2" style={{ color: "#0F172A", margin: 0 }}>+3.2%</p>
-            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>+2.1% reply rate</p>
+            <p className="text-xs font-medium" style={{ color: "#2563EB", margin: 0 }}>{`+2.1% ${t("dashboard.replyRate")}`}</p>
           </div>
         </div>
 
@@ -181,10 +183,10 @@ export default function DashboardPage() {
         >
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-2" style={{ color: "#0F172A" }}>
-              Start Your Journey
+              {t("dashboard.startJourney")}
             </h3>
             <p className="text-sm" style={{ color: "#64748B" }}>
-              You're all set! Explore job opportunities tailored to your profile and accelerate your search.
+              {t("dashboard.startJourneyDesc")}
             </p>
           </div>
 
@@ -215,7 +217,7 @@ export default function DashboardPage() {
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              Explore Opportunities
+              {t("dashboard.exploreOpportunities")}
             </button>
 
             <button
@@ -242,7 +244,7 @@ export default function DashboardPage() {
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              View Profile
+              {t("dashboard.viewProfile")}
             </button>
           </div>
 
@@ -260,18 +262,18 @@ export default function DashboardPage() {
           >
             <div>
               <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-                Next Step
+                {t("dashboard.nextStep")}
               </p>
               <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
-                Browse 10+ personalized matches
+                {t("dashboard.browseMatches")}
               </p>
             </div>
             <div style={{ textAlign: "right" }}>
               <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
-                Time to first match
+                {t("dashboard.timeToMatch")}
               </p>
               <p style={{ fontSize: "14px", fontWeight: "600", color: "#2563EB", margin: 0 }}>
-                ~2 minutes
+                {t("dashboard.minutes")}
               </p>
             </div>
           </div>
@@ -318,13 +320,13 @@ export default function DashboardPage() {
                 className="text-lg font-semibold"
                 style={{ color: "#0F172A" }}
               >
-                Tutorial #1: How to use the app
+                {t("dashboard.tutorial1Title")}
               </h3>
               <p 
                 className="mt-2 text-xs"
                 style={{ color: "#64748B" }}
               >
-                3 min · Beginner
+                {t("dashboard.tutorial1Meta")}
               </p>
               <button
                 className="mt-4 flex items-center gap-1 cursor-pointer text-sm font-medium transition-all rounded-lg px-3 py-2"
@@ -344,7 +346,7 @@ export default function DashboardPage() {
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                Watch
+                {t("dashboard.watch")}
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -377,13 +379,13 @@ export default function DashboardPage() {
                 className="text-lg font-semibold"
                 style={{ color: "#0F172A" }}
               >
-                Tutorial #2: Set up your profile for better matches
+                {t("dashboard.tutorial2Title")}
               </h3>
               <p 
                 className="mt-2 text-xs"
                 style={{ color: "#64748B" }}
               >
-                5 min · Quick win
+                {t("dashboard.tutorial2Meta")}
               </p>
               <button
                 className="mt-4 flex items-center gap-1 cursor-pointer text-sm font-medium transition-all rounded-lg px-3 py-2"
@@ -403,7 +405,7 @@ export default function DashboardPage() {
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                Watch
+                {t("dashboard.watch")}
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -446,10 +448,10 @@ export default function DashboardPage() {
         >
             <div className="mb-6">
               <h3 className="text-xl font-semibold mb-1" style={{ color: "#0F172A" }}>
-                Top matches
+                {t("dashboard.topMatches")}
               </h3>
               <p className="text-sm" style={{ color: "#64748B" }}>
-                Best fits for you
+                {t("dashboard.bestFits")}
               </p>
             </div>
 
@@ -488,7 +490,7 @@ export default function DashboardPage() {
                     PA
                   </div>
                   <div>
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Product Analyst Intern</p>
+                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>{t("dashboard.productAnalystIntern")}</p>
                     <p className="text-xs" style={{ color: "#64748B" }}>Acme Corp</p>
                   </div>
                 </div>
@@ -538,7 +540,7 @@ export default function DashboardPage() {
                     DA
                   </div>
                   <div>
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Data Analyst</p>
+                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>{t("dashboard.dataAnalyst")}</p>
                     <p className="text-xs" style={{ color: "#64748B" }}>TechStart Inc</p>
                   </div>
                 </div>

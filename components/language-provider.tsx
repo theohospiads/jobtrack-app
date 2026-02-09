@@ -1,0 +1,376 @@
+'use client'
+
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react'
+
+type Language = 'en' | 'fr'
+
+interface LanguageContextType {
+  language: Language
+  setLanguage: (lang: Language) => void
+  t: (key: string) => string
+}
+
+const translations: Record<Language, Record<string, string>> = {
+  en: {
+    // TopNav tabs
+    "nav.dashboard": "Dashboard",
+    "nav.opportunities": "Opportunities",
+    "nav.application": "Application",
+    "nav.profile": "Profile",
+    "nav.account": "Account",
+    "nav.settings": "Settings",
+    "nav.language": "Language",
+    "nav.signOut": "Sign out",
+
+    // Dashboard
+    "dashboard.title": "Dashboard",
+    "dashboard.matchesFound": "Matches Found",
+    "dashboard.outreachSent": "Outreach Sent",
+    "dashboard.responsesReceived": "Responses Received",
+    "dashboard.interviewRate": "Interview Rate",
+    "dashboard.fromLastWeek": "from last week",
+    "dashboard.newResponses": "new responses",
+    "dashboard.replyRate": "reply rate",
+    "dashboard.startJourney": "Start Your Journey",
+    "dashboard.startJourneyDesc": "You're all set! Explore job opportunities tailored to your profile and accelerate your search.",
+    "dashboard.exploreOpportunities": "Explore Opportunities",
+    "dashboard.viewProfile": "View Profile",
+    "dashboard.nextStep": "Next Step",
+    "dashboard.browseMatches": "Browse 10+ personalized matches",
+    "dashboard.timeToMatch": "Time to first match",
+    "dashboard.minutes": "~2 minutes",
+    "dashboard.tutorial1Title": "Tutorial #1: How to use the app",
+    "dashboard.tutorial1Meta": "3 min \u00B7 Beginner",
+    "dashboard.tutorial2Title": "Tutorial #2: Set up your profile for better matches",
+    "dashboard.tutorial2Meta": "5 min \u00B7 Quick win",
+    "dashboard.watch": "Watch",
+    "dashboard.topMatches": "Top matches",
+    "dashboard.bestFits": "Best fits for you",
+    "dashboard.productAnalystIntern": "Product Analyst Intern",
+    "dashboard.dataAnalyst": "Data Analyst",
+
+    // Profile
+    "profile.title": "Profile",
+    "profile.yourBestAssets": "Your Best Assets",
+    "profile.standOut": "What makes you stand out to employers",
+    "profile.viewDetails": "View profile details",
+    "profile.viewDetailsDesc": "This information is used to build your profile and generate your CV.",
+    "profile.careerTargets": "Career Targets",
+    "profile.primary": "PRIMARY",
+    "profile.bestMatch": "Best match for your profile",
+    "profile.searchJobs": "Search jobs",
+    "profile.biAnalyst": "BI Analyst",
+    "profile.growingDemand": "Growing demand, strong fit",
+    "profile.includeInSearch": "Include in search",
+    "profile.dataAnalyst": "Data Analyst",
+    "profile.skillGap": "Skill gap: Advanced experimentation",
+    "profile.learnSkill": "Learn skill",
+    "profile.addToSearch": "Add to search",
+    "profile.cvGenerator": "CV Generator",
+    "profile.cvSubtitle": "Your baseline, system-generated CV",
+    "profile.cvDesc": "This is a professional CV generated from your profile. It's not tailored to specific jobs \u2014 per-job optimization happens during the application process.",
+    "profile.downloadCv": "Download CV",
+    "profile.topSkill": "Top skill",
+    "profile.highDemand": "High demand",
+    "profile.differentiator": "Differentiator",
+    "profile.foundation": "Foundation",
+    "profile.focus": "Focus",
+    "profile.productAnalytics": "Product Analytics",
+    "profile.productAnalyticsDetail": "SQL, A/B testing, metrics design",
+    "profile.crossFunctional": "Cross-functional Communication",
+    "profile.crossFunctionalDetail": "Stakeholder alignment & storytelling with data",
+    "profile.remoteFirst": "Remote-first Experience",
+    "profile.remoteFirstDetail": "Proven async collaboration & self-management",
+    "profile.yearsExperience": "years of experience",
+    "profile.primaryExpertise": "Your primary expertise",
+    "profile.flexibleForInternships": "Flexible for internships & entry roles",
+    "profile.provenRemote": "Proven ability to deliver remotely",
+    "profile.workPreference": "work preference",
+    "profile.academicBackground": "Academic background",
+    "profile.careerDirection": "Career direction",
+
+    // Settings
+    "settings.preferences": "Preferences",
+    "settings.preferencesDesc": "Manage your account preferences and display settings.",
+    "settings.connections": "Connections",
+    "settings.connectionsDesc": "Manage your linked accounts and integrations.",
+    "settings.notifications": "Notifications",
+    "settings.notificationsDesc": "Choose how and when you want to be notified.",
+    "settings.privacy": "Privacy & Security",
+    "settings.privacyDesc": "Control your visibility and manage your data.",
+    "settings.backToApp": "Back to app",
+    "settings.accountSection": "Account",
+    "settings.jobSearchSection": "Job Search",
+    "settings.general": "General",
+    "settings.jobAlerts": "Job Alerts",
+    "settings.jobAlertsDesc": "Get notified when new jobs match your profile.",
+    "settings.autoApply": "Auto-Apply",
+    "settings.autoApplyDesc": "Automatically apply to high-match jobs on your behalf.",
+    "settings.language": "Language",
+    "settings.languageDesc": "Choose your preferred display language.",
+    "settings.profileSection": "Profile",
+    "settings.fullName": "Full Name",
+    "settings.emailAddress": "Email Address",
+    "settings.targetRole": "Target Role",
+    "settings.notSet": "Not set",
+    "settings.edit": "Edit",
+    "settings.connect": "Connect",
+    "settings.connected": "Connected",
+    "settings.disconnect": "Disconnect",
+    "settings.channels": "Channels",
+    "settings.emailNotif": "Email Notifications",
+    "settings.emailNotifDesc": "Receive updates about new matches and responses.",
+    "settings.pushNotif": "Push Notifications",
+    "settings.pushNotifDesc": "Get real-time browser alerts for urgent updates.",
+    "settings.weeklyDigest": "Weekly Digest",
+    "settings.weeklyDigestDesc": "A summary of your job search activity every Monday.",
+    "settings.activity": "Activity",
+    "settings.showActivity": "Show Activity Status",
+    "settings.showActivityDesc": "Let employers see that you are actively searching.",
+    "settings.visibility": "Visibility",
+    "settings.profileVisible": "Profile Visible to Recruiters",
+    "settings.profileVisibleDesc": "Allow recruiters to discover and view your profile.",
+    "settings.data": "Data",
+    "settings.exportData": "Export Data",
+    "settings.exportDataDesc": "Download a copy of all your data.",
+    "settings.export": "Export",
+    "settings.clearHistory": "Clear Search History",
+    "settings.clearHistoryDesc": "Remove all saved searches and recent activity.",
+    "settings.clear": "Clear",
+    "settings.dangerZone": "Danger Zone",
+    "settings.deleteAccount": "Delete Account",
+    "settings.deleteAccountDesc": "Permanently remove your account and all data.",
+    "settings.delete": "Delete",
+    "settings.signOut": "Sign Out",
+    "settings.signOutDesc": "Log out of your account on this device.",
+    "settings.linkedin": "LinkedIn",
+    "settings.linkedinDesc": "Import profile data and track applications",
+    "settings.gmail": "Gmail",
+    "settings.gmailDesc": "Track responses and send applications",
+    "settings.outlook": "Outlook",
+    "settings.outlookDesc": "Email tracking and calendar scheduling",
+    "settings.indeed": "Indeed",
+    "settings.indeedDesc": "Sync job listings and application status",
+
+    // Account
+    "account.activity": "Activity",
+    "account.last20weeks": "Last 20 weeks",
+    "account.overview": "Overview",
+    "account.applicationsSent": "Applications Sent",
+    "account.interviews": "Interviews",
+    "account.responses": "Responses",
+    "account.connectedAccounts": "Connected Accounts",
+    "account.manage": "Manage",
+    "account.editProfile": "Edit Profile",
+    "account.accountSettings": "Account Settings",
+    "account.joined": "Joined",
+    "account.less": "Less",
+    "account.more": "More",
+    "account.notConnected": "Not connected",
+
+    // Connect Accounts
+    "connect.title": "Connect Your Accounts",
+    "connect.backToOnboarding": "Back to onboarding",
+    "connect.skipForNow": "Skip for now",
+    "connect.continue": "Continue",
+  },
+  fr: {
+    // TopNav tabs
+    "nav.dashboard": "Tableau de bord",
+    "nav.opportunities": "Opportunit\u00E9s",
+    "nav.application": "Candidature",
+    "nav.profile": "Profil",
+    "nav.account": "Compte",
+    "nav.settings": "Param\u00E8tres",
+    "nav.language": "Langue",
+    "nav.signOut": "D\u00E9connexion",
+
+    // Dashboard
+    "dashboard.title": "Tableau de bord",
+    "dashboard.matchesFound": "Correspondances",
+    "dashboard.outreachSent": "Messages envoy\u00E9s",
+    "dashboard.responsesReceived": "R\u00E9ponses re\u00E7ues",
+    "dashboard.interviewRate": "Taux d\u2019entretien",
+    "dashboard.fromLastWeek": "par rapport \u00E0 la semaine derni\u00E8re",
+    "dashboard.newResponses": "nouvelles r\u00E9ponses",
+    "dashboard.replyRate": "taux de r\u00E9ponse",
+    "dashboard.startJourney": "Commencez votre parcours",
+    "dashboard.startJourneyDesc": "Vous \u00EAtes pr\u00EAt ! D\u00E9couvrez des offres d\u2019emploi adapt\u00E9es \u00E0 votre profil et acc\u00E9l\u00E9rez votre recherche.",
+    "dashboard.exploreOpportunities": "Explorer les opportunit\u00E9s",
+    "dashboard.viewProfile": "Voir le profil",
+    "dashboard.nextStep": "\u00C9tape suivante",
+    "dashboard.browseMatches": "Parcourir 10+ correspondances personnalis\u00E9es",
+    "dashboard.timeToMatch": "Temps avant le premier match",
+    "dashboard.minutes": "~2 minutes",
+    "dashboard.tutorial1Title": "Tutoriel #1 : Comment utiliser l\u2019application",
+    "dashboard.tutorial1Meta": "3 min \u00B7 D\u00E9butant",
+    "dashboard.tutorial2Title": "Tutoriel #2 : Optimisez votre profil pour de meilleures correspondances",
+    "dashboard.tutorial2Meta": "5 min \u00B7 Rapide",
+    "dashboard.watch": "Regarder",
+    "dashboard.topMatches": "Meilleures correspondances",
+    "dashboard.bestFits": "Les plus adapt\u00E9es pour vous",
+    "dashboard.productAnalystIntern": "Analyste Produit Stagiaire",
+    "dashboard.dataAnalyst": "Analyste de donn\u00E9es",
+
+    // Profile
+    "profile.title": "Profil",
+    "profile.yourBestAssets": "Vos meilleurs atouts",
+    "profile.standOut": "Ce qui vous distingue aupr\u00E8s des employeurs",
+    "profile.viewDetails": "Voir les d\u00E9tails du profil",
+    "profile.viewDetailsDesc": "Ces informations sont utilis\u00E9es pour construire votre profil et g\u00E9n\u00E9rer votre CV.",
+    "profile.careerTargets": "Objectifs de carri\u00E8re",
+    "profile.primary": "PRINCIPAL",
+    "profile.bestMatch": "Meilleure correspondance pour votre profil",
+    "profile.searchJobs": "Rechercher des emplois",
+    "profile.biAnalyst": "Analyste BI",
+    "profile.growingDemand": "Demande croissante, bonne ad\u00E9quation",
+    "profile.includeInSearch": "Inclure dans la recherche",
+    "profile.dataAnalyst": "Analyste de donn\u00E9es",
+    "profile.skillGap": "Lacune : Exp\u00E9rimentation avanc\u00E9e",
+    "profile.learnSkill": "Apprendre la comp\u00E9tence",
+    "profile.addToSearch": "Ajouter \u00E0 la recherche",
+    "profile.cvGenerator": "G\u00E9n\u00E9rateur de CV",
+    "profile.cvSubtitle": "Votre CV de r\u00E9f\u00E9rence, g\u00E9n\u00E9r\u00E9 automatiquement",
+    "profile.cvDesc": "Il s\u2019agit d\u2019un CV professionnel g\u00E9n\u00E9r\u00E9 \u00E0 partir de votre profil. Il n\u2019est pas adapt\u00E9 \u00E0 des postes sp\u00E9cifiques \u2014 l\u2019optimisation se fait lors du processus de candidature.",
+    "profile.downloadCv": "T\u00E9l\u00E9charger le CV",
+    "profile.topSkill": "Comp\u00E9tence cl\u00E9",
+    "profile.highDemand": "Forte demande",
+    "profile.differentiator": "Diff\u00E9renciateur",
+    "profile.foundation": "Fondation",
+    "profile.focus": "Orientation",
+    "profile.productAnalytics": "Analytique Produit",
+    "profile.productAnalyticsDetail": "SQL, tests A/B, conception de m\u00E9triques",
+    "profile.crossFunctional": "Communication transversale",
+    "profile.crossFunctionalDetail": "Alignement des parties prenantes et storytelling",
+    "profile.remoteFirst": "Exp\u00E9rience en t\u00E9l\u00E9travail",
+    "profile.remoteFirstDetail": "Collaboration asynchrone et autonomie",
+    "profile.yearsExperience": "ann\u00E9es d\u2019exp\u00E9rience",
+    "profile.primaryExpertise": "Votre expertise principale",
+    "profile.flexibleForInternships": "Flexible pour stages et postes juniors",
+    "profile.provenRemote": "Capacit\u00E9 prouv\u00E9e en t\u00E9l\u00E9travail",
+    "profile.workPreference": "pr\u00E9f\u00E9rence de travail",
+    "profile.academicBackground": "Formation acad\u00E9mique",
+    "profile.careerDirection": "Direction de carri\u00E8re",
+
+    // Settings
+    "settings.preferences": "Pr\u00E9f\u00E9rences",
+    "settings.preferencesDesc": "G\u00E9rez vos pr\u00E9f\u00E9rences de compte et d\u2019affichage.",
+    "settings.connections": "Connexions",
+    "settings.connectionsDesc": "G\u00E9rez vos comptes li\u00E9s et int\u00E9grations.",
+    "settings.notifications": "Notifications",
+    "settings.notificationsDesc": "Choisissez comment et quand vous souhaitez \u00EAtre notifi\u00E9.",
+    "settings.privacy": "Confidentialit\u00E9 et s\u00E9curit\u00E9",
+    "settings.privacyDesc": "Contr\u00F4lez votre visibilit\u00E9 et g\u00E9rez vos donn\u00E9es.",
+    "settings.backToApp": "Retour \u00E0 l\u2019application",
+    "settings.accountSection": "Compte",
+    "settings.jobSearchSection": "Recherche d\u2019emploi",
+    "settings.general": "G\u00E9n\u00E9ral",
+    "settings.jobAlerts": "Alertes emploi",
+    "settings.jobAlertsDesc": "Soyez notifi\u00E9 quand de nouveaux emplois correspondent \u00E0 votre profil.",
+    "settings.autoApply": "Candidature automatique",
+    "settings.autoApplyDesc": "Postulez automatiquement aux emplois \u00E0 forte correspondance.",
+    "settings.language": "Langue",
+    "settings.languageDesc": "Choisissez votre langue d\u2019affichage pr\u00E9f\u00E9r\u00E9e.",
+    "settings.profileSection": "Profil",
+    "settings.fullName": "Nom complet",
+    "settings.emailAddress": "Adresse e-mail",
+    "settings.targetRole": "Poste recherch\u00E9",
+    "settings.notSet": "Non d\u00E9fini",
+    "settings.edit": "Modifier",
+    "settings.connect": "Connecter",
+    "settings.connected": "Connect\u00E9",
+    "settings.disconnect": "D\u00E9connecter",
+    "settings.channels": "Canaux",
+    "settings.emailNotif": "Notifications par e-mail",
+    "settings.emailNotifDesc": "Recevez des mises \u00E0 jour sur les nouvelles correspondances et r\u00E9ponses.",
+    "settings.pushNotif": "Notifications push",
+    "settings.pushNotifDesc": "Recevez des alertes en temps r\u00E9el pour les mises \u00E0 jour urgentes.",
+    "settings.weeklyDigest": "R\u00E9sum\u00E9 hebdomadaire",
+    "settings.weeklyDigestDesc": "Un r\u00E9sum\u00E9 de votre activit\u00E9 de recherche chaque lundi.",
+    "settings.activity": "Activit\u00E9",
+    "settings.showActivity": "Afficher le statut d\u2019activit\u00E9",
+    "settings.showActivityDesc": "Permettez aux employeurs de voir que vous recherchez activement.",
+    "settings.visibility": "Visibilit\u00E9",
+    "settings.profileVisible": "Profil visible par les recruteurs",
+    "settings.profileVisibleDesc": "Autorisez les recruteurs \u00E0 d\u00E9couvrir et consulter votre profil.",
+    "settings.data": "Donn\u00E9es",
+    "settings.exportData": "Exporter les donn\u00E9es",
+    "settings.exportDataDesc": "T\u00E9l\u00E9chargez une copie de toutes vos donn\u00E9es.",
+    "settings.export": "Exporter",
+    "settings.clearHistory": "Effacer l\u2019historique de recherche",
+    "settings.clearHistoryDesc": "Supprimez toutes les recherches enregistr\u00E9es et l\u2019activit\u00E9 r\u00E9cente.",
+    "settings.clear": "Effacer",
+    "settings.dangerZone": "Zone de danger",
+    "settings.deleteAccount": "Supprimer le compte",
+    "settings.deleteAccountDesc": "Supprimez d\u00E9finitivement votre compte et toutes vos donn\u00E9es.",
+    "settings.delete": "Supprimer",
+    "settings.signOut": "D\u00E9connexion",
+    "settings.signOutDesc": "D\u00E9connectez-vous de votre compte sur cet appareil.",
+    "settings.linkedin": "LinkedIn",
+    "settings.linkedinDesc": "Importez les donn\u00E9es de profil et suivez les candidatures",
+    "settings.gmail": "Gmail",
+    "settings.gmailDesc": "Suivez les r\u00E9ponses et envoyez des candidatures",
+    "settings.outlook": "Outlook",
+    "settings.outlookDesc": "Suivi des e-mails et planification du calendrier",
+    "settings.indeed": "Indeed",
+    "settings.indeedDesc": "Synchronisez les offres et le statut des candidatures",
+
+    // Account
+    "account.activity": "Activit\u00E9",
+    "account.last20weeks": "20 derni\u00E8res semaines",
+    "account.overview": "Aper\u00E7u",
+    "account.applicationsSent": "Candidatures envoy\u00E9es",
+    "account.interviews": "Entretiens",
+    "account.responses": "R\u00E9ponses",
+    "account.connectedAccounts": "Comptes connect\u00E9s",
+    "account.manage": "G\u00E9rer",
+    "account.editProfile": "Modifier le profil",
+    "account.accountSettings": "Param\u00E8tres du compte",
+    "account.joined": "Inscrit",
+    "account.less": "Moins",
+    "account.more": "Plus",
+    "account.notConnected": "Non connect\u00E9",
+
+    // Connect Accounts
+    "connect.title": "Connectez vos comptes",
+    "connect.backToOnboarding": "Retour \u00E0 l\u2019int\u00E9gration",
+    "connect.skipForNow": "Passer pour l\u2019instant",
+    "connect.continue": "Continuer",
+  },
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [language, setLanguageState] = useState<Language>('en')
+
+  useEffect(() => {
+    const stored = localStorage.getItem('jobtrack_language') as Language | null
+    if (stored && (stored === 'en' || stored === 'fr')) {
+      setLanguageState(stored)
+    }
+  }, [])
+
+  const setLanguage = useCallback((lang: Language) => {
+    setLanguageState(lang)
+    localStorage.setItem('jobtrack_language', lang)
+  }, [])
+
+  const t = useCallback((key: string): string => {
+    return translations[language][key] || translations['en'][key] || key
+  }, [language])
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  )
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext)
+  if (!context) {
+    throw new Error('useLanguage must be used within LanguageProvider')
+  }
+  return context
+}

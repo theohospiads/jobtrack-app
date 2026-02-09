@@ -3,10 +3,12 @@
 import { TopNav } from "@/components/top-nav"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/components/auth-provider"
+import { useLanguage } from "@/components/language-provider"
 
 export default function ProfilePage() {
   const router = useRouter()
   const { user, profile } = useAuth()
+  const { t } = useLanguage()
 
   // Derive display values from onboarding data
   const profileType = profile?.profile_type || ""
@@ -22,28 +24,28 @@ export default function ProfilePage() {
   // Build dynamic assets based on profile data
   const assets = []
   if (currentRole && currentRole !== "Not set") {
-    assets.push({ label: currentRole, detail: experience ? `${experience} years of experience` : "Your primary expertise", strength: "Top skill" })
+    assets.push({ label: currentRole, detail: experience ? `${experience} ${t("profile.yearsExperience")}` : t("profile.primaryExpertise"), strength: t("profile.topSkill") })
   }
   if (workLocation !== "Not set") {
-    assets.push({ label: `${workLocation} work preference`, detail: profileType === "student" ? "Flexible for internships & entry roles" : "Proven ability to deliver remotely", strength: "Differentiator" })
+    assets.push({ label: `${workLocation} ${t("profile.workPreference")}`, detail: profileType === "student" ? t("profile.flexibleForInternships") : t("profile.provenRemote"), strength: t("profile.differentiator") })
   }
   if (fieldOfStudy) {
-    assets.push({ label: fieldOfStudy, detail: "Academic background", strength: "Foundation" })
+    assets.push({ label: fieldOfStudy, detail: t("profile.academicBackground"), strength: t("profile.foundation") })
   }
   if (lookingFor) {
-    assets.push({ label: lookingFor, detail: "Career direction", strength: "Focus" })
+    assets.push({ label: lookingFor, detail: t("profile.careerDirection"), strength: t("profile.focus") })
   }
   if (assets.length === 0) {
     assets.push(
-      { label: "Product Analytics", detail: "SQL, A/B testing, metrics design", strength: "Top skill" },
-      { label: "Cross-functional Communication", detail: "Stakeholder alignment & storytelling with data", strength: "High demand" },
-      { label: "Remote-first Experience", detail: "Proven async collaboration & self-management", strength: "Differentiator" },
+      { label: t("profile.productAnalytics"), detail: t("profile.productAnalyticsDetail"), strength: t("profile.topSkill") },
+      { label: t("profile.crossFunctional"), detail: t("profile.crossFunctionalDetail"), strength: t("profile.highDemand") },
+      { label: t("profile.remoteFirst"), detail: t("profile.remoteFirstDetail"), strength: t("profile.differentiator") },
     )
   }
 
   // Primary career target
   const primaryTarget = profile?.current_role || profile?.target_role || "Product Analyst"
-  const primarySubtitle = profileType === "student" ? (targetRoleType || "Best match for your profile") : "Best match for your profile"
+  const primarySubtitle = profileType === "student" ? (targetRoleType || t("profile.bestMatch")) : t("profile.bestMatch")
 
   return (
     <div
@@ -58,7 +60,7 @@ export default function ProfilePage() {
             className="text-[32px] font-semibold leading-[1.2]"
             style={{ color: "#0F172A", letterSpacing: "-0.5px" }}
           >
-            Profile
+            {t("profile.title")}
           </h1>
         </header>
 
@@ -80,10 +82,10 @@ export default function ProfilePage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
               <h2 className="text-base font-semibold" style={{ color: "#0F172A", margin: 0 }}>
-                Your Best Assets
+                {t("profile.yourBestAssets")}
               </h2>
               <p style={{ fontSize: "12px", fontWeight: "500", color: "#94A3B8", margin: 0 }}>
-                What makes you stand out to employers
+                {t("profile.standOut")}
               </p>
             </div>
 
@@ -149,7 +151,7 @@ export default function ProfilePage() {
             }}
           >
             <p style={{ fontSize: "13px", color: "#64748B", margin: 0, lineHeight: "1.5", flex: 1 }}>
-              This information is used to build your profile and generate your CV.
+              {t("profile.viewDetailsDesc")}
             </p>
             <button
               onClick={() => router.push('/profile/preferences')}
@@ -174,7 +176,7 @@ export default function ProfilePage() {
                 e.currentTarget.style.background = "#2563EB"
               }}
             >
-              View profile details
+              {t("profile.viewDetails")}
             </button>
           </section>
 
@@ -193,7 +195,7 @@ export default function ProfilePage() {
             }}
           >
             <h2 className="text-base font-semibold" style={{ color: "#0F172A", marginBottom: "20px" }}>
-              Career Targets
+              {t("profile.careerTargets")}
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               {/* Primary Focus */}
@@ -223,7 +225,7 @@ export default function ProfilePage() {
                         letterSpacing: "-0.3px",
                       }}
                     >
-                      PRIMARY
+                      {t("profile.primary")}
                     </span>
                   </div>
                   <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
@@ -254,7 +256,7 @@ export default function ProfilePage() {
                     e.currentTarget.style.background = "#2563EB"
                   }}
                 >
-                  Search jobs
+                  {t("profile.searchJobs")}
                 </button>
               </div>
 
@@ -274,10 +276,10 @@ export default function ProfilePage() {
               >
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    BI Analyst
+                    {t("profile.biAnalyst")}
                   </p>
                   <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                    Growing demand, strong fit
+                    {t("profile.growingDemand")}
                   </p>
                 </div>
                 <button
@@ -301,7 +303,7 @@ export default function ProfilePage() {
                     e.currentTarget.style.background = "#FFFFFF"
                   }}
                 >
-                  Include in search
+                  {t("profile.includeInSearch")}
                 </button>
               </div>
 
@@ -321,10 +323,10 @@ export default function ProfilePage() {
               >
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Data Analyst
+                    {t("profile.dataAnalyst")}
                   </p>
                   <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 6px 0" }}>
-                    Skill gap: Advanced experimentation
+                    {t("profile.skillGap")}
                   </p>
                   <button
                     style={{
@@ -339,7 +341,7 @@ export default function ProfilePage() {
                       marginTop: "4px",
                     }}
                   >
-                    Learn skill
+                    {t("profile.learnSkill")}
                   </button>
                 </div>
                 <button
@@ -363,7 +365,7 @@ export default function ProfilePage() {
                     e.currentTarget.style.background = "#FFFFFF"
                   }}
                 >
-                  Add to search
+                  {t("profile.addToSearch")}
                 </button>
               </div>
             </div>
@@ -389,15 +391,15 @@ export default function ProfilePage() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "16px" }}>
               <div>
                 <h2 className="text-base font-semibold" style={{ color: "#0F172A", margin: "0 0 4px 0" }}>
-                  CV Generator
+                  {t("profile.cvGenerator")}
                 </h2>
                 <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                  Your baseline, system-generated CV
+                  {t("profile.cvSubtitle")}
                 </p>
               </div>
             </div>
             <p style={{ fontSize: "13px", color: "#64748B", margin: "0 0 16px 0" }}>
-              This is a professional CV generated from your profile. It's not tailored to specific jobs — per-job optimization happens during the application process.
+              {t("profile.cvDesc")}
             </p>
             <button
               style={{
@@ -421,7 +423,7 @@ export default function ProfilePage() {
                 e.currentTarget.style.background = "#2563EB"
               }}
             >
-              Download CV
+              {t("profile.downloadCv")}
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 11L4 7M8 11L12 7M8 11V2M2 13H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

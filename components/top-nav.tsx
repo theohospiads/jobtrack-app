@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Search, Bell, ChevronDown, Menu, X, User, Settings, Globe, LogOut } from "lucide-react"
 import { useAuth } from "@/components/auth-provider"
+import { useLanguage } from "@/components/language-provider"
 
 export function TopNav() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -14,14 +15,15 @@ export function TopNav() {
   const pathname = usePathname()
   const router = useRouter()
   const { signOut, user } = useAuth()
+  const { t, language } = useLanguage()
   const accountMenuRef = useRef<HTMLDivElement>(null)
 
   const tabs = useMemo(() => [
-    { label: "Dashboard", href: "/dashboard" },
-    { label: "Opportunities", href: "/opportunities" },
-    { label: "Application", href: "/actions" },
-    { label: "Profile", href: "/profile" },
-  ], [])
+    { label: t("nav.dashboard"), href: "/dashboard" },
+    { label: t("nav.opportunities"), href: "/opportunities" },
+    { label: t("nav.application"), href: "/actions" },
+    { label: t("nav.profile"), href: "/profile" },
+  ], [t])
 
   useEffect(() => {
     setMounted(true)
@@ -345,9 +347,9 @@ export function TopNav() {
 
                 {/* Menu items */}
                 {[
-                  { label: "Account", icon: User, href: "/account" },
-                  { label: "Settings", icon: Settings, href: "/settings" },
-                  { label: "Language", icon: Globe, href: null },
+                  { label: t("nav.account"), icon: User, href: "/account" },
+                  { label: t("nav.settings"), icon: Settings, href: "/settings" },
+                  { label: t("nav.language"), icon: Globe, href: null },
                 ].map((item) => (
                   <button
                     key={item.label}
@@ -375,9 +377,9 @@ export function TopNav() {
                     <span style={{ fontSize: 13, fontWeight: 500, color: "#0F172A" }}>
                       {item.label}
                     </span>
-                    {item.label === "Language" && (
+                    {item.label === t("nav.language") && (
                       <span style={{ marginLeft: "auto", fontSize: 12, color: "#94A3B8", fontWeight: 500 }}>
-                        EN
+                        {language === 'fr' ? 'FR' : 'EN'}
                       </span>
                     )}
                   </button>
@@ -410,7 +412,7 @@ export function TopNav() {
                 >
                   <LogOut size={16} color="#EF4444" />
                   <span style={{ fontSize: 13, fontWeight: 500, color: "#EF4444" }}>
-                    Sign out
+                    {t("nav.signOut")}
                   </span>
                 </button>
               </div>

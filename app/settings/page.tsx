@@ -4,6 +4,7 @@ import { TopNav } from "@/components/top-nav"
 import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 import {
   ArrowLeft,
   Settings,
@@ -24,6 +25,7 @@ type Section = "preferences" | "connections" | "notifications" | "privacy"
 export default function SettingsPage() {
   const router = useRouter()
   const { user, signOut, profile } = useAuth()
+  const { t, language: appLanguage, setLanguage: setAppLanguage } = useLanguage()
   const [mounted, setMounted] = useState(false)
   const [activeSection, setActiveSection] = useState<Section>("preferences")
 
@@ -35,7 +37,6 @@ export default function SettingsPage() {
   const [activityStatus, setActivityStatus] = useState(true)
   const [jobAlerts, setJobAlerts] = useState(true)
   const [autoApply, setAutoApply] = useState(false)
-  const [language, setLanguage] = useState("English")
   const [showLangDropdown, setShowLangDropdown] = useState(false)
 
   useEffect(() => {
@@ -77,17 +78,17 @@ export default function SettingsPage() {
 
   const sidebarItems: { section: string; items: { id: Section; label: string; icon: React.ComponentType<{ size: number; color?: string; strokeWidth?: number }> }[] }[] = [
     {
-      section: "Account",
+      section: t("settings.accountSection"),
       items: [
-        { id: "preferences", label: "Preferences", icon: Settings },
-        { id: "connections", label: "Connections", icon: Link2 },
+        { id: "preferences", label: t("settings.preferences"), icon: Settings },
+        { id: "connections", label: t("settings.connections"), icon: Link2 },
       ],
     },
     {
-      section: "Job Search",
+      section: t("settings.jobSearchSection"),
       items: [
-        { id: "notifications", label: "Notifications", icon: Bell },
-        { id: "privacy", label: "Privacy & Security", icon: Shield },
+        { id: "notifications", label: t("settings.notifications"), icon: Bell },
+        { id: "privacy", label: t("settings.privacy"), icon: Shield },
       ],
     },
   ]
@@ -127,7 +128,7 @@ export default function SettingsPage() {
             onMouseLeave={(e) => (e.currentTarget.style.color = "#64748B")}
           >
             <ArrowLeft size={15} />
-            Back to app
+            {t("settings.backToApp")}
           </button>
 
           {/* Nav sections */}
@@ -196,15 +197,15 @@ export default function SettingsPage() {
           {activeSection === "preferences" && (
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
-                Preferences
+                {t("settings.preferences")}
               </h1>
               <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
-                Manage your account preferences and display settings.
+                {t("settings.preferencesDesc")}
               </p>
 
               {/* General */}
               <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                General
+                {t("settings.general")}
               </p>
               <div
                 style={{
@@ -217,8 +218,8 @@ export default function SettingsPage() {
                 {/* Job Alerts */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Job Alerts</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Get notified when new jobs match your profile.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.jobAlerts")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.jobAlertsDesc")}</p>
                   </div>
                   <Toggle enabled={jobAlerts} onToggle={() => setJobAlerts(!jobAlerts)} />
                 </div>
@@ -226,8 +227,8 @@ export default function SettingsPage() {
                 {/* Auto-apply */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Auto-Apply</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Automatically apply to high-match jobs on your behalf.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.autoApply")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.autoApplyDesc")}</p>
                   </div>
                   <Toggle enabled={autoApply} onToggle={() => setAutoApply(!autoApply)} />
                 </div>
@@ -235,8 +236,8 @@ export default function SettingsPage() {
                 {/* Language */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Language</p>
-                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Choose your preferred display language.</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>{t("settings.language")}</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{t("settings.languageDesc")}</p>
                   </div>
                   <div style={{ position: "relative" }}>
                     <button
@@ -260,7 +261,7 @@ export default function SettingsPage() {
                         if (!showLangDropdown) e.currentTarget.style.borderColor = "#E5E7EB"
                       }}
                     >
-                      {language}
+                      {appLanguage === 'fr' ? 'Fran\u00E7ais' : 'English'}
                       <ChevronDown size={14} color="#94A3B8" style={{ transition: "transform 200ms ease", transform: showLangDropdown ? "rotate(180deg)" : "rotate(0)" }} />
                     </button>
                     {showLangDropdown && (
@@ -269,7 +270,7 @@ export default function SettingsPage() {
                           position: "absolute",
                           top: "calc(100% + 6px)",
                           right: 0,
-                          width: 160,
+                          width: 180,
                           background: "#FFFFFF",
                           border: "1px solid #E5E7EB",
                           borderRadius: 10,
@@ -278,27 +279,31 @@ export default function SettingsPage() {
                           zIndex: 100,
                         }}
                       >
-                        {["English", "French", "German", "Spanish", "Dutch"].map((lang) => (
+                        {([{ code: 'en' as const, label: 'English' }, { code: 'fr' as const, label: 'Fran\u00E7ais' }]).map((lang) => (
                           <button
-                            key={lang}
-                            onClick={() => { setLanguage(lang); setShowLangDropdown(false) }}
+                            key={lang.code}
+                            onClick={() => { setAppLanguage(lang.code); setShowLangDropdown(false) }}
                             style={{
                               width: "100%",
                               padding: "8px 12px",
-                              background: language === lang ? "#F1F5F9" : "transparent",
+                              background: appLanguage === lang.code ? "#F1F5F9" : "transparent",
                               border: "none",
                               borderRadius: 6,
                               cursor: "pointer",
                               fontSize: 13,
-                              fontWeight: language === lang ? 600 : 500,
-                              color: language === lang ? "#0F172A" : "#64748B",
+                              fontWeight: appLanguage === lang.code ? 600 : 500,
+                              color: appLanguage === lang.code ? "#0F172A" : "#64748B",
                               textAlign: "left",
                               transition: "background 120ms ease",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
                             }}
-                            onMouseEnter={(e) => { if (language !== lang) e.currentTarget.style.background = "#F8FAFC" }}
-                            onMouseLeave={(e) => { if (language !== lang) e.currentTarget.style.background = "transparent" }}
+                            onMouseEnter={(e) => { if (appLanguage !== lang.code) e.currentTarget.style.background = "#F8FAFC" }}
+                            onMouseLeave={(e) => { if (appLanguage !== lang.code) e.currentTarget.style.background = "transparent" }}
                           >
-                            {lang}
+                            {lang.label}
+                            {appLanguage === lang.code && <span style={{ color: "#2563EB", fontSize: 14 }}>{'\u2713'}</span>}
                           </button>
                         ))}
                       </div>
@@ -309,7 +314,7 @@ export default function SettingsPage() {
 
               {/* Profile */}
               <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Profile
+                {t("settings.profileSection")}
               </p>
               <div
                 style={{
