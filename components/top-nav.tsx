@@ -313,6 +313,7 @@ export function TopNav() {
             {/* Account Dropdown */}
             {accountMenuOpen && (
               <div
+                className="account-dropdown"
                 style={{
                   position: "absolute",
                   top: "calc(100% + 8px)",
@@ -324,7 +325,6 @@ export function TopNav() {
                   padding: 6,
                   boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)",
                   zIndex: 200,
-                  animation: "dropdownFadeIn 150ms ease",
                 }}
               >
                 {/* User info header */}
