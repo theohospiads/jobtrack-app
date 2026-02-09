@@ -2,9 +2,48 @@
 
 import { TopNav } from "@/components/top-nav"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/components/auth-provider"
 
 export default function ProfilePage() {
   const router = useRouter()
+  const { user, profile } = useAuth()
+
+  // Derive display values from onboarding data
+  const profileType = profile?.profile_type || ""
+  const currentRole = profile?.current_role || profile?.target_role || "Not set"
+  const workLocation = profile?.work_location === "remote" ? "Remote" : profile?.work_location === "on-site" ? "On-site" : profile?.work_location === "hybrid" || profile?.work_location === "flexible" ? "Flexible" : "Not set"
+  const experience = profile?.experience || profile?.years_experience || ""
+  const fieldOfStudy = profile?.field_of_study || ""
+  const lookingFor = profile?.looking_for === "similar" ? "Similar role, better company" : profile?.looking_for === "growth" ? "Growth opportunity" : profile?.looking_for === "change" ? "Career pivot" : ""
+  const salaryRange = profile?.salary_expectations ? `$${profile.salary_expectations}k` : ""
+  const graduation = profile?.graduation === "this-year" ? "This year" : profile?.graduation === "next-year" ? "Next year" : profile?.graduation === "later" ? "1+ year away" : ""
+  const targetRoleType = profile?.target_role === "internship" ? "Internship" : profile?.target_role === "entry-level" ? "Entry-level" : profile?.target_role === "both" ? "Internship & Entry-level" : ""
+
+  // Build dynamic assets based on profile data
+  const assets = []
+  if (currentRole && currentRole !== "Not set") {
+    assets.push({ label: currentRole, detail: experience ? `${experience} years of experience` : "Your primary expertise", strength: "Top skill" })
+  }
+  if (workLocation !== "Not set") {
+    assets.push({ label: `${workLocation} work preference`, detail: profileType === "student" ? "Flexible for internships & entry roles" : "Proven ability to deliver remotely", strength: "Differentiator" })
+  }
+  if (fieldOfStudy) {
+    assets.push({ label: fieldOfStudy, detail: "Academic background", strength: "Foundation" })
+  }
+  if (lookingFor) {
+    assets.push({ label: lookingFor, detail: "Career direction", strength: "Focus" })
+  }
+  if (assets.length === 0) {
+    assets.push(
+      { label: "Product Analytics", detail: "SQL, A/B testing, metrics design", strength: "Top skill" },
+      { label: "Cross-functional Communication", detail: "Stakeholder alignment & storytelling with data", strength: "High demand" },
+      { label: "Remote-first Experience", detail: "Proven async collaboration & self-management", strength: "Differentiator" },
+    )
+  }
+
+  // Primary career target
+  const primaryTarget = profile?.current_role || profile?.target_role || "Product Analyst"
+  const primarySubtitle = profileType === "student" ? (targetRoleType || "Best match for your profile") : "Best match for your profile"
 
   return (
     <div
@@ -50,11 +89,7 @@ export default function ProfilePage() {
 
             {/* Top strengths */}
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {[
-                { label: "Product Analytics", detail: "SQL, A/B testing, metrics design", strength: "Top skill" },
-                { label: "Cross-functional Communication", detail: "Stakeholder alignment & storytelling with data", strength: "High demand" },
-                { label: "Remote-first Experience", detail: "Proven async collaboration & self-management", strength: "Differentiator" },
-              ].map((asset) => (
+              {assets.map((asset) => (
                 <div
                   key={asset.label}
                   style={{
@@ -192,10 +227,10 @@ export default function ProfilePage() {
                     </span>
                   </div>
                   <p style={{ fontSize: "16px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Product Analyst
+                    {primaryTarget}
                   </p>
                   <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                    Best match for your profile
+                    {primarySubtitle}
                   </p>
                 </div>
                 <button
