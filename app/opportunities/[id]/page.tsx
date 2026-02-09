@@ -3,6 +3,7 @@
 import { TopNav } from "@/components/top-nav"
 import { useParams, useRouter } from "next/navigation"
 import React from "react"
+import { useLanguage } from "@/components/language-provider"
 
 type FitLevel = "strong" | "good" | "stretch"
 
@@ -49,9 +50,10 @@ const opportunities: Record<string, Opportunity> = {
   },
 }
 
-export default function ApplyPage() {
+export default function OpportunityDetailPage() {
   const params = useParams()
   const router = useRouter()
+  const { t } = useLanguage()
   const id = params.id as string
   const job = opportunities[id] || opportunities["1"]
 
@@ -111,7 +113,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Back
+          {t("oppDetail.back")}
         </button>
 
         {/* Top Section: Match Circle + Job Info */}
@@ -173,14 +175,14 @@ Required qualifications include strong knowledge of engine mechanics and operati
                       <circle cx="12" cy="12" r="10" stroke="#64748B" strokeWidth="2"/>
                       <path d="M12 6v6l4 2" stroke="#64748B" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
-                    <span style={{ fontSize: 14, color: "#64748B", fontWeight: 400 }}>3 days ago</span>
+                    <span style={{ fontSize: 14, color: "#64748B", fontWeight: 400 }}>{t("oppDetail.daysAgo")}</span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6 }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="12" cy="12" r="10" stroke="#64748B" strokeWidth="2"/>
                       <path d="M9 12H15M12 9V15" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
-                    <span style={{ fontSize: 14, color: "#64748B", fontWeight: 400 }}>$32k–$38k · paid internship</span>
+                    <span style={{ fontSize: 14, color: "#64748B", fontWeight: 400 }}>$32k–$38k · {t("oppDetail.paidInternship")}</span>
                   </div>
                 </div>
                 
@@ -216,11 +218,11 @@ Required qualifications include strong knowledge of engine mechanics and operati
               <path d="M10 14L12 16L16 10" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <p style={{ fontSize: 14, color: "#1E40AF", fontWeight: 400, margin: 0 }}>
-              You're ahead of most applicants
+              {t("oppDetail.aheadOfApplicants")}
             </p>
           </div>
           <p style={{ fontSize: 13, color: "#1E40AF", margin: "0 0 0 32px", lineHeight: 1.5 }}>
-            Based on skills match, experience level, and current competition
+            {t("oppDetail.aheadReason")}
           </p>
         </div>
 
@@ -249,11 +251,11 @@ Required qualifications include strong knowledge of engine mechanics and operati
             }}
           >
             <p style={{ fontSize: 11, color: "#64748B", fontWeight: 400, margin: 0, textTransform: "uppercase" }}>
-              Low chance of being ghosted
+              {t("oppDetail.lowGhosting")}
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <p style={{ fontSize: 18, color: "#0F172A", fontWeight: 400, margin: 0 }}>
-                Low
+                {t("oppDetail.low")}
               </p>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10 16L5 11M10 16L15 11M10 16V5" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -284,10 +286,10 @@ Required qualifications include strong knowledge of engine mechanics and operati
             }}
           >
             <p style={{ fontSize: 11, color: "#64748B", fontWeight: 400, margin: 0, textTransform: "uppercase" }}>
-              Short process
+              {t("oppDetail.shortProcess")}
             </p>
             <p style={{ fontSize: 18, color: "#0F172A", fontWeight: 400, margin: 0 }}>
-              2 interviews
+              {t("oppDetail.interviews")}
             </p>
           </div>
 
@@ -314,17 +316,17 @@ Required qualifications include strong knowledge of engine mechanics and operati
             }}
           >
             <p style={{ fontSize: 11, color: "#64748B", fontWeight: 400, margin: 0, textTransform: "uppercase" }}>
-              Fast decision
+              {t("oppDetail.fastDecision")}
             </p>
             <p style={{ fontSize: 18, color: "#0F172A", fontWeight: 400, margin: 0 }}>
-              ≈2–3 weeks
+              {t("oppDetail.weeks")}
             </p>
           </div>
         </div>
 
         {/* Why It's a Strong Match Section */}
         <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          WHY IT'S A SUPER STRONG MATCH:
+          {t("oppDetail.whyStrongMatch")}
         </p>
         <div
           style={{
@@ -336,16 +338,16 @@ Required qualifications include strong knowledge of engine mechanics and operati
           }}
         >
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: 0 }}>
-            Your profile aligns well with this role, both in terms of skills and experience. The hiring process is short, competition remains limited, and the team is actively moving candidates forward.
+            {t("oppDetail.matchDesc1")}
           </p>
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: "12px 0 0 0" }}>
-            You are already competitive for this position, and applying now is a low-risk, high-potential step in your job search.
+            {t("oppDetail.matchDesc2")}
           </p>
         </div>
 
         {/* Skills Gap Breakdown Section */}
         <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          OPTIONAL SKILLS TO STRENGTHEN YOUR APPLICATION:
+          {t("oppDetail.optionalSkills")}
         </p>
         <div
           style={{
@@ -372,22 +374,22 @@ Required qualifications include strong knowledge of engine mechanics and operati
               </div>
               <div>
                 <p style={{ fontSize: 13, color: "#64748B", fontWeight: 400, margin: "0 0 4px 0" }}>
-                  YOU MATCH
+                  {t("oppDetail.youMatch")}
                 </p>
                 <p style={{ fontSize: 18, color: "#0F172A", fontWeight: 400, margin: 0 }}>
-                  92% of requirements
+                  {t("oppDetail.ofRequirements")}
                 </p>
               </div>
             </div>
             <p style={{ fontSize: 12, color: "#64748B", margin: 0, fontStyle: "italic" }}>
-              You do not need these to apply. They improve interview confidence.
+              {t("oppDetail.noNeed")}
             </p>
           </div>
 
           {/* Missing Skills */}
           <div>
             <p style={{ fontSize: 13, color: "#64748B", fontWeight: 400, margin: "0 0 12px 0", textTransform: "uppercase" }}>
-              Skills to Develop (Optional):
+              {t("oppDetail.skillsToDevelop")}
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {/* Skill 1 */}
@@ -403,10 +405,10 @@ Required qualifications include strong knowledge of engine mechanics and operati
                 }}
               >
                 <p style={{ fontSize: 13, fontWeight: 400, color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Advanced SQL
+                  {t("oppDetail.advancedSQL")}
                 </p>
                 <p style={{ fontSize: 12, color: "#64748B", margin: 0, lineHeight: 1.4 }}>
-                  Experience with complex query optimization and database performance tuning
+                  {t("oppDetail.advancedSQLDesc")}
                 </p>
               </div>
 
@@ -423,10 +425,10 @@ Required qualifications include strong knowledge of engine mechanics and operati
                 }}
               >
                 <p style={{ fontSize: 13, fontWeight: 400, color: "#0F172A", margin: "0 0 4px 0" }}>
-                  Tableau/Power BI
+                  {t("oppDetail.tableauPowerBI")}
                 </p>
                 <p style={{ fontSize: 12, color: "#64748B", margin: 0, lineHeight: 1.4 }}>
-                  Building interactive dashboards and real-time visualizations for stakeholders
+                  {t("oppDetail.tableauPowerBIDesc")}
                 </p>
               </div>
             </div>
@@ -442,11 +444,11 @@ Required qualifications include strong knowledge of engine mechanics and operati
               }}
             >
               <p style={{ fontSize: 12, fontWeight: 400, color: "#0F172A", margin: "0 0 8px 0" }}>
-                ⏱️ Quick wins to strengthen your application:
+                {t("oppDetail.quickWins")}
               </p>
               <ul style={{ fontSize: 12, color: "#0F172A", margin: 0, paddingLeft: 20, lineHeight: 1.6 }}>
-                <li>Advanced SQL course • Can be done in under 7 days</li>
-                <li>Build a practice dashboard • Show it in interviews</li>
+                <li>{t("oppDetail.quickWin1")}</li>
+                <li>{t("oppDetail.quickWin2")}</li>
               </ul>
             </div>
           </div>
@@ -454,7 +456,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
 
         {/* Who This Role Is Designed For */}
         <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          WHO THIS ROLE IS DESIGNED FOR:
+          {t("oppDetail.whoDesignedFor")}
         </p>
         <div
           style={{
@@ -474,16 +476,16 @@ Required qualifications include strong knowledge of engine mechanics and operati
           }}
         >
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: 0 }}>
-            This role is well suited if you are early in your career or transitioning into an analytical role, and you already have hands-on experience through studies, projects, or previous work.
+            {t("oppDetail.whoDesc1")}
           </p>
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: "8px 0 0 0" }}>
-            What matters most here is your ability to work with data and explain your reasoning — not having a long list of past job titles.
+            {t("oppDetail.whoDesc2")}
           </p>
         </div>
 
         {/* What To Expect From The Role */}
         <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          WHAT TO EXPECT FROM THE ROLE:
+          {t("oppDetail.whatToExpect")}
         </p>
         <div
           style={{
@@ -495,16 +497,16 @@ Required qualifications include strong knowledge of engine mechanics and operati
           }}
         >
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: 0 }}>
-            This is a full-time, permanent position with a clearly defined compensation structure and a standard interview process.
+            {t("oppDetail.expectDesc1")}
           </p>
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: "8px 0 0 0" }}>
-            You can expect clear expectations, structured onboarding, and a stable working environment.
+            {t("oppDetail.expectDesc2")}
           </p>
         </div>
 
         {/* About The Company Environment */}
         <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          ABOUT THE COMPANY ENVIRONMENT:
+          {t("oppDetail.aboutCompany")}
         </p>
         <div
           style={{
@@ -524,16 +526,16 @@ Required qualifications include strong knowledge of engine mechanics and operati
           }}
         >
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: 0 }}>
-            You would be joining a large, established organization with well-defined teams and processes.
+            {t("oppDetail.companyDesc1")}
           </p>
           <p style={{ fontSize: 14, color: "#0F172A", lineHeight: 1.6, margin: "8px 0 0 0" }}>
-            This type of environment tends to offer stability, learning opportunities, and recognizable experience that strengthens your profile over time.
+            {t("oppDetail.companyDesc2")}
           </p>
         </div>
 
         {/* How to Improve Section - Checklist Format */}
         <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          PRE-INTERVIEW CHECKLIST:
+          {t("oppDetail.preInterview")}
         </p>
         <div
           style={{
@@ -552,7 +554,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
                 href="/opportunities/prep/cover-letter" 
                 style={{ color: "#2563EB", textDecoration: "underline", cursor: "pointer" }}
               >
-                Tailored cover letter with metrics
+                {t("oppDetail.coverLetter")}
               </a>
             </div>
 
@@ -563,7 +565,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
                 href="/opportunities/prep/star-stories" 
                 style={{ color: "#2563EB", textDecoration: "underline", cursor: "pointer" }}
               >
-                2–3 STAR stories prepared
+                {t("oppDetail.starStories")}
               </a>
             </div>
 
@@ -574,7 +576,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
                 href="/opportunities/prep/smart-questions" 
                 style={{ color: "#2563EB", textDecoration: "underline", cursor: "pointer" }}
               >
-                2 smart questions about the company
+                {t("oppDetail.smartQuestions")}
               </a>
             </div>
 
@@ -585,7 +587,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
                 href="/opportunities/prep/data-examples" 
                 style={{ color: "#2563EB", textDecoration: "underline", cursor: "pointer" }}
               >
-                3 data-driven examples rehearsed
+                {t("oppDetail.dataExamples")}
               </a>
             </div>
           </div>
@@ -621,7 +623,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)";
             }}
           >
-            Apply now — you're well positioned
+            {t("oppDetail.applyWellPositioned")}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -630,7 +632,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
 
         {/* Job Information Section */}
         <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 12px 0" }}>
-          JOB INFORMATION:
+          {t("oppDetail.jobInfo")}
         </p>
         <div
           style={{
@@ -668,7 +670,7 @@ Required qualifications include strong knowledge of engine mechanics and operati
             }}
             onClick={() => window.open("https://www.safran.fr", "_blank")}
           >
-            Open original post
+            {t("oppDetail.openOriginal")}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 13H13V3H8M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

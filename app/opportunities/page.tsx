@@ -2,6 +2,7 @@
 
 import { TopNav } from "@/components/top-nav"
 import { useRouter } from "next/navigation"
+import { useLanguage } from "@/components/language-provider"
 
 type FitLevel = "strong" | "good" | "stretch"
 
@@ -19,10 +20,10 @@ interface Opportunity {
   estimatedSalary?: string
 }
 
-const fitStyles: Record<FitLevel, { bg: string; color: string; label: string }> = {
-  strong: { bg: "transparent", color: "#000000", label: "Strong fit" },
-  good: { bg: "transparent", color: "#000000", label: "Good fit" },
-  stretch: { bg: "transparent", color: "#000000", label: "Stretch" },
+const fitStyleKeys: Record<FitLevel, string> = {
+  strong: "opp.strongFit",
+  good: "opp.goodFit",
+  stretch: "opp.stretch",
 }
 
 // Fit distribution rule (enforced by decision engine):
@@ -93,19 +94,20 @@ const opportunities: Opportunity[] = [
 ]
 
 function FitPill({ level }: { level: FitLevel }) {
-  const style = fitStyles[level]
+  const { t } = useLanguage()
   return (
     <span
       className="rounded-full px-2.5 py-1 text-xs font-semibold"
-      style={{ background: style.bg, color: style.color }}
+      style={{ background: "transparent", color: "#000000" }}
     >
-      {style.label}
+      {t(fitStyleKeys[level])}
     </span>
   )
 }
 
 function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; index: number }) {
   const router = useRouter()
+  const { t } = useLanguage()
   const isAltStyle = index % 2 === 1
   const bgColor = isAltStyle ? "#EFF6FF" : "#FAFBFC"
   
@@ -169,7 +171,7 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
                 className="text-xs font-medium mt-0.5 text-center"
                 style={{ color: "#64748B" }}
               >
-                {fitStyles[opportunity.fitLevel].label}
+                {t(fitStyleKeys[opportunity.fitLevel])}
               </span>
             </div>
           </div>
@@ -235,7 +237,7 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
             e.currentTarget.style.transform = "translateY(0)"
           }}
         >
-          Apply now
+          {t("opp.applyNow")}
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -246,6 +248,7 @@ function OpportunityCard({ opportunity, index }: { opportunity: Opportunity; ind
 }
 
 function EmptyState() {
+  const { t } = useLanguage()
   return (
     <div
       className="flex w-full flex-col gap-4 rounded-2xl p-5"
@@ -259,13 +262,13 @@ function EmptyState() {
         className="text-base font-semibold"
         style={{ color: "#0F172A" }}
       >
-        No high-confidence opportunities right now
+        {t("opp.noOpportunitiesTitle")}
       </h3>
       <p
         className="text-sm"
         style={{ color: "#475569" }}
       >
-        Based on your profile and recent activity, applying right now would likely have low returns.
+        {t("opp.noOpportunitiesDesc")}
       </p>
       <button
         className="h-9 w-fit cursor-pointer rounded-[10px] px-4 text-[13px] font-semibold transition-all duration-200"
@@ -284,13 +287,14 @@ function EmptyState() {
           e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.04)"
         }}
       >
-        Improve my chances
+        {t("opp.improveChances")}
       </button>
     </div>
   )
 }
 
 export default function OpportunitiesPage() {
+  const { t } = useLanguage()
   const showEmpty = false // Toggle for empty state demo
   const visibleOpportunities = opportunities.slice(0, 5)
 
@@ -307,10 +311,10 @@ export default function OpportunitiesPage() {
             className="text-[32px] font-semibold leading-[1.2]"
             style={{ color: "#0F172A", letterSpacing: "-0.5px" }}
           >
-            Opportunities
+            {t("opp.title")}
           </h1>
           <p className="text-sm mt-2" style={{ color: "#64748B" }}>
-            {visibleOpportunities.length} high-confidence matches for you
+            {t("opp.highConfidenceMatches").replace("{count}", String(visibleOpportunities.length))}
           </p>
         </header>
 
@@ -339,7 +343,7 @@ export default function OpportunitiesPage() {
             </svg>
             <input
               type="text"
-              placeholder="Search roles or companies..."
+              placeholder={t("opp.searchPlaceholder")}
               className="flex-1 bg-transparent text-sm outline-none"
               style={{ color: "#0F172A" }}
             />
@@ -368,7 +372,7 @@ export default function OpportunitiesPage() {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
             </svg>
-            <span className="text-sm font-medium">Filters</span>
+            <span className="text-sm font-medium">{t("opp.filters")}</span>
           </button>
         </div>
 
@@ -404,7 +408,7 @@ export default function OpportunitiesPage() {
                 e.currentTarget.style.transform = "translateY(0)"
               }}
             >
-              Load more
+              {t("opp.loadMore")}
             </button>
           </div>
         )}

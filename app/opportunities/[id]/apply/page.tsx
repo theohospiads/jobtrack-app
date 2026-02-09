@@ -3,10 +3,12 @@
 import { TopNav } from "@/components/top-nav"
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 
 export default function ApplyPage() {
   const params = useParams()
   const router = useRouter()
+  const { t } = useLanguage()
   const id = params.id as string
 
   const [applicationMessage, setApplicationMessage] = useState(
@@ -57,7 +59,7 @@ export default function ApplyPage() {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Back
+          {t("apply.back")}
         </button>
 
         {applicationState === "submitted" ? (
@@ -77,10 +79,10 @@ export default function ApplyPage() {
               <path d="M20 24L22 26L28 20" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <h2 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
-              Application Submitted!
+              {t("apply.submittedTitle")}
             </h2>
             <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 24px 0" }}>
-              Your application has been sent. We'll notify you when the recruiter reviews it.
+              {t("apply.submittedDesc")}
             </p>
             <button
               onClick={() => router.push(`/actions/${id}`)}
@@ -105,7 +107,7 @@ export default function ApplyPage() {
                 e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)"
               }}
             >
-              View Application Details
+              {t("apply.viewDetails")}
             </button>
           </div>
         ) : applicationState === "saved" ? (
@@ -125,10 +127,10 @@ export default function ApplyPage() {
               <path d="M24 16V28M24 28L20 24M24 28L28 24" stroke="#FBBF24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <h2 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 8px 0" }}>
-              Draft Saved
+              {t("apply.draftSaved")}
             </h2>
             <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 24px 0" }}>
-              Your application draft has been saved. You can resume anytime.
+              {t("apply.draftDesc")}
             </p>
             <button
               onClick={() => setApplicationState("ready")}
@@ -143,7 +145,7 @@ export default function ApplyPage() {
                 cursor: "pointer",
               }}
             >
-              Resume Application
+              {t("apply.resumeApp")}
             </button>
           </div>
         ) : (
@@ -164,19 +166,19 @@ export default function ApplyPage() {
               </h2>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
                 <div>
-                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>Company</p>
+                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>{t("apply.company")}</p>
                   <p style={{ fontSize: 14, color: "#0F172A", margin: 0 }}>Acme Corp</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>Location</p>
+                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>{t("apply.location")}</p>
                   <p style={{ fontSize: 14, color: "#0F172A", margin: 0 }}>Paris, France</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>Salary</p>
+                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>{t("apply.salary")}</p>
                   <p style={{ fontSize: 14, color: "#0F172A", margin: 0 }}>$65,000 - $75,000</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>Match</p>
+                  <p style={{ fontSize: 12, color: "#64748B", margin: "0 0 4px 0", fontWeight: 600 }}>{t("apply.match")}</p>
                   <p style={{ fontSize: 14, color: "#2563EB", margin: 0, fontWeight: 600 }}>92% match</p>
                 </div>
               </div>
@@ -194,7 +196,7 @@ export default function ApplyPage() {
               }}
             >
               <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 12px 0", textTransform: "uppercase" }}>
-                Your Application Message
+                {t("apply.yourMessage")}
               </p>
               <textarea
                 value={applicationMessage}
@@ -212,7 +214,7 @@ export default function ApplyPage() {
                 }}
               />
               <p style={{ fontSize: 12, color: "#64748B", margin: "8px 0 0 0" }}>
-                Tip: This message has been optimized for your profile and target role.
+                {t("apply.messageTip")}
               </p>
             </div>
 
@@ -228,7 +230,7 @@ export default function ApplyPage() {
               }}
             >
               <p style={{ fontSize: 12, fontWeight: 600, color: "#64748B", margin: "0 0 12px 0", textTransform: "uppercase" }}>
-                CV Being Submitted
+                {t("apply.cvSubmitted")}
               </p>
               <div
                 style={{
@@ -246,7 +248,7 @@ export default function ApplyPage() {
                     {selectedCV}
                   </p>
                   <p style={{ fontSize: 12, color: "#64748B", margin: "4px 0 0 0" }}>
-                    Generated • Optimized for this role
+                    {t("apply.cvGenerated")}
                   </p>
                 </div>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -278,7 +280,7 @@ export default function ApplyPage() {
                   e.currentTarget.style.background = "#FFFFFF"
                 }}
               >
-                Save for Later
+                {t("apply.saveForLater")}
               </button>
               <button
                 onClick={handleApply}
@@ -304,7 +306,7 @@ export default function ApplyPage() {
                   e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)"
                 }}
               >
-                Apply & Send
+                {t("apply.applyAndSend")}
               </button>
             </div>
           </>
