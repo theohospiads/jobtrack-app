@@ -3,9 +3,20 @@
 import { TopNav } from "@/components/top-nav"
 import { PageHeader } from "@/components/page-header"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function DashboardPage() {
   const router = useRouter()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
   return (
     <div 
       className="min-h-screen min-w-[1280px]"
@@ -15,7 +26,6 @@ export default function DashboardPage() {
     >
       <TopNav />
       <main className="mx-auto max-w-[1120px] px-6 pt-6 pb-10">
-        <PageHeader />
         
         {/* Dashboard Header with Date Range */}
         <div className="mb-8 flex items-center justify-between">
@@ -152,7 +162,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Application Health Section - Above Tutorials */}
+        {/* Start Your Journey Section - Consistent Design */}
         <div 
           className="mb-12 rounded-2xl p-8 transition-all duration-300"
           style={{
@@ -169,114 +179,102 @@ export default function DashboardPage() {
             e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
           }}
         >
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-1" style={{ color: "#0F172A" }}>
-                Application Health
-              </h3>
-              <p className="text-sm" style={{ color: "#64748B" }}>
-                An overview of how your active applications are progressing
+          <div className="mb-6">
+            <h3 className="text-xl font-semibold mb-2" style={{ color: "#0F172A" }}>
+              Start Your Journey
+            </h3>
+            <p className="text-sm" style={{ color: "#64748B" }}>
+              You're all set! Explore job opportunities tailored to your profile and accelerate your search.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", marginBottom: "24px" }}>
+            <button
+              onClick={() => router.push('/opportunities')}
+              className="transition-all duration-300"
+              style={{
+                background: "#2563EB",
+                color: "#FFFFFF",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "8px",
+                fontSize: "13px",
+                fontWeight: "600",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(37, 99, 235, 0.2)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#1E40AF";
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(37, 99, 235, 0.3)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#2563EB";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(37, 99, 235, 0.2)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              Explore Opportunities
+            </button>
+
+            <button
+              onClick={() => router.push('/profile')}
+              className="transition-all duration-300"
+              style={{
+                background: "#F8FAFC",
+                color: "#64748B",
+                border: "1px solid #E5E7EB",
+                padding: "10px 20px",
+                borderRadius: "8px",
+                fontSize: "13px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#F1F5F9";
+                e.currentTarget.style.borderColor = "#CBD5E1";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#F8FAFC";
+                e.currentTarget.style.borderColor = "#E5E7EB";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              View Profile
+            </button>
+          </div>
+
+          {/* Info Highlight */}
+          <div 
+            style={{
+              padding: "16px",
+              background: "#F8FAFC",
+              border: "1px solid #E5E7EB",
+              borderRadius: "8px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                Next Step
+              </p>
+              <p style={{ fontSize: "14px", fontWeight: "600", color: "#0F172A", margin: 0 }}>
+                Browse 10+ personalized matches
               </p>
             </div>
-
-            {/* Application Health List */}
-            <div className="flex flex-col gap-4">
-              {/* Health 1 */}
-              <div 
-                className="flex items-center justify-between pb-4 border-b cursor-pointer transition-all duration-300"
-                style={{ borderColor: "#E5E7EB" }}
-                onClick={() => router.push('/actions/1')}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
-                  e.currentTarget.style.borderRadius = "8px";
-                  e.currentTarget.style.paddingLeft = "8px";
-                  e.currentTarget.style.paddingRight = "8px";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "none";
-                  e.currentTarget.style.borderRadius = "0";
-                  e.currentTarget.style.paddingLeft = "0";
-                  e.currentTarget.style.paddingRight = "0";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <div
-                    className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      background: "#DBEAFE",
-                      color: "#2563EB",
-                    }}
-                  >
-                    PA
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Product Analyst Intern</p>
-                    <p className="text-xs" style={{ color: "#64748B" }}>Acme Corp • Applied 3 days ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div style={{ textAlign: "right" }}>
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>78%</p>
-                    <p className="text-xs" style={{ color: "#64748B" }}>Health Score</p>
-                  </div>
-                  <div
-                    className="w-2 h-2 rounded-full"
-                    style={{ background: "#2563EB" }}
-                  />
-                </div>
-              </div>
-
-              {/* Health 2 */}
-              <div 
-                className="flex items-center justify-between cursor-pointer transition-all duration-300"
-                onClick={() => router.push('/actions/2')}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)";
-                  e.currentTarget.style.borderRadius = "8px";
-                  e.currentTarget.style.paddingLeft = "8px";
-                  e.currentTarget.style.paddingRight = "8px";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "none";
-                  e.currentTarget.style.borderRadius = "0";
-                  e.currentTarget.style.paddingLeft = "0";
-                  e.currentTarget.style.paddingRight = "0";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <div
-                    className="flex items-center justify-center rounded-full flex-shrink-0 text-sm font-semibold"
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      background: "#DBEAFE",
-                      color: "#2563EB",
-                    }}
-                  >
-                    DA
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>Data Analyst</p>
-                    <p className="text-xs" style={{ color: "#64748B" }}>TechStart Inc • Applied 5 days ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div style={{ textAlign: "right" }}>
-                    <p className="text-sm font-semibold" style={{ color: "#0F172A" }}>62%</p>
-                    <p className="text-xs" style={{ color: "#64748B" }}>Health Score</p>
-                  </div>
-                  <div
-                    className="w-2 h-2 rounded-full"
-                    style={{ background: "#2563EB" }}
-                  />
-                </div>
-              </div>
+            <div style={{ textAlign: "right" }}>
+              <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                Time to first match
+              </p>
+              <p style={{ fontSize: "14px", fontWeight: "600", color: "#2563EB", margin: 0 }}>
+                ~2 minutes
+              </p>
             </div>
+          </div>
         </div>
 
         {/* Tutorials Section */}

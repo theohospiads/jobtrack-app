@@ -1,15 +1,20 @@
 "use client"
 
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useRef } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Search, Bell, ChevronDown, Menu, X } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { Search, Bell, ChevronDown, Menu, X, User, Settings, Globe, LogOut } from "lucide-react"
+import { useAuth } from "@/components/auth-provider"
 
 export function TopNav() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+  const { signOut, user } = useAuth()
+  const accountMenuRef = useRef<HTMLDivElement>(null)
 
   const tabs = useMemo(() => [
     { label: "Dashboard", href: "/dashboard" },
@@ -20,6 +25,17 @@ export function TopNav() {
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  // Close account menu on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (accountMenuRef.current && !accountMenuRef.current.contains(e.target as Node)) {
+        setAccountMenuOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
   useEffect(() => {
@@ -230,50 +246,176 @@ export function TopNav() {
           </button>
 
           {/* User Menu */}
-          <button
-            className="usermenu"
-            style={{
-              height: 36,
-              padding: "0 10px 0 6px",
-              borderRadius: 999,
-              background: "transparent",
-              border: "1px solid var(--border-default)",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              cursor: "pointer",
-              transition: "background 120ms ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-muted)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-          >
-            {/* Avatar */}
-            <span
+          <div ref={accountMenuRef} style={{ position: "relative" }}>
+            <button
+              className="usermenu"
+              onClick={() => setAccountMenuOpen(!accountMenuOpen)}
               style={{
-                width: 24,
-                height: 24,
+                height: 36,
+                padding: "0 10px 0 6px",
                 borderRadius: 999,
-                background: "#CBD5E1",
+                background: accountMenuOpen ? "var(--bg-muted)" : "transparent",
+                border: "1px solid var(--border-default)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                cursor: "pointer",
+                transition: "background 120ms ease",
               }}
-            />
-            {/* Name */}
-            <span
-              className="username"
-              style={{
-                fontSize: 13,
-                fontWeight: 500,
-                color: "var(--text-primary)",
-                maxWidth: 140,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-muted)")}
+              onMouseLeave={(e) => {
+                if (!accountMenuOpen) e.currentTarget.style.background = "transparent"
               }}
             >
-              Account
-            </span>
-            {/* Caret */}
-            <ChevronDown size={14} color="var(--text-muted)" />
-          </button>
+              {/* Avatar */}
+              <span
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 999,
+                  background: "#2563EB",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: "#FFFFFF",
+                }}
+              >
+                {user?.name ? user.name.charAt(0).toUpperCase() : "A"}
+              </span>
+              {/* Name */}
+              <span
+                className="username"
+                style={{
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: "var(--text-primary)",
+                  maxWidth: 140,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {user?.name || "Account"}
+              </span>
+              {/* Caret */}
+              <ChevronDown
+                size={14}
+                color="var(--text-muted)"
+                style={{
+                  transition: "transform 200ms ease",
+                  transform: accountMenuOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              />
+            </button>
+
+            {/* Account Dropdown */}
+            {accountMenuOpen && (
+              <div
+                className="account-dropdown"
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 8px)",
+                  right: 0,
+                  width: 220,
+                  background: "#FFFFFF",
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  padding: 6,
+                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)",
+                  zIndex: 200,
+                }}
+              >
+                {/* User info header */}
+                <div
+                  style={{
+                    padding: "10px 12px",
+                    borderBottom: "1px solid #F1F5F9",
+                    marginBottom: 4,
+                  }}
+                >
+                  <p style={{ fontSize: 13, fontWeight: 600, color: "#0F172A", margin: 0 }}>
+                    {user?.name || "Account"}
+                  </p>
+                  <p style={{ fontSize: 12, color: "#94A3B8", margin: "2px 0 0 0" }}>
+                    {user?.email || "account@email.com"}
+                  </p>
+                </div>
+
+                {/* Menu items */}
+                {[
+                  { label: "Profile", icon: User, href: "/account" },
+                  { label: "Settings", icon: Settings, href: "/settings" },
+                  { label: "Language", icon: Globe, href: null },
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => {
+                      setAccountMenuOpen(false)
+                      if (item.href) router.push(item.href)
+                    }}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      padding: "9px 12px",
+                      background: "transparent",
+                      border: "none",
+                      borderRadius: 8,
+                      cursor: "pointer",
+                      transition: "background 120ms ease",
+                      textAlign: "left",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "#F8FAFC")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                  >
+                    <item.icon size={16} color="#64748B" />
+                    <span style={{ fontSize: 13, fontWeight: 500, color: "#0F172A" }}>
+                      {item.label}
+                    </span>
+                    {item.label === "Language" && (
+                      <span style={{ marginLeft: "auto", fontSize: 12, color: "#94A3B8", fontWeight: 500 }}>
+                        EN
+                      </span>
+                    )}
+                  </button>
+                ))}
+
+                {/* Divider */}
+                <div style={{ height: 1, background: "#F1F5F9", margin: "4px 0" }} />
+
+                {/* Sign out */}
+                <button
+                  onClick={() => {
+                    setAccountMenuOpen(false)
+                    signOut()
+                  }}
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    padding: "9px 12px",
+                    background: "transparent",
+                    border: "none",
+                    borderRadius: 8,
+                    cursor: "pointer",
+                    transition: "background 120ms ease",
+                    textAlign: "left",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#FEF2F2")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <LogOut size={16} color="#EF4444" />
+                  <span style={{ fontSize: 13, fontWeight: 500, color: "#EF4444" }}>
+                    Sign out
+                  </span>
+                </button>
+              </div>
+            )}
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -346,6 +488,16 @@ export function TopNav() {
       )}
 
       <style jsx>{`
+        @keyframes dropdownFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-4px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
         @media (max-width: 768px) {
           .tabs {
             display: none !important;
