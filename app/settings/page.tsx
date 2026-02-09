@@ -4,18 +4,39 @@ import { TopNav } from "@/components/top-nav"
 import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { ChevronRight, Bell, Shield, Globe, Eye, Trash2, ExternalLink } from "lucide-react"
+import {
+  ArrowLeft,
+  Settings,
+  Link2,
+  Bell,
+  Shield,
+  Globe,
+  Eye,
+  Trash2,
+  LogOut,
+  ChevronDown,
+  User,
+  Briefcase,
+} from "lucide-react"
+
+type Section = "preferences" | "connections" | "notifications" | "privacy"
 
 export default function SettingsPage() {
   const router = useRouter()
-  const { user, signOut } = useAuth()
+  const { user, signOut, profile } = useAuth()
   const [mounted, setMounted] = useState(false)
+  const [activeSection, setActiveSection] = useState<Section>("preferences")
 
   // Toggle states
   const [emailNotif, setEmailNotif] = useState(true)
   const [pushNotif, setPushNotif] = useState(false)
   const [weeklyDigest, setWeeklyDigest] = useState(true)
   const [profileVisible, setProfileVisible] = useState(true)
+  const [activityStatus, setActivityStatus] = useState(true)
+  const [jobAlerts, setJobAlerts] = useState(true)
+  const [autoApply, setAutoApply] = useState(false)
+  const [language, setLanguage] = useState("English")
+  const [showLangDropdown, setShowLangDropdown] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -54,424 +75,650 @@ export default function SettingsPage() {
     </button>
   )
 
-  const SettingRow = ({
-    icon: Icon,
-    label,
-    description,
-    action,
-  }: {
-    icon: React.ComponentType<{ size: number; color: string }>
-    label: string
-    description: string
-    action: React.ReactNode
-  }) => (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "16px 0",
-        borderBottom: "1px solid #F1F5F9",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 14, flex: 1 }}>
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: 8,
-            background: "#F8FAFC",
-            border: "1px solid #E5E7EB",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-            marginTop: 2,
-          }}
-        >
-          <Icon size={16} color="#64748B" />
-        </div>
-        <div>
-          <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 3px 0" }}>
-            {label}
-          </p>
-          <p style={{ fontSize: 12, color: "#94A3B8", margin: 0 }}>
-            {description}
-          </p>
-        </div>
-      </div>
-      <div style={{ flexShrink: 0, marginLeft: 16 }}>
-        {action}
-      </div>
-    </div>
-  )
+  const sidebarItems: { section: string; items: { id: Section; label: string; icon: React.ComponentType<{ size: number; color?: string; strokeWidth?: number }> }[] }[] = [
+    {
+      section: "Account",
+      items: [
+        { id: "preferences", label: "Preferences", icon: Settings },
+        { id: "connections", label: "Connections", icon: Link2 },
+      ],
+    },
+    {
+      section: "Job Search",
+      items: [
+        { id: "notifications", label: "Notifications", icon: Bell },
+        { id: "privacy", label: "Privacy & Security", icon: Shield },
+      ],
+    },
+  ]
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ backgroundColor: "#F8FAFC" }}
-    >
+    <div className="min-h-screen" style={{ backgroundColor: "#F8FAFC" }}>
       <TopNav />
-      <main className="mx-auto max-w-[720px] px-6 pt-8 pb-16">
 
-        {/* Page header */}
-        <div style={{ marginBottom: 32 }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
-            Settings
-          </h1>
-          <p style={{ fontSize: 14, color: "#64748B", margin: 0 }}>
-            Manage your account preferences and privacy
-          </p>
-        </div>
-
-        {/* Account section */}
-        <div
-          className="rounded-2xl p-6 transition-all duration-300"
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            marginBottom: 20,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-          }}
-        >
-          <h2 style={{ fontSize: 14, fontWeight: 600, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-            Account
-          </h2>
-
-          {/* Account info row */}
-          <div
+      <div
+        style={{
+          maxWidth: 1040,
+          margin: "0 auto",
+          padding: "32px 24px 64px",
+          display: "flex",
+          gap: 48,
+        }}
+      >
+        {/* Left Sidebar */}
+        <div style={{ width: 220, flexShrink: 0 }}>
+          {/* Back to app */}
+          <button
+            onClick={() => router.push("/dashboard")}
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              padding: "16px 0",
-              borderBottom: "1px solid #F1F5F9",
+              gap: 8,
+              background: "none",
+              border: "none",
               cursor: "pointer",
+              fontSize: 13,
+              fontWeight: 500,
+              color: "#64748B",
+              padding: "0 0 24px 0",
+              transition: "color 150ms ease",
             }}
-            onClick={() => router.push("/account")}
-            onMouseEnter={(e) => {
-              const arrow = e.currentTarget.querySelector(".arrow") as HTMLElement
-              if (arrow) arrow.style.transform = "translateX(2px)"
-            }}
-            onMouseLeave={(e) => {
-              const arrow = e.currentTarget.querySelector(".arrow") as HTMLElement
-              if (arrow) arrow.style.transform = "translateX(0)"
-            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#0F172A")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#64748B")}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-              <div
+            <ArrowLeft size={15} />
+            Back to app
+          </button>
+
+          {/* Nav sections */}
+          {sidebarItems.map((group) => (
+            <div key={group.section} style={{ marginBottom: 24 }}>
+              <p
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  background: "linear-gradient(135deg, #2563EB, #3B82F6)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 15,
-                  fontWeight: 700,
-                  color: "#FFFFFF",
-                  flexShrink: 0,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: "#94A3B8",
+                  margin: "0 0 8px 0",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  padding: "0 10px",
                 }}
               >
-                {user?.name ? user.name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2) : "U"}
-              </div>
-              <div>
-                <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 2px 0" }}>
-                  {user?.name || "User"}
-                </p>
-                <p style={{ fontSize: 12, color: "#94A3B8", margin: 0 }}>
-                  {user?.email || "user@email.com"}
-                </p>
-              </div>
+                {group.section}
+              </p>
+              {group.items.map((item) => {
+                const isActive = activeSection === item.id
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveSection(item.id)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      padding: "9px 10px",
+                      background: isActive ? "#F1F5F9" : "transparent",
+                      border: "none",
+                      borderRadius: 8,
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                      textAlign: "left",
+                      marginBottom: 2,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) e.currentTarget.style.background = "#F8FAFC"
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) e.currentTarget.style.background = "transparent"
+                    }}
+                  >
+                    <item.icon size={16} color={isActive ? "#0F172A" : "#94A3B8"} strokeWidth={isActive ? 2.2 : 1.8} />
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: isActive ? 600 : 500,
+                        color: isActive ? "#0F172A" : "#64748B",
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                  </button>
+                )
+              })}
             </div>
-            <ChevronRight className="arrow" size={16} color="#94A3B8" style={{ transition: "transform 150ms ease" }} />
-          </div>
+          ))}
+        </div>
 
-          {/* Connected accounts */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "16px 0",
-              cursor: "pointer",
-            }}
-            onClick={() => router.push("/connect-accounts")}
-            onMouseEnter={(e) => {
-              const arrow = e.currentTarget.querySelector(".arrow") as HTMLElement
-              if (arrow) arrow.style.transform = "translateX(2px)"
-            }}
-            onMouseLeave={(e) => {
-              const arrow = e.currentTarget.querySelector(".arrow") as HTMLElement
-              if (arrow) arrow.style.transform = "translateX(0)"
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+        {/* Main Content */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {/* PREFERENCES */}
+          {activeSection === "preferences" && (
+            <div>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
+                Preferences
+              </h1>
+              <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
+                Manage your account preferences and display settings.
+              </p>
+
+              {/* General */}
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                General
+              </p>
               <div
                 style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 8,
-                  background: "#F8FAFC",
                   border: "1px solid #E5E7EB",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  marginTop: 2,
+                  borderRadius: 12,
+                  background: "#FFFFFF",
+                  marginBottom: 32,
                 }}
               >
-                <ExternalLink size={16} color="#64748B" />
+                {/* Job Alerts */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Job Alerts</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Get notified when new jobs match your profile.</p>
+                  </div>
+                  <Toggle enabled={jobAlerts} onToggle={() => setJobAlerts(!jobAlerts)} />
+                </div>
+
+                {/* Auto-apply */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Auto-Apply</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Automatically apply to high-match jobs on your behalf.</p>
+                  </div>
+                  <Toggle enabled={autoApply} onToggle={() => setAutoApply(!autoApply)} />
+                </div>
+
+                {/* Language */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Language</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Choose your preferred display language.</p>
+                  </div>
+                  <div style={{ position: "relative" }}>
+                    <button
+                      onClick={() => setShowLangDropdown(!showLangDropdown)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        padding: "7px 14px",
+                        border: "1px solid #E5E7EB",
+                        borderRadius: 8,
+                        background: "#FFFFFF",
+                        cursor: "pointer",
+                        fontSize: 13,
+                        fontWeight: 500,
+                        color: "#0F172A",
+                        transition: "border-color 150ms ease",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#CBD5E1")}
+                      onMouseLeave={(e) => {
+                        if (!showLangDropdown) e.currentTarget.style.borderColor = "#E5E7EB"
+                      }}
+                    >
+                      {language}
+                      <ChevronDown size={14} color="#94A3B8" style={{ transition: "transform 200ms ease", transform: showLangDropdown ? "rotate(180deg)" : "rotate(0)" }} />
+                    </button>
+                    {showLangDropdown && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "calc(100% + 6px)",
+                          right: 0,
+                          width: 160,
+                          background: "#FFFFFF",
+                          border: "1px solid #E5E7EB",
+                          borderRadius: 10,
+                          padding: 4,
+                          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)",
+                          zIndex: 100,
+                        }}
+                      >
+                        {["English", "French", "German", "Spanish", "Dutch"].map((lang) => (
+                          <button
+                            key={lang}
+                            onClick={() => { setLanguage(lang); setShowLangDropdown(false) }}
+                            style={{
+                              width: "100%",
+                              padding: "8px 12px",
+                              background: language === lang ? "#F1F5F9" : "transparent",
+                              border: "none",
+                              borderRadius: 6,
+                              cursor: "pointer",
+                              fontSize: 13,
+                              fontWeight: language === lang ? 600 : 500,
+                              color: language === lang ? "#0F172A" : "#64748B",
+                              textAlign: "left",
+                              transition: "background 120ms ease",
+                            }}
+                            onMouseEnter={(e) => { if (language !== lang) e.currentTarget.style.background = "#F8FAFC" }}
+                            onMouseLeave={(e) => { if (language !== lang) e.currentTarget.style.background = "transparent" }}
+                          >
+                            {lang}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div>
-                <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 3px 0" }}>
-                  Connected Accounts
-                </p>
-                <p style={{ fontSize: 12, color: "#94A3B8", margin: 0 }}>
-                  LinkedIn, Gmail, Indeed
-                </p>
-              </div>
-            </div>
-            <ChevronRight className="arrow" size={16} color="#94A3B8" style={{ transition: "transform 150ms ease" }} />
-          </div>
-        </div>
 
-        {/* Notifications section */}
-        <div
-          className="rounded-2xl p-6 transition-all duration-300"
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            marginBottom: 20,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-          }}
-        >
-          <h2 style={{ fontSize: 14, fontWeight: 600, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-            Notifications
-          </h2>
-
-          <SettingRow
-            icon={Bell}
-            label="Email Notifications"
-            description="Get notified about new job matches via email"
-            action={<Toggle enabled={emailNotif} onToggle={() => setEmailNotif(!emailNotif)} />}
-          />
-          <SettingRow
-            icon={Bell}
-            label="Push Notifications"
-            description="Receive browser push notifications"
-            action={<Toggle enabled={pushNotif} onToggle={() => setPushNotif(!pushNotif)} />}
-          />
-          <SettingRow
-            icon={Bell}
-            label="Weekly Digest"
-            description="A summary of your job search activity every Monday"
-            action={<Toggle enabled={weeklyDigest} onToggle={() => setWeeklyDigest(!weeklyDigest)} />}
-          />
-        </div>
-
-        {/* Privacy section */}
-        <div
-          className="rounded-2xl p-6 transition-all duration-300"
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            marginBottom: 20,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-          }}
-        >
-          <h2 style={{ fontSize: 14, fontWeight: 600, color: "#64748B", margin: "0 0 4px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-            Privacy
-          </h2>
-
-          <SettingRow
-            icon={Eye}
-            label="Profile Visibility"
-            description="Make your profile visible to recruiters"
-            action={<Toggle enabled={profileVisible} onToggle={() => setProfileVisible(!profileVisible)} />}
-          />
-          <SettingRow
-            icon={Shield}
-            label="Data & Privacy"
-            description="Manage how your data is used and stored"
-            action={
-              <ChevronRight size={16} color="#94A3B8" />
-            }
-          />
-          <SettingRow
-            icon={Globe}
-            label="Language"
-            description="Change your preferred language"
-            action={
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontSize: 13, fontWeight: 500, color: "#64748B" }}>English</span>
-                <ChevronRight size={16} color="#94A3B8" />
-              </div>
-            }
-          />
-        </div>
-
-        {/* Danger zone */}
-        <div
-          className="rounded-2xl p-6 transition-all duration-300"
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-          }}
-        >
-          <h2 style={{ fontSize: 14, fontWeight: 600, color: "#EF4444", margin: "0 0 4px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-            Danger Zone
-          </h2>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "16px 0",
-              borderBottom: "1px solid #F1F5F9",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+              {/* Profile */}
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Profile
+              </p>
               <div
                 style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 8,
-                  background: "#FEF2F2",
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  background: "#FFFFFF",
+                }}
+              >
+                {/* Name */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Full Name</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{user?.name || "Not set"}</p>
+                  </div>
+                  <button
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: 8,
+                      padding: "7px 14px",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: "#64748B",
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
+                  >
+                    Edit
+                  </button>
+                </div>
+
+                {/* Email */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Email Address</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{user?.email || "Not set"}</p>
+                  </div>
+                  <button
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: 8,
+                      padding: "7px 14px",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: "#64748B",
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
+                  >
+                    Edit
+                  </button>
+                </div>
+
+                {/* Target Role */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Target Role</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>{profile?.target_role || profile?.current_role || "Not set"}</p>
+                  </div>
+                  <button
+                    onClick={() => router.push("/profile/preferences")}
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: 8,
+                      padding: "7px 14px",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: "#64748B",
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* CONNECTIONS */}
+          {activeSection === "connections" && (
+            <div>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
+                Connections
+              </h1>
+              <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
+                Manage your linked accounts and integrations.
+              </p>
+
+              <div
+                style={{
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  background: "#FFFFFF",
+                }}
+              >
+                {[
+                  { name: "LinkedIn", desc: "Import profile data and track applications", connected: true, color: "#0A66C2" },
+                  { name: "Gmail", desc: "Track responses and send applications", connected: true, color: "#EA4335" },
+                  { name: "Outlook", desc: "Email tracking and calendar scheduling", connected: false, color: "#0078D4" },
+                  { name: "Indeed", desc: "Sync job listings and application status", connected: false, color: "#2164F3" },
+                ].map((platform, i, arr) => (
+                  <div
+                    key={platform.name}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "18px 20px",
+                      borderBottom: i < arr.length - 1 ? "1px solid #F1F5F9" : "none",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: 8,
+                          background: platform.color + "14",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: 14,
+                          fontWeight: 700,
+                          color: platform.color,
+                        }}
+                      >
+                        {platform.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 3px 0" }}>
+                          {platform.name}
+                        </p>
+                        <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>
+                          {platform.desc}
+                        </p>
+                      </div>
+                    </div>
+                    {platform.connected ? (
+                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: "#16A34A" }}>Connected</span>
+                        <button
+                          style={{
+                            background: "transparent",
+                            border: "1px solid #E5E7EB",
+                            borderRadius: 8,
+                            padding: "6px 12px",
+                            fontSize: 12,
+                            fontWeight: 500,
+                            color: "#94A3B8",
+                            cursor: "pointer",
+                            transition: "all 150ms ease",
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = "#EF4444"; e.currentTarget.style.borderColor = "#FECACA" }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = "#94A3B8"; e.currentTarget.style.borderColor = "#E5E7EB" }}
+                        >
+                          Disconnect
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        style={{
+                          background: "#0F172A",
+                          border: "none",
+                          borderRadius: 8,
+                          padding: "7px 16px",
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: "#FFFFFF",
+                          cursor: "pointer",
+                          transition: "all 150ms ease",
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "#1E293B")}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = "#0F172A")}
+                      >
+                        Connect
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* NOTIFICATIONS */}
+          {activeSection === "notifications" && (
+            <div>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
+                Notifications
+              </h1>
+              <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
+                Choose how and when you want to be notified.
+              </p>
+
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Channels
+              </p>
+              <div
+                style={{
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  background: "#FFFFFF",
+                  marginBottom: 32,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Email Notifications</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Receive updates about new matches and responses.</p>
+                  </div>
+                  <Toggle enabled={emailNotif} onToggle={() => setEmailNotif(!emailNotif)} />
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Push Notifications</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Get real-time browser alerts for urgent updates.</p>
+                  </div>
+                  <Toggle enabled={pushNotif} onToggle={() => setPushNotif(!pushNotif)} />
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Weekly Digest</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>A summary of your job search activity every Monday.</p>
+                  </div>
+                  <Toggle enabled={weeklyDigest} onToggle={() => setWeeklyDigest(!weeklyDigest)} />
+                </div>
+              </div>
+
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Activity
+              </p>
+              <div
+                style={{
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  background: "#FFFFFF",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Show Activity Status</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Let employers see that you are actively searching.</p>
+                  </div>
+                  <Toggle enabled={activityStatus} onToggle={() => setActivityStatus(!activityStatus)} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* PRIVACY & SECURITY */}
+          {activeSection === "privacy" && (
+            <div>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", margin: "0 0 6px 0" }}>
+                Privacy & Security
+              </h1>
+              <p style={{ fontSize: 14, color: "#64748B", margin: "0 0 32px 0" }}>
+                Control your visibility and manage your data.
+              </p>
+
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Visibility
+              </p>
+              <div
+                style={{
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  background: "#FFFFFF",
+                  marginBottom: 32,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Profile Visible to Recruiters</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Allow recruiters to discover and view your profile.</p>
+                  </div>
+                  <Toggle enabled={profileVisible} onToggle={() => setProfileVisible(!profileVisible)} />
+                </div>
+              </div>
+
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#94A3B8", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Data
+              </p>
+              <div
+                style={{
+                  border: "1px solid #E5E7EB",
+                  borderRadius: 12,
+                  background: "#FFFFFF",
+                  marginBottom: 32,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #F1F5F9" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Export Data</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Download a copy of all your data.</p>
+                  </div>
+                  <button
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: 8,
+                      padding: "7px 14px",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: "#64748B",
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
+                  >
+                    Export
+                  </button>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Clear Search History</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Remove all saved searches and recent activity.</p>
+                  </div>
+                  <button
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: 8,
+                      padding: "7px 14px",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: "#64748B",
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
+
+              {/* Danger Zone */}
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#EF4444", margin: "0 0 16px 0", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Danger Zone
+              </p>
+              <div
+                style={{
                   border: "1px solid #FECACA",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  marginTop: 2,
+                  borderRadius: 12,
+                  background: "#FFFFFF",
                 }}
               >
-                <Trash2 size={16} color="#EF4444" />
-              </div>
-              <div>
-                <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 3px 0" }}>
-                  Delete Account
-                </p>
-                <p style={{ fontSize: 12, color: "#94A3B8", margin: 0 }}>
-                  Permanently remove your account and all data
-                </p>
-              </div>
-            </div>
-            <button
-              style={{
-                background: "transparent",
-                border: "1px solid #FECACA",
-                borderRadius: 8,
-                padding: "7px 14px",
-                fontSize: 13,
-                fontWeight: 600,
-                color: "#EF4444",
-                cursor: "pointer",
-                transition: "all 150ms ease",
-                flexShrink: 0,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#FEF2F2"
-                e.currentTarget.style.borderColor = "#EF4444"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent"
-                e.currentTarget.style.borderColor = "#FECACA"
-              }}
-            >
-              Delete
-            </button>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "16px 0",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
-              <div
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 8,
-                  background: "#F8FAFC",
-                  border: "1px solid #E5E7EB",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  marginTop: 2,
-                }}
-              >
-                <Shield size={16} color="#64748B" />
-              </div>
-              <div>
-                <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 3px 0" }}>
-                  Sign Out
-                </p>
-                <p style={{ fontSize: 12, color: "#94A3B8", margin: 0 }}>
-                  Log out of your account on this device
-                </p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", borderBottom: "1px solid #FEF2F2" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Delete Account</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Permanently remove your account and all data.</p>
+                  </div>
+                  <button
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #FECACA",
+                      borderRadius: 8,
+                      padding: "7px 14px",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "#EF4444",
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#FEF2F2"; e.currentTarget.style.borderColor = "#EF4444" }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#FECACA" }}
+                  >
+                    Delete
+                  </button>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px" }}>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#0F172A", margin: "0 0 4px 0" }}>Sign Out</p>
+                    <p style={{ fontSize: 13, color: "#94A3B8", margin: 0 }}>Log out of your account on this device.</p>
+                  </div>
+                  <button
+                    onClick={signOut}
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: 8,
+                      padding: "7px 14px",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "#64748B",
+                      cursor: "pointer",
+                      transition: "all 150ms ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.borderColor = "#CBD5E1" }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#E5E7EB" }}
+                  >
+                    Sign Out
+                  </button>
+                </div>
               </div>
             </div>
-            <button
-              onClick={signOut}
-              style={{
-                background: "transparent",
-                border: "1px solid #E5E7EB",
-                borderRadius: 8,
-                padding: "7px 14px",
-                fontSize: 13,
-                fontWeight: 600,
-                color: "#64748B",
-                cursor: "pointer",
-                transition: "all 150ms ease",
-                flexShrink: 0,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#F8FAFC"
-                e.currentTarget.style.borderColor = "#CBD5E1"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent"
-                e.currentTarget.style.borderColor = "#E5E7EB"
-              }}
-            >
-              Sign Out
-            </button>
-          </div>
+          )}
         </div>
-      </main>
+      </div>
     </div>
   )
 }
