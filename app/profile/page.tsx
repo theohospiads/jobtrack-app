@@ -2,11 +2,9 @@
 
 import { TopNav } from "@/components/top-nav"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
 
 export default function ProfilePage() {
   const router = useRouter()
-  const [showProfileDetails, setShowProfileDetails] = useState(false)
 
   return (
     <div
@@ -119,7 +117,7 @@ export default function ProfilePage() {
               This information is used to build your profile and generate your CV.
             </p>
             <button
-              onClick={() => setShowProfileDetails(!showProfileDetails)}
+              onClick={() => router.push('/profile/preferences')}
               style={{
                 background: "#2563EB",
                 color: "#FFFFFF",
@@ -144,154 +142,6 @@ export default function ProfilePage() {
               View profile details
             </button>
           </section>
-
-          {/* Profile Details Modal/Expandable Section */}
-          {showProfileDetails && (
-            <section
-              className="rounded-2xl p-6 transition-all duration-300"
-              style={{
-                background: "#FFFFFF",
-                border: "1px solid #E5E7EB",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)"
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
-                <div>
-                  <h2 className="text-base font-semibold" style={{ color: "#0F172A", margin: 0 }}>
-                    Profile Strength
-                  </h2>
-                  <p style={{ fontSize: "13px", color: "#64748B", margin: "4px 0 0 0" }}>
-                    Strong profile for Product & Data roles in EU startups
-                  </p>
-                </div>
-                <button
-                  onClick={() => setShowProfileDetails(false)}
-                  style={{
-                    background: "transparent",
-                    color: "#64748B",
-                    border: "none",
-                    padding: "0",
-                    fontSize: "18px",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#0F172A"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "#64748B"
-                  }}
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "20px" }}>
-                {/* Score Card */}
-                <div
-                  style={{
-                    padding: "16px",
-                    background: "#F8FAFC",
-                    borderRadius: "12px",
-                    border: "1px solid #E5E7EB",
-                  }}
-                >
-                  <p style={{ fontSize: "32px", fontWeight: "700", color: "#2563EB", margin: 0 }}>72%</p>
-                  <p style={{ fontSize: "12px", fontWeight: "600", color: "#64748B", margin: "8px 0 0 0", textTransform: "uppercase" }}>
-                    Overall Score
-                  </p>
-                </div>
-
-                {/* Career Stage */}
-                <div
-                  style={{
-                    padding: "16px",
-                    background: "#F8FAFC",
-                    borderRadius: "12px",
-                    border: "1px solid #E5E7EB",
-                  }}
-                >
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Early Career
-                  </p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                    0–3 years in field
-                  </p>
-                </div>
-
-                {/* Location */}
-                <div
-                  style={{
-                    padding: "16px",
-                    background: "#F8FAFC",
-                    borderRadius: "12px",
-                    border: "1px solid #E5E7EB",
-                  }}
-                >
-                  <p style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: "0 0 4px 0" }}>
-                    Remote EU
-                  </p>
-                  <p style={{ fontSize: "12px", color: "#64748B", margin: 0 }}>
-                    Work location preference
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <button
-                  onClick={() => router.push('/profile/preferences')}
-                  style={{
-                    background: "#2563EB",
-                    color: "#FFFFFF",
-                    border: "none",
-                    padding: "11px 18px",
-                    borderRadius: "8px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                    letterSpacing: "-0.2px",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#1E40AF"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#2563EB"
-                  }}
-                >
-                  Edit profile details
-                </button>
-                <button
-                  style={{
-                    background: "transparent",
-                    color: "#2563EB",
-                    border: "1px solid #E5E7EB",
-                    padding: "11px 18px",
-                    borderRadius: "8px",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#F1F5F9"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent"
-                  }}
-                  onClick={() => setShowProfileDetails(false)}
-                >
-                  Close
-                </button>
-              </div>
-            </section>
-          )}
 
           <section
             className="rounded-2xl p-6 transition-all duration-300"
